@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { calculateGrade, isStudent } from '../../../utils/AccountUtil';
+import { newLineUtil } from '../../../utils/TextUtil';
 
 const EachSelfIntroduction = () => {
     const [eachAccount, setEachAccount] = useState({});
@@ -44,59 +45,78 @@ const EachSelfIntroduction = () => {
                             )
                         )}
                     </div>
-                    <div className="text-6xl font-bold mt-3 ml-3">
+                    <div className="text-5xl font-bold mt-3 ml-3">
                         {naming}
                     </div>
-                    <div className="text-3xl ml-2">
+                    <div className="text-3xl mt-3 ml-2">
                         {name}
                     </div>
                 </div>
             </div>
             <div className="text-xl">
-                <div className="mb-2">
-                    <div className="font-bold mb-1 text-2xl">
-                        {self_introduction ? "自己紹介" : ""}
+                {self_introduction ? (
+                    <div className="mb-2">
+                        <div className="font-bold mb-1 text-2xl">
+                            自己紹介
+                        </div>
+                        <div className="ml-3">
+                            {newLineUtil(self_introduction)}
+                        </div>
                     </div>
-                    <div className="ml-3">
-                        {self_introduction}
-                    </div>
-                </div>
+                ) : ""}
 
-                <div className="mb-2">
-                    <div className="font-bold mb-1 text-2xl">
-                        {skill ? "スキル" : ""}
-                    </div>
-                    <div className="ml-3">
-                        {skill}
-                    </div>
-                </div>
 
-                <div className="mb-2">
-                    <div className="font-bold mb-1 text-2xl">
-                        {hobby ? "趣味" : ""}
-                    </div>
-                    <div className="ml-3">
-                        {hobby}
-                    </div>
-                </div>
 
-                <div className="mb-2">
-                    <div className="font-bold mb-1 text-2xl">
-                        {url_1 || url_2 || url_3 || url_4 ? "URL" : ""}
+                {skill ? (
+                    <div className="mb-2">
+                        <div className="font-bold mb-1 text-2xl">
+                            スキル
+                        </div>
+                        <div className="ml-3">
+                            {newLineUtil(skill)}
+                        </div>
                     </div>
-                    <div className="ml-3">
-                        {url_1}
+                ) : ""}
+
+
+                {hobby ? (
+                    <div className="mb-2">
+                        <div className="font-bold mb-1 text-2xl">
+                            趣味
+                        </div>
+                        <div className="ml-3">
+                            {newLineUtil(hobby)}
+                        </div>
                     </div>
-                    <div className="ml-3">
-                        {url_2}
+                ) : ""}
+
+                {url_1 || url_2 || url_3 || url_4 ? (
+                    <div className="mb-2">
+                        <div className="font-bold mb-1 text-2xl">
+                            URL
+                        </div>
+                        {url_1 && (
+                            <a className="ml-3 hover:underline text-blue-500" href={url_1}>
+                                {url_1}
+                            </a>
+                        )}
+                        {url_2 && (
+                            <a className="ml-3 hover:underline text-blue-500" href={url_2}>
+                                {url_2}
+                            </a>
+                        )}
+                        {url_3 && (
+                            <a className="ml-3 hover:underline text-blue-500" href={url_3}>
+                                {url_3}
+                            </a>
+                        )}
+                        {url_4 && (
+                            <a className="ml-3 hover:underline text-blue-500" href={url_4}>
+                                {url_4}
+                            </a>
+                        )}
                     </div>
-                    <div className="ml-3">
-                        {url_3}
-                    </div>
-                    <div className="ml-3">
-                        {url_4}
-                    </div>
-                </div>
+                ) : null}
 
                 <div className="mb-2">
                     <div className="font-bold mb-1 text-2xl">

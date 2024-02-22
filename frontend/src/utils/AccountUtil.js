@@ -6,7 +6,7 @@ export function getAccountData(user, setEachAccount) {
             const data = response.data;
             console.log(data);
             for (let i = 0; i < data.length; i++) {
-                if (data[i].name === user.name) {
+                if (data[i].e_mail === user.email) {
                     setEachAccount(data[i]);
                     break;
                 }

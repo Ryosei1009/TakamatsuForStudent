@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { calculateGrade } from '../../../utils/AccountUtil';
+import { newLineUtil } from '../../../utils/TextUtil';
 
 const FetchSelfIntroduction = () => {
     const [accounts, setAccounts] = useState([]);
@@ -17,10 +18,10 @@ const FetchSelfIntroduction = () => {
     }, [])
 
     return (
-        <div className="mx-72 flex flex-wrap gap-4 justify-center mt-16">
+        <div className="mx-72 flex flex-wrap gap-x-16 gap-y-8  justify-center mt-16">
             {accounts.length > 0 ? (
                 accounts.slice().reverse().map((item) => (
-                    <a href={item.id} key={item.id} className="flex flex-col hover:opacity-70 w-2/5 bg-violet-300 bg-opacity-25 p-8">
+                    <a href={item.id} key={item.id} className="flex flex-col hover:opacity-70 w-1/4 bg-violet-300 bg-opacity-25 p-8">
                         <div className="flex w-full items-end justify-start">
                             <img className="w-1/3" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.icon_name}`} alt="" />
                             <div className="ml-8">
@@ -36,11 +37,11 @@ const FetchSelfIntroduction = () => {
                             </div>
                         </div>
                         <div className="text-lg mt-6">
-                            {item.self_introduction}
+                            {newLineUtil(item.self_introduction)}
                         </div>
                     </a>
                 ))) : (
-                "aaa"
+                ""
             )}
         </div>
     )

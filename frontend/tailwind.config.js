@@ -10,10 +10,16 @@ module.exports = {
       },
       borderWidth: {
         '1': '1px',
+        '3': '3px',
       },
       spacing: {
         '18': '72px',
+        '90vh': '93vh',
+        '23/24': '95.833%',
       },
+      backgroundImage: {
+        'home': "url('../public/images/home/bg.png')",
+      }
     },
   },
   plugins: [],
