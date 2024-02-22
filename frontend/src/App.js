@@ -14,6 +14,7 @@ import Profile from './components/_util/account/Profile';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from './components/_util/account/LoginButton';
 import EachSelfIntroduction from './components/selfIntroduction/eachSelfIntroduction/EachSelfIntroduction';
+import Loading from './components/_util/Loading';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -21,9 +22,7 @@ function App() {
     return (
       <div className="bg-bg-light">
         <Header />
-        <div>
-          Loading ...
-        </div>
+        <Loading />
         <Footer />
       </div>)
   }
@@ -32,7 +31,6 @@ function App() {
       {isAuthenticated ? (
         <div className="App bg-bg-light">
           <Header />
-          {isLoading && <div>Loading ...</div>}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/news" element={<News />} />
