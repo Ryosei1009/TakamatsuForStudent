@@ -5,7 +5,7 @@ import { calculateGrade } from '../../../utils/AccountUtil';
 const FetchSelfIntroduction = () => {
     const [accounts, setAccounts] = useState([]);
     useEffect(() => {
-        axios.get("/api/accounts")
+        axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/accounts`)
             .then((response) => {
                 const data = response.data;
                 setAccounts(data);
@@ -22,7 +22,7 @@ const FetchSelfIntroduction = () => {
                 accounts.slice().reverse().map((item) => (
                     <a href={item.id} key={item.id} className="flex flex-col hover:opacity-70 w-2/5 bg-violet-300 bg-opacity-25 p-8">
                         <div className="flex w-full items-end justify-start">
-                            <img className="w-1/3" src={`http://localhost:8000/${item.icon_name}`} alt="" />
+                            <img className="w-1/3" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.icon_name}`} alt="" />
                             <div className="ml-8">
                                 <div className="text-base">
                                     {calculateGrade(item.grade)}

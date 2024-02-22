@@ -35,7 +35,7 @@ const Icon = () => {
             formData.append('icon_name', selectedFile);
             formData.append('id', eachAccount.id);
 
-            await axios.post('/upload/accounts/icon', formData, {
+            await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/accounts/icon`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -59,8 +59,8 @@ const Icon = () => {
             </div>
             <img
                 className="border-black border-2 p-1 rounded-md w-48 mb-1"
-                src={previewUrl ? previewUrl : eachAccount.icon_name === "" ? (`http://localhost:8000/images/accounts/default.jpeg`) : (`http://localhost:8000/${eachAccount.icon_name}`)}
-                alt={user.name} />
+                src={previewUrl ? previewUrl : eachAccount.icon_name === "" ? (`/images/accounts/default.jpeg`) : (`${process.env.REACT_APP_IMAGE_DOMAIN}/${eachAccount.icon_name}`)}
+                alt="" />
             <div className="flex">
                 <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-6 rounded" onClick={() => fileInputRef.current?.click()} >
                     ファイルを選択

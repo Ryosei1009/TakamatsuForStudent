@@ -55,7 +55,7 @@ const UploadNews = ({ isOpen }) => {
             formDataToSend.append('image_1', formData.image_1);
             formDataToSend.append('created_by', eachAccount.naming);
 
-            const response = await axios.post('/upload/news', formDataToSend, {
+            const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/news`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // Important for file upload
                 },

@@ -7,7 +7,7 @@ import axios from 'axios';
 const FetchNews = () => {
     const [news, setNews] = useState([]);
     useEffect(() => {
-        axios.get("/api/news")
+        axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/news`)
             .then((response) => {
                 const data = response.data;
                 setNews(data);
@@ -23,7 +23,7 @@ const FetchNews = () => {
                 news.slice().reverse().map((item) => (
                     <a href={item.id} key={item.id} className="flex items-center my-8 pr-4 rounded-xl hover:opacity-90">
                         <div className="w-2/5">
-                            <img className="w-full rounded-xl" src={`http://localhost:8000/${item.image_1}`} alt="" />
+                            <img className="w-full rounded-xl" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.image_1}`} alt="" />
                         </div>
                         <div className="w-3/5 ml-12">
                             <div className="flex items-end">

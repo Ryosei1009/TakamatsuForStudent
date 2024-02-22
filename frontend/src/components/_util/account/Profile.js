@@ -59,7 +59,7 @@ const Profile = () => {
       formDataToSend.append('url_4', event.target.elements.url_4.value);
       formDataToSend.append('role', eachAccount.role);
 
-      const response = await axios.post('/upload/accounts', formDataToSend, {
+      const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/accounts`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

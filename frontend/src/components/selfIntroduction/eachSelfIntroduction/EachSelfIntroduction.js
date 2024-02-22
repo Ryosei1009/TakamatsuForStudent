@@ -8,7 +8,7 @@ const EachSelfIntroduction = () => {
     const { postId } = useParams();
 
     useEffect(() => {
-        axios.get("/api/accounts")
+        axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/accounts`)
             .then((response) => {
                 const data = response.data;
                 for (let i = 0; i < data.length; i++) {
@@ -31,7 +31,7 @@ const EachSelfIntroduction = () => {
                 {naming}のプロフィール
             </div>
             <div className="flex items-end justify-start mb-12">
-                <img src={`http://localhost:8000/${icon_name}`} alt="" className="border-black border-1 rounded-full w-48 mb-1" />
+                <img src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${icon_name}`} alt="" className="border-black border-1 rounded-full w-48 mb-1" />
                 <div className="ml-16">
                     <div className="text-3xl">
                         {parseInt(role) === 3 || role === undefined ? (

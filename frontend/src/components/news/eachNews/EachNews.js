@@ -9,7 +9,7 @@ const EachNews = () => {
     const { postId } = useParams();
 
     useEffect(() => {
-        axios.get("/api/news")
+        axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/news`)
             .then((response) => {
                 const data = response.data;
                 for (let i = 0; i < data.length; i++) {
@@ -38,8 +38,8 @@ const EachNews = () => {
                     <div className="border-gray-500">
                         {newLineUtil(text || '')}
                     </div>
-                    <a target="_blank" rel="noreferrer" href={`http://localhost:8000/${image_1}`}>
-                        <img className="rounded-3xl my-4 hover:opacity-80 hover:rounded-none duration-300 inline-block" src={`http://localhost:8000/${image_1}`} alt="" />
+                    <a target="_blank" rel="noreferrer" href={`${process.env.REACT_APP_IMAGE_DOMAIN}/${image_1}`}>
+                        <img className="rounded-3xl my-4 hover:opacity-80 hover:rounded-none duration-300 inline-block" src={`${process.env.REACT_APP_IMAGE_DOMAINA}/${image_1}`} alt="" />
                     </a>
                 </div>
                 <div className="text-info">

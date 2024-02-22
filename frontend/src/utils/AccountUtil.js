@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export function getAccountData(user, setEachAccount) {
-    axios.get("/api/accounts")
+    axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/accounts`)
         .then((response) => {
             const data = response.data;
             console.log(data);
