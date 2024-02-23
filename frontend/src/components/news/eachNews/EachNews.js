@@ -39,7 +39,7 @@ const EachNews = () => {
                         {newLineUtil(text || '')}
                     </div>
                     <a target="_blank" rel="noreferrer" href={`${process.env.REACT_APP_IMAGE_DOMAIN}/${image_1}`}>
-                        <img className="rounded-3xl my-4 hover:opacity-80 hover:rounded-none duration-300 inline-block" src={`${process.env.REACT_APP_IMAGE_DOMAINA}/${image_1}`} alt="" />
+                        <img className="rounded-3xl my-4 hover:opacity-80 hover:rounded-none duration-300 inline-block" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${image_1}`} alt="" />
                     </a>
                 </div>
                 <div className="text-info">

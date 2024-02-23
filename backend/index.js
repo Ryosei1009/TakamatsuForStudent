@@ -5,8 +5,9 @@ const mysql = require("mysql2");
 require('dotenv').config();
 const app = express();
 const port = 444;
-const { getClientIp, mw } = require("request-ip");
+const { mw } = require("request-ip");
 const fs = require('fs');
+const dateTime = new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
 app.use(`/images`, express.static(`images`));
 
 //https接続にするための設定
@@ -34,11 +35,37 @@ connection.connect((err) => {
 
 //CORS設定
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://takamatsu.shino.zip');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
   mw();
+});
+
+const logFilePath = 'logs/logs.txt';
+
+app.use((req, res, next) => {
+  const logMessage = `
+[${dateTime}]
+  Request Details:
+  Method: ${req.method}
+  URL: ${req.originalUrl}
+  Headers: ${JSON.stringify(req.headers)}
+  Query Parameters: ${JSON.stringify(req.query)}
+  Body: ${JSON.stringify(req.body)}
+  Remote Address: ${req.ip}
+  User Agent: ${req.get('User-Agent')}
+---------------------------------------------
+`;
+
+  console.log(logMessage);
+
+  fs.appendFile(logFilePath, logMessage, (err) => {
+    if (err) {
+      console.error('ログの書き込みエラー:', err);
+    }
+  });
+  next();
 });
 
 const newsStorage = multer.diskStorage({
@@ -64,7 +91,6 @@ app.post('/upload/news', newsUpload.single('image_1'), (req, res) => {
       console.error('データベースへの保存エラー:', error);
       return res.status(500).send('データベースエラー');
     }
-    console.log(`Upload News: ${getClientIp(req)}`)
     res.status(200).send('アップロード成功');
   });
 });
@@ -89,10 +115,9 @@ app.post('/upload/accounts/icon', accountUpload.single('icon_name'), (req, res) 
 
   connection.query(query, [icon_name, update_at, id], (error, results) => {
     if (error) {
-      console.error('データベースへの保存エラー:', error);
+      console.error('${dateTime}[${req.path}] データベースへの保存エラー:', error);
       return res.status(500).send('データベースエラー');
     }
-    console.log(`Upload Account Icon: ${getClientIp(req)}`)
     res.status(200).send('アップロード成功');
   });
 });
@@ -100,7 +125,6 @@ app.post('/upload/accounts/icon', accountUpload.single('icon_name'), (req, res) 
 app.post('/upload/accounts', accountUpload.single('icon_name'), (req, res) => {
   var { id, name, e_mail, naming, icon_name, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role } = req.body;
   const update_at = Date.now();
-  console.log(req.body)
 
   if (id === "undefined" || id === undefined) {
     naming = naming ? naming : "";
@@ -122,10 +146,9 @@ app.post('/upload/accounts', accountUpload.single('icon_name'), (req, res) => {
 
   connection.query(query, [name, e_mail, naming, icon_name, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at, id], (error, results) => {
     if (error) {
-      console.error('データベースへの保存エラー:', error);
+      console.error('${dateTime}[${req.path}] データベースへの保存エラー:', error);
       return res.status(500).send('データベースエラー');
     }
-    console.log(`Upload Account Data: ${getClientIp(req)}`)
     res.status(200).send('アップロード成功');
   });
 });
@@ -134,7 +157,6 @@ app.get("/api/news", (req, res) => {
   connection.query(
     "SELECT id, title, text, image_1, created_by, created_at FROM news;",
     (error, results) => {
-      console.log(`Fetch News: ${getClientIp(req)}`);
       res.send(results);
     }
   );
@@ -144,7 +166,6 @@ app.get("/api/accounts", (req, res) => {
   connection.query(
     "SELECT id, name, e_mail, icon_name, naming, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at FROM account;",
     (error, results) => {
-      console.log(`Fetch Accounts: ${getClientIp(req)}`);
       res.send(results);
     }
   );
