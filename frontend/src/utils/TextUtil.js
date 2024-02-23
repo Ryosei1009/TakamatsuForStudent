@@ -13,3 +13,11 @@ export function truncateText(text) {
         return text;
     }
 }
+
+export function lastestTruncateText(text) {
+    if (text.length > 63) {
+        return text.substring(0, 63) + "...";
+    } else {
+        return text;
+    }
+}

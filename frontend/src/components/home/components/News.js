@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { newsListTimeFormat } from '../../../utils/TimeUtil';
+import { lastestTruncateText } from '../../../utils/TextUtil';
 
 const News = () => {
     const [news, setNews] = useState([]);
@@ -30,7 +31,7 @@ const News = () => {
                                 {item.title}
                             </div>
                             <div className="border-l-2 border-black pl-2 mt-1 ml-1 text-lg">
-                                {item.text}
+                                {lastestTruncateText(item.text)}
                             </div>
                             <div className="text-xl mt-1">
                                 {newsListTimeFormat(item.created_at)}

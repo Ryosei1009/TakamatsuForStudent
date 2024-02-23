@@ -94,7 +94,7 @@ const UploadNews = ({ isOpen }) => {
                     <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white px-12 py-3 text-2xl rounded-lg hover:opacity-75">送信</button>
                 </div>
             </form>
-        </div >
+        </div>
     )
 }
 
