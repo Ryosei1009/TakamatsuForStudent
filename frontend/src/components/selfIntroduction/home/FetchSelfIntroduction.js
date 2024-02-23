@@ -23,7 +23,7 @@ const FetchSelfIntroduction = () => {
                 accounts.slice().reverse().map((item) => (
                     <a href={item.id} key={item.id} className="flex flex-col hover:opacity-70 w-1/4 bg-violet-300 bg-opacity-25 p-8">
                         <div className="flex w-full items-end justify-start">
-                            <img className="w-1/3" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.icon_name}`} alt="" />
+                            <img className="w-1/3" src={item.icon_name ? (`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.icon_name}`) : (`/images/accounts/default.jpeg`) } alt="" />
                             <div className="ml-8">
                                 <div className="text-base">
                                     {calculateGrade(item.grade)}

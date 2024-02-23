@@ -14,16 +14,16 @@ const Header = () => {
                             </a>
                         </li>
                         <li className="list-none inline-block mr-5 max-sm:mr-2">
-                            <a href="/news/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">News</a>
+                            <a href="/news/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">ニュース</a>
                         </li>
                         <li className="list-none inline-block mr-5 max-sm:mr-2">
-                            <a href="/event/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">Event</a>
+                            <a href="/event/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">イベント</a>
                         </li>
                         <li className="list-none inline-block mr-5 max-sm:mr-2">
-                            <a href="/photos/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">Photos</a>
+                            <a href="/photos/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">写真</a>
                         </li>
                         <li className="list-none inline-block mr-5 max-sm:mr-2">
-                            <a href="/selfintroduction/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">Self-Introduction</a>
+                            <a href="/selfintroduction/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">自己紹介</a>
                         </li>
                     </ul>
                 </nav>

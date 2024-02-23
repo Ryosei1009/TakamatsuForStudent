@@ -2,12 +2,20 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const mysql = require("mysql2");
-require('dotenv').config()
-
+require('dotenv').config();
 const app = express();
-const port = 8000;
+const port = 444;
+const { getClientIp, mw } = require("request-ip");
+const fs = require('fs');
 app.use(`/images`, express.static(`images`));
 
+//https接続にするための設定
+const server = require('https').createServer({
+  key: fs.readFileSync(process.env.KEY_PATH),
+  cert: fs.readFileSync(process.env.CERT_PATH),
+}, app)
+
+//データベース接続
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -15,12 +23,22 @@ const connection = mysql.createConnection({
   database: process.env.DB_DATABASE
 });
 
+//データベース接続確認
 connection.connect((err) => {
   if (err) {
     console.log('error connecting: ' + err.stack);
     return;
   }
   console.log('Database connection has success');
+});
+
+//CORS設定
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://takamatsu.shino.zip');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+  mw();
 });
 
 const newsStorage = multer.diskStorage({
@@ -46,6 +64,7 @@ app.post('/upload/news', newsUpload.single('image_1'), (req, res) => {
       console.error('データベースへの保存エラー:', error);
       return res.status(500).send('データベースエラー');
     }
+    console.log(`Upload News: ${getClientIp(req)}`)
     res.status(200).send('アップロード成功');
   });
 });
@@ -73,6 +92,7 @@ app.post('/upload/accounts/icon', accountUpload.single('icon_name'), (req, res) 
       console.error('データベースへの保存エラー:', error);
       return res.status(500).send('データベースエラー');
     }
+    console.log(`Upload Account Icon: ${getClientIp(req)}`)
     res.status(200).send('アップロード成功');
   });
 });
@@ -105,6 +125,7 @@ app.post('/upload/accounts', accountUpload.single('icon_name'), (req, res) => {
       console.error('データベースへの保存エラー:', error);
       return res.status(500).send('データベースエラー');
     }
+    console.log(`Upload Account Data: ${getClientIp(req)}`)
     res.status(200).send('アップロード成功');
   });
 });
@@ -113,7 +134,7 @@ app.get("/api/news", (req, res) => {
   connection.query(
     "SELECT id, title, text, image_1, created_by, created_at FROM news;",
     (error, results) => {
-      console.log(results);
+      console.log(`Fetch News: ${getClientIp(req)}`);
       res.send(results);
     }
   );
@@ -123,12 +144,13 @@ app.get("/api/accounts", (req, res) => {
   connection.query(
     "SELECT id, name, e_mail, icon_name, naming, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at FROM account;",
     (error, results) => {
-      console.log(results);
+      console.log(`Fetch Accounts: ${getClientIp(req)}`);
       res.send(results);
     }
   );
 });
 
-app.listen(port, () => {
+//サーバー起動
+server.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });

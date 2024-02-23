@@ -74,7 +74,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="mx-96 my-8">
+    <div className="mx-96 max-lg:mx-36 max-md:mx-18 max-sm:mx-6 my-8">
       <div className="text-4xl font-bold my-6">
         Your profile
       </div>
@@ -86,7 +86,7 @@ const Profile = () => {
           <div className="font-bold mb-1">
             Naming
           </div>
-          <input className="w-96 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="naming" defaultValue={formData.naming ? formData.naming : naming} onChange={handleChange} />
+          <input className="w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="naming" defaultValue={formData.naming ? formData.naming : naming} onChange={handleChange} />
         </div>
 
         {parseInt(role) === 3 || role === undefined ? (
@@ -104,38 +104,38 @@ const Profile = () => {
           <div className="font-bold mb-1">
             自己紹介
           </div>
-          <textarea className="w-96 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="self_introduction" defaultValue={formData.self_introduction ? formData.self_introduction : self_introduction} onChange={handleChange} />
+          <textarea className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="self_introduction" defaultValue={formData.self_introduction ? formData.self_introduction : self_introduction} onChange={handleChange} />
         </div>
 
         <div className="mb-2">
           <div className="font-bold mb-1">
             スキル
           </div>
-          <textarea className="w-96 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="skill" defaultValue={formData.skill ? formData.skill : skill} onChange={handleChange} />
+          <textarea className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="skill" defaultValue={formData.skill ? formData.skill : skill} onChange={handleChange} />
         </div>
 
         <div className="mb-2">
           <div className="font-bold mb-1">
             趣味
           </div>
-          <textarea className="w-96 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="hobby" defaultValue={formData.hobby ? formData.hobby : hobby} onChange={handleChange} />
+          <textarea className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="hobby" defaultValue={formData.hobby ? formData.hobby : hobby} onChange={handleChange} />
         </div>
 
         <div className="mb-2">
           <div className="font-bold mb-1">
             URL
           </div>
-          <input className="mb-1 w-96 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_1" defaultValue={formData.url_1 ? formData.url_1 : url_1} onChange={handleChange} />
-          <input className="mb-1 w-96 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_2" defaultValue={formData.url_2 ? formData.url_2 : url_2} onChange={handleChange} />
-          <input className="mb-1 w-96 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_3" defaultValue={formData.url_3 ? formData.url_3 : url_3} onChange={handleChange} />
-          <input className="mb-1 w-96 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_4" defaultValue={formData.url_4 ? formData.url_4 : url_4} onChange={handleChange} />
+          <input className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_1" defaultValue={formData.url_1 ? formData.url_1 : url_1} onChange={handleChange} />
+          <input className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_2" defaultValue={formData.url_2 ? formData.url_2 : url_2} onChange={handleChange} />
+          <input className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_3" defaultValue={formData.url_3 ? formData.url_3 : url_3} onChange={handleChange} />
+          <input className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_4" defaultValue={formData.url_4 ? formData.url_4 : url_4} onChange={handleChange} />
         </div>
 
         <div>
-          <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-6 rounded">
+          <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-6 max-sm:px-3 rounded">
             更新
           </button>
-          <span className="ml-4">
+          <span className="ml-4 max-sm:ml-2">
             {update_at ? "最終更新 " + eachNewsTimeFormat(update_at) : ""}
           </span>
         </div>
@@ -145,25 +145,25 @@ const Profile = () => {
             <div className="font-bold mb-1">
               ID
             </div>
-            <input className="w-96 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={eachAccount.id} />
+            <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={eachAccount.id} />
           </div>
           <div className="mb-2">
             <div className="font-bold mb-1">
               名前
             </div>
-            <input className="w-96 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={user.name} />
+            <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={user.name} />
           </div>
           <div className="mb-2">
             <div className="font-bold mb-1">
               e-mail
             </div>
-            <input className="w-96 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={user.email} />
+            <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={user.email} />
           </div>
           <div className="mb-2">
             <div className="font-bold mb-1">
               生徒/教員
             </div>
-            <input className="w-96 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={isStudent(role)} />
+            <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={isStudent(role)} />
           </div>
         </div>
       </form>
