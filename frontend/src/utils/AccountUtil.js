@@ -4,7 +4,6 @@ export function getAccountData(user, setEachAccount) {
     axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/accounts`)
         .then((response) => {
             const data = response.data;
-            console.log(data);
             for (let i = 0; i < data.length; i++) {
                 if (data[i].e_mail === user.email) {
                     setEachAccount(data[i]);
