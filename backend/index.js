@@ -43,6 +43,7 @@ app.use((req, res, next) => {
 });
 
 const logFilePath = 'logs/logs.txt';
+const shortLogFilePath = 'logs/shortLogs.txt';
 
 app.use((req, res, next) => {
   const logMessage = `
@@ -57,8 +58,17 @@ app.use((req, res, next) => {
   User Agent: ${req.get('User-Agent')}
 ---------------------------------------------
 `;
+  const shortLogMessage = `[${dateTime}] ${req.method} ${req.originalUrl} [${req.ip}]`;
+  const fileShortLogMessage = `
+[${dateTime}] ${req.method} ${req.originalUrl} [${req.ip}]`;
 
-  console.log(logMessage);
+  console.log(shortLogMessage);
+
+  fs.appendFile(shortLogFilePath, fileShortLogMessage, (err) => {
+    if (err) {
+      console.error('ログの書き込みエラー:', err);
+    }
+  });
 
   fs.appendFile(logFilePath, logMessage, (err) => {
     if (err) {
@@ -82,11 +92,11 @@ const newsUpload = multer({ storage: newsStorage });
 
 app.post('/upload/news', newsUpload.single('image_1'), (req, res) => {
   const image_1 = req.file.path;
-  const { title, text, created_by } = req.body;
+  const { title, text, created_by, created_by_id } = req.body;
   const created_at = Date.now();
 
-  const query = 'INSERT INTO `news` (id, title, text, image_1, created_by, created_at) VALUES (NULL, ?, ?, ?, ?, ?)';
-  connection.query(query, [title, text, image_1, created_by, created_at], (error, results) => {
+  const query = 'INSERT INTO `news` (id, title, text, image_1, created_by, created_at, created_by_id) VALUES (NULL, ?, ?, ?, ?, ?, ?)';
+  connection.query(query, [title, text, image_1, created_by, created_at, created_by_id], (error, results) => {
     if (error) {
       console.error('データベースへの保存エラー:', error);
       return res.status(500).send('データベースエラー');
@@ -155,7 +165,7 @@ app.post('/upload/accounts', accountUpload.single('icon_name'), (req, res) => {
 
 app.get("/api/news", (req, res) => {
   connection.query(
-    "SELECT id, title, text, image_1, created_by, created_at FROM news;",
+    "SELECT id, title, text, image_1, created_by, created_at, created_by_id FROM news;",
     (error, results) => {
       res.send(results);
     }
