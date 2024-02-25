@@ -1,9 +1,17 @@
-import React, { useState } from 'react'
-import FetchNews from "./FetchNews"
+import React, { useEffect, useState } from 'react'
+import NewsList from "./NewsList"
 import UploadNews from '../uploads/UploadNews';
+import { getAccountData } from '../../../utils/AccountUtil';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const News = () => {
     const [uploadOpen, setUploadOpen] = useState(false);
+    const [eachAccount, setEachAccount] = useState({});
+    const { user } = useAuth0();
+
+    useEffect(() => {
+        getAccountData(user, setEachAccount);
+    }, [user]);
 
     const toggleUpload = () => {
         setUploadOpen(prevOpen => !prevOpen);
@@ -13,11 +21,15 @@ const News = () => {
         <>
             <div className="flex items-center justify-around mt-10">
                 <p className="text-6xl font-bold">News</p>
-                <button onClick={toggleUpload} className="text-2xl text-white px-6 py-3 rounded-xl border-2 bg-indigo-600 hover:bg-indigo-700">Upload</button>
+                {parseInt(eachAccount.role) === 1 || parseInt(eachAccount.role) === 2 ? (
+                    <button onClick={toggleUpload} className="text-2xl text-white px-6 py-3 rounded-xl border-2 bg-indigo-600 hover:bg-indigo-700">Upload</button>
+                ) : ("")}
             </div>
-            <UploadNews isOpen={uploadOpen} />
+            {parseInt(eachAccount.role) === 1 || parseInt(eachAccount.role) === 2 ? (
+                <UploadNews isOpen={uploadOpen} />
+            ) : ("")}
             <div>
-                <FetchNews />
+                <NewsList />
             </div>
         </>
     )

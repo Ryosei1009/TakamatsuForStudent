@@ -2,19 +2,12 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { newsListTimeFormat } from '../../../utils/TimeUtil';
 import { truncateText } from '../../../utils/TextUtil';
-import axios from 'axios';
+import { fetchData } from '../../../utils/Fetch';
 
-const FetchNews = () => {
+const NewsList = () => {
     const [news, setNews] = useState([]);
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/news`)
-            .then((response) => {
-                const data = response.data;
-                setNews(data);
-            })
-            .catch((error) => {
-                console.error(error.message);
-            });
+        fetchData('/api/news', setNews);
     }, []);
 
     return (
@@ -42,4 +35,4 @@ const FetchNews = () => {
     )
 }
 
-export default FetchNews
+export default NewsList

@@ -54,6 +54,7 @@ const UploadNews = ({ isOpen }) => {
             formDataToSend.append('text', formData.text);
             formDataToSend.append('image_1', formData.image_1);
             formDataToSend.append('created_by', eachAccount.naming);
+            formDataToSend.append('created_by_id', eachAccount.id);
 
             const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/news`, formDataToSend, {
                 headers: {
