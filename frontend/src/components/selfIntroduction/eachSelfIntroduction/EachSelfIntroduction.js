@@ -1,40 +1,36 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { calculateGrade, isStudent } from '../../../utils/AccountUtil';
 import { newLineUtil } from '../../../utils/TextUtil';
+import { fetchData } from '../../../utils/Fetch';
 
 const EachSelfIntroduction = () => {
     const [eachAccount, setEachAccount] = useState({});
     const { postId } = useParams();
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/accounts`)
-            .then((response) => {
-                const data = response.data;
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].id === parseInt(postId)) {
-                        setEachAccount(data[i]);
-                        break; // 見つかったらループを抜ける
-                    }
+        fetchData('/api/accounts', (data) => {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].id === parseInt(postId)) {
+                    setEachAccount(data[i]);
+                    break;
                 }
-            })
-            .catch((error) => {
-                console.error(error.message);
-            });
+            }
+        });
     }, [postId]);
 
     const { id, name, icon_name, naming, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role } = eachAccount;
 
     return (
-        <div className="mx-96 my-8">
-            <div className="text-4xl font-bold my-6">
+        <div className="mx-96 max-2xl:mx-64 max-xl:mx-52 max-lg:mx-36 max-md:mx-24 max-sm:mx-8 my-8">
+            <div className="text-4xl font-bold my-6 max-sm:text-2xl">
                 {naming}のプロフィール
             </div>
             <div className="flex items-end justify-start mb-12">
-                <img src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${icon_name}`} alt="" className="border-black border-1 rounded-full w-48 mb-1" />
-                <div className="ml-16">
-                    <div className="text-3xl">
+                <img src={icon_name === undefined || icon_name === "" ? `/images/accounts/default.jpeg` : `${process.env.REACT_APP_IMAGE_DOMAIN}/${icon_name}`} alt="" className="border-black border-1 rounded-full w-48 max-md:w-28 mb-1" />
+
+                <div className="ml-16 max-sm:ml-4">
+                    <div className="text-3xl max-sm:text-2xl">
                         {parseInt(role) === 3 || role === undefined ? (
                             calculateGrade(grade)
                         ) : (
@@ -45,10 +41,10 @@ const EachSelfIntroduction = () => {
                             )
                         )}
                     </div>
-                    <div className="text-5xl font-bold mt-3 ml-3">
+                    <div className="text-5xl max-sm:text-3xl font-bold mt-3 ml-3">
                         {naming}
                     </div>
-                    <div className="text-3xl mt-3 ml-2">
+                    <div className="text-3xl max-sm:text-2xl mt-3 ml-2">
                         {name}
                     </div>
                 </div>
