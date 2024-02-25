@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import LogoutButton from "./LogoutButton";
+import LogoutButton from "../_util/account/LogoutButton";
 import axios from "axios";
-import { calculateGrade, getAccountData, isStudent } from "../../../utils/AccountUtil";
+import { calculateGrade, getAccountData, isStudent } from "../../utils/AccountUtil";
 import Icon from "./Icon";
-import { eachNewsTimeFormat } from "../../../utils/TimeUtil";
+import { eachNewsTimeFormat } from "../../utils/TimeUtil";
 
 const Profile = () => {
   const { user } = useAuth0();

@@ -10,7 +10,7 @@ import SelfIntroduction from './components/selfIntroduction/home/SelfIntroductio
 import Photos from './components/photos/Photos';
 import EachNews from './components/news/eachNews/EachNews';
 import UploadNews from './components/news/uploads/UploadNews';
-import Profile from './components/_util/account/Profile';
+import Profile from './components/profile/Profile';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from './components/_util/account/LoginButton';
 import EachSelfIntroduction from './components/selfIntroduction/eachSelfIntroduction/EachSelfIntroduction';

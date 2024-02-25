@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
-import { getAccountData } from '../../../utils/AccountUtil';
+import { getAccountData } from '../../utils/AccountUtil';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Icon = () => {
