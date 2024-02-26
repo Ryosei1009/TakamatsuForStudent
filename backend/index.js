@@ -105,6 +105,33 @@ app.post('/upload/news', newsUpload.single('image_1'), (req, res) => {
   });
 });
 
+const photosStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images/photos');
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  },
+});
+
+const photosUpload = multer({ storage: photosStorage });
+
+app.post('/upload/photos', photosUpload.single('image_name'), (req, res) => {
+  const image_name = req.file.path;
+  const { title, width, height, tags, created_by, created_by_id } = req.body;
+  const created_at = Date.now();
+
+  const query = 'INSERT INTO `gallery` (id, title, image_name, width, height, tags, created_by, created_by_id, created_at) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)';
+  connection.query(query, [title, image_name, width, height, tags, created_by, created_by_id, created_at], (error, results) => {
+    if (error) {
+      console.error('データベースへの保存エラー:', error);
+      return res.status(500).send('データベースエラー');
+    }
+    res.status(200).send('アップロード成功');
+  });
+});
+
 const accountStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'images/accounts');
@@ -175,6 +202,15 @@ app.get("/api/news", (req, res) => {
 app.get("/api/accounts", (req, res) => {
   connection.query(
     "SELECT id, name, e_mail, icon_name, naming, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at FROM account;",
+    (error, results) => {
+      res.send(results);
+    }
+  );
+});
+
+app.get("/api/photos", (req, res) => {
+  connection.query(
+    "SELECT id, title, image_name, width, height, tags, created_by, created_by_id, created_at FROM gallery;",
     (error, results) => {
       res.send(results);
     }

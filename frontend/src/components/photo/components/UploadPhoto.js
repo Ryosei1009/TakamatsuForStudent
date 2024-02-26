@@ -75,32 +75,38 @@ const UploadPhoto = () => {
     }
   };
 
-  const toggleOpen = () => {
-    setIsOpen(isOpen => !isOpen);
+  const toggleNavbar = () => {
+    setIsOpen(!isOpen);
   };
 
-  return isOpen ? (
-    <div className="w-64">
-      <button onClick={toggleOpen}>
-        ◾️
-      </button>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="title" value={formData.text} onChange={handleChange} required placeholder="タイトル" />
-        <input type="text" name="tags" value={formData.tags} onChange={handleChange} required placeholder="tag" />
-        {previewUrl && (
-          <div>
-            <img src={previewUrl} alt="Preview" />
+  return (
+    <div className="relative h-screen">
+      <input type="checkbox" className="hidden" id="openSidebarMenu" checked={isOpen} onChange={toggleNavbar} />
+      <label htmlFor="openSidebarMenu" className="fixed z-50 cursor-pointer top-6 max-sm:top-20 left-6">
+        <div className="absolute h-14 w-14 bg-white z-30 -top-4 -left-4 rounded-2xl"></div>
+        <div className={`absolute h-1 w-6 bg-black transform origin-center transition-all z-40 ${isOpen ? 'rotate-135 top-2' : ''}`}></div>
+        <div className={`absolute h-1 w-6 bg-black transition-all z-40 ${isOpen ? 'opacity-0' : 'top-2 opacity-100'}`}></div>
+        <div className={`absolute h-1 w-6 bg-black transform origin-center transition-all z-40 ${isOpen ? '-rotate-135 top-2' : 'top-4'}`}></div>
+      </label>
+
+      <div id="sidebarMenu" className={`h-full top-0 bg-white fixed left-0 w-80 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 z-20 rounded-r-3xl`}>
+        <div className="top-16 max-sm:top-28 absolute">
+          <div className="ml-4 text-3xl font-bold">
+            Upload Photo
           </div>
-        )}
-        <input type="file" accept="image/*" name="image_name" onChange={handleImageChange} className="" required />
-        <button type="submit">送信</button>
-      </form>
-    </div>
-  ) : (
-    <div className="w-8 h-8 fixed z-50">
-      <button onClick={toggleOpen}>
-        ◾️
-      </button>
+          <form onSubmit={handleSubmit} className="p-4">
+            <input type="text" name="title" value={formData.title} onChange={handleChange} required placeholder="タイトル" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" />
+            <input type="text" name="tags" value={formData.tags} onChange={handleChange} required placeholder="タグ" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" />
+            {previewUrl && (
+              <div className="mb-2">
+                <img src={previewUrl} alt="Preview" className="w-full h-auto rounded-md" />
+              </div>
+            )}
+            <input type="file" accept="image/*" name="image" onChange={handleImageChange} className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500 cursor-pointer" required />
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">送信</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

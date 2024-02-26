@@ -16,9 +16,15 @@ module.exports = {
         '18': '72px',
         '90vh': '93vh',
         '23/24': '95.833%',
+        '120': '30rem',
+        '42/100': '42%',
       },
       backgroundImage: {
         'home': "url('../public/images/home/bg.png')",
+      },
+      rotate: {
+        '135': '135deg',
+        '-135': '-135deg',
       }
     },
   },
