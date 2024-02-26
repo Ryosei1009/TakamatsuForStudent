@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { newLineUtil } from '../../../utils/TextUtil';
-import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
-import { fetchData } from '../../../utils/Fetch';
+import { newLineUtil } from '../../utils/TextUtil';
+import { eachNewsTimeFormat } from '../../utils/TimeUtil';
+import { fetchData } from '../../utils/Fetch';
 
 const EachNews = () => {
     const [eachNews, setEachNews] = useState({});

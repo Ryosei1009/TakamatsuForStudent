@@ -31,7 +31,7 @@ const Header = () => {
                             <a href="/event/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">イベント</a>
                         </li>
                         <li className="list-none inline-block mr-5 max-sm:mr-2">
-                            <a href="/photos/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">写真</a>
+                            <a href="/photo/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">写真</a>
                         </li>
                         <li className="list-none inline-block mr-5 max-sm:mr-2">
                             <a href="/selfintroduction/" className="text-xl max-sm:text-lg font-bold hover:opacity-40">自己紹介</a>

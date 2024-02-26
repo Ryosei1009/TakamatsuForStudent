@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import News from './components/news/home/News';
+import News from './components/news/News';
 import './index.css';
 import NotFound from './components/_util/Notfound';
 import Header from './components/_util/Header';
@@ -7,9 +7,9 @@ import Footer from './components/_util/Footer';
 import EventCalendar from './components/eventCalendar/EventCalendar';
 import Home from './components/home/Home';
 import SelfIntroduction from './components/selfIntroduction/home/SelfIntroduction';
-import Photos from './components/photos/Photos';
-import EachNews from './components/news/eachNews/EachNews';
-import UploadNews from './components/news/uploads/UploadNews';
+import Photo from './components/photo/Photo';
+import EachNews from './components/news/EachNews';
+import UploadNews from './components/news/components/UploadNews';
 import Profile from './components/profile/Profile';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from './components/_util/account/LoginButton';
@@ -39,7 +39,7 @@ function App() {
             <Route path="/event" element={<EventCalendar />} />
             <Route path="/selfintroduction" element={<SelfIntroduction />} />
             <Route path="/selfintroduction/:postId" element={<EachSelfIntroduction />} />
-            <Route path="/photos" element={<Photos />} />
+            <Route path="/photo" element={<Photo />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
