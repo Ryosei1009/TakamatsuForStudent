@@ -43,7 +43,7 @@ const PhotoList = () => {
             photos.slice().reverse().map((image) => (
               <div
                 onClick={() => handleModalClick(image)}
-                className="m-1 bg-white sticky cursor-pointer hover:opacity-80"
+                className="m-1 bg-white sticky cursor-pointer hover:opacity-80 max-w-98vw"
                 style={{ width: `${image.width * 200 / image.height}px`, flexGrow: `${image.width * 200 / image.height}` }}
                 key={image.id}
               >

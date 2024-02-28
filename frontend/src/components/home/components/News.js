@@ -10,7 +10,7 @@ const News = () => {
     }, []);
     return (
         <div className="border-y-8 border-black pb-16">
-            <div className="ml-44 max-xl:ml-18 max-sm:ml-4 font-bold text-5xl my-8 hover:underline hover:opacity-70">
+            <div className="ml-44 max-xl:ml-18 max-sm:ml-4 font-bold text-5xl max-md:text-4xl my-8 hover:underline hover:opacity-70">
                 <a href="/news">
                     Lastest News
                 </a>
@@ -22,13 +22,13 @@ const News = () => {
                             <img className="w-23/24" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.image_1}`} alt="" />
                         </div>
                         <div className="mt-4 pt-2 border-t-3 border-black">
-                            <div className="text-3xl max-lg:text-2xl font-bold ml-4">
+                            <div className="text-3xl max-xl:text-2xl max-sm:text-lg font-bold ml-2">
                                 {item.title}
                             </div>
-                            <div className="border-l-2 border-black pl-2 mt-1 ml-1 text-2xl max-lg:text-xl">
+                            <div className="border-l-2 border-black pl-2 mt-1 ml-1 text-2xl max-xl:text-lg max-sm:text-base">
                                 {lastestTruncateText(item.text)}
                             </div>
-                            <div className="text-xl mt-1">
+                            <div className="text-xl max-xl:text-base mt-1">
                                 {newsListTimeFormat(item.created_at)}
                             </div>
                         </div>

@@ -29,7 +29,7 @@ const News = () => {
                     setUploadOpen(false);
                 }}
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-                className={`w-full max-w-240 bg-gray-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute pt-14 pb-12 px-16 rounded-xl outline-none transition-opacity overflow-auto max-h-full m-auto`}
+                className={`w-full max-w-240 max-md:max-w-90vw max-md:max-h-90vh bg-gray-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute pt-14 pb-12 max-md:pb-6 px-16 max-md:px-6 max-sm:px-3 rounded-xl outline-none transition-opacity overflow-auto max-h-full m-auto`}
             >
                 <UploadNews />
             </Modal>

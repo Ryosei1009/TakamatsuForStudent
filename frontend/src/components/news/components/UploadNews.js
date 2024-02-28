@@ -74,31 +74,31 @@ const UploadNews = () => {
             <div className="font-bold text-4xl mb-6">
                 ニュースを投稿
             </div>
-            <form onSubmit={handleSubmit} className="px-8 py-0">
-                <div className="text-5xl font-bold mb-10">
-                    <input className="border-b-2 p-3 border-black block bg-white bg-opacity-40 rounded-t-xl w-full" type="text" name="title" value={formData.title} onChange={handleChange} maxLength={20} required placeholder="タイトル" />
+            <form onSubmit={handleSubmit} className="px-8 max-md:px-2 py-0">
+                <div className="text-5xl max-md:text-xl font-bold mb-10 max-md:mb-4">
+                    <input className="border-b-2 p-3 max-md:p-1 border-black block bg-white bg-opacity-40 rounded-t-xl w-full" type="text" name="title" value={formData.title} onChange={handleChange} maxLength={20} required placeholder="タイトル" />
                 </div>
-                <div className="text-xl mx-3">
-                    <textarea className="bg-white bg-opacity-40 p-4 border-1 w-full rounded-xl h-96" type="text" name="text" value={formData.text} onChange={handleChange} required placeholder="本文" />
+                <div className="text-xl mx-0">
+                    <textarea className="bg-white bg-opacity-40 p-4 border-1 w-full rounded-xl h-96 max-md:h-72" type="text" name="text" value={formData.text} onChange={handleChange} required placeholder="本文" />
                     {previewUrl && (
                         <div>
                             <img src={previewUrl} alt="Preview" className="rounded-3xl my-4 duration-300 inline-block bg-bg-light" />
                         </div>
                     )}
                 </div>
-                <div className="text-info flex items-center justify-between">
-                    <div>
+                <div className="text-info flex max-md:flex-col items-center justify-between">
+                    <div className="max-md:text-sm">
                         {eachNewsTimeFormat(date)}
                         <span className="ml-4">
                             {eachAccount.naming}
                         </span>
                     </div>
-                    <div className="flex items-center">
-                        <label for="file-upload" class="mr-4 cursor-pointer bg-blue-500 hover:bg-blue-600 flex items-center text-white text-xl font-bold py-2 px-12 rounded-lg">
+                    <div className="flex items-center max-md:mt-2">
+                        <label for="file-upload" class="mr-4 cursor-pointer bg-blue-500 hover:bg-blue-600 flex items-center text-white text-xl font-bold py-2 px-12 max-md:px-4 rounded-lg">
                             ファイルを選択
                         </label>
                         <input id="file-upload" type="file" accept="image/*" name="image_1" onChange={handleImageChange} className="hidden" required />
-                        <button type="submit" className="bg-green-500 hover:bg-green-700 text-white px-12 py-2 text-xl rounded-lg hover:opacity-75">送信</button>
+                        <button type="submit" className="bg-green-500 hover:bg-green-700 text-white px-12 max-md:px-4 py-2 text-xl rounded-lg hover:opacity-75">送信</button>
 
                     </div>
                 </div>
