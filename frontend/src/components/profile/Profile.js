@@ -74,7 +74,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="mx-96 max-lg:mx-36 max-md:mx-18 max-sm:mx-6 my-8">
+    <div className="mx-96 max-2xl:mx-64 max-xl:mx-52 max-lg:mx-36 max-md:mx-24 max-sm:mx-8 my-8">
       <div className="text-4xl font-bold my-6">
         Your profile
       </div>

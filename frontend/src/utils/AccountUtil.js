@@ -40,7 +40,7 @@ export function calculateGrade(graduationYear) {
         return "";
     }
     if (grade > 3) {
-        return graduationYear + "年に卒業済み"
+        return graduationYear + "年3月に卒業済み"
     }
     if (grade <= 0) {
         return "卒業予定年が間違っている可能性があります！"

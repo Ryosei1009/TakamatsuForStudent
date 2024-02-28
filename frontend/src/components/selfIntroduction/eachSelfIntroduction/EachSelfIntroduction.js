@@ -3,10 +3,14 @@ import { useParams } from 'react-router-dom';
 import { calculateGrade, isStudent } from '../../../utils/AccountUtil';
 import { newLineUtil } from '../../../utils/TextUtil';
 import { fetchData } from '../../../utils/Fetch';
+import Modal from 'react-modal';
+
+Modal.setAppElement("#root");
 
 const EachSelfIntroduction = () => {
     const [eachAccount, setEachAccount] = useState({});
     const { postId } = useParams();
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     useEffect(() => {
         fetchData('/api/accounts', (data) => {
@@ -19,6 +23,10 @@ const EachSelfIntroduction = () => {
         });
     }, [postId]);
 
+    function handleModalClick() {
+        setModalIsOpen(true);
+    }
+
     const { id, name, icon_name, naming, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role } = eachAccount;
 
     return (
@@ -27,8 +35,12 @@ const EachSelfIntroduction = () => {
                 {naming}のプロフィール
             </div>
             <div className="flex items-end justify-start mb-12">
-                <img src={icon_name === undefined || icon_name === "" ? `/images/accounts/default.jpeg` : `${process.env.REACT_APP_IMAGE_DOMAIN}/${icon_name}`} alt="" className="border-black border-1 rounded-full w-48 max-md:w-28 mb-1" />
-
+                <img
+                    src={icon_name === undefined || icon_name === "" ? `/images/accounts/default.jpeg` : `${process.env.REACT_APP_IMAGE_DOMAIN}/${icon_name}`}
+                    alt=""
+                    className="border-black border-1 rounded-full hover:opacity-75 cursor-pointer w-48 max-md:w-28 mb-1"
+                    onClick={handleModalClick}
+                />
                 <div className="ml-16 max-sm:ml-4">
                     <div className="text-3xl max-sm:text-2xl">
                         {parseInt(role) === 3 || role === undefined ? (
@@ -131,6 +143,16 @@ const EachSelfIntroduction = () => {
                     </div>
                 </div>
             </div>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={() => {
+                    setModalIsOpen(false);
+                }}
+                overlayClassName="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+                className={`transition-opacity w-full max-w-120 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute rounded-xl outline-none`}
+            >
+                <img src={icon_name === undefined || icon_name === "" ? `/images/accounts/default.jpeg` : `${process.env.REACT_APP_IMAGE_DOMAIN}/${icon_name}`} alt="" />
+            </Modal>
         </div>
     )
 }

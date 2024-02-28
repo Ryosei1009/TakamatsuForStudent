@@ -190,6 +190,18 @@ app.post('/upload/accounts', accountUpload.single('icon_name'), (req, res) => {
   });
 });
 
+app.delete('/delete/news/:id', (req, res) => {
+  const id = req.params.id;
+  const query = 'DELETE FROM news WHERE id = ?';
+  connection.query(query, [id], (error, results) => {
+    if (error) {
+      console.error('データベースへの保存エラー:', error);
+      return res.status(500).send('データベースエラー');
+    }
+    res.status(200).send('削除成功');
+  });
+});
+
 app.get("/api/news", (req, res) => {
   connection.query(
     "SELECT id, title, text, image_1, created_by, created_at, created_by_id FROM news;",

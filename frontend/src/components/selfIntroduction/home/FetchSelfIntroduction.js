@@ -21,7 +21,15 @@ const FetchSelfIntroduction = () => {
                             <img className="w-1/3" src={item.icon_name ? (`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.icon_name}`) : (`/images/accounts/default.jpeg`)} alt="" />
                             <div className="ml-8">
                                 <div className="text-base">
-                                    {calculateGrade(item.grade)}
+                                    {parseInt(item.role) === 3 || item.role === undefined ? (
+                                        calculateGrade(item.grade)
+                                    ) : (
+                                        parseInt(item.role) === 2 ? (
+                                            "TA"
+                                        ) : (
+                                            "メンター"
+                                        )
+                                    )}
                                 </div>
                                 <div className="text-2xl font-bold">
                                     {item.naming}
@@ -47,7 +55,15 @@ const FetchSelfIntroduction = () => {
                             <img className="w-1/3" src={item.icon_name ? (`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.icon_name}`) : (`/images/accounts/default.jpeg`)} alt="" />
                             <div className="ml-8">
                                 <div className="text-base">
-                                    {calculateGrade(item.grade)}
+                                    {parseInt(item.role) === 3 || item.role === undefined ? (
+                                        calculateGrade(item.grade)
+                                    ) : (
+                                        parseInt(item.role) === 2 ? (
+                                            "TA"
+                                        ) : (
+                                            "メンター"
+                                        )
+                                    )}
                                 </div>
                                 <div className="text-2xl font-bold">
                                     {item.naming}
@@ -73,7 +89,15 @@ const FetchSelfIntroduction = () => {
                             <img className="w-1/3" src={item.icon_name ? (`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.icon_name}`) : (`/images/accounts/default.jpeg`)} alt="" />
                             <div className="ml-8">
                                 <div className="text-base">
-                                    {calculateGrade(item.grade)}
+                                    {parseInt(item.role) === 3 || item.role === undefined ? (
+                                        calculateGrade(item.grade)
+                                    ) : (
+                                        parseInt(item.role) === 2 ? (
+                                            "TA"
+                                        ) : (
+                                            "メンター"
+                                        )
+                                    )}
                                 </div>
                                 <div className="text-2xl font-bold">
                                     {item.naming}

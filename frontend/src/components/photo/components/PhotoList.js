@@ -7,7 +7,7 @@ Modal.setAppElement("#root");
 
 const PhotoList = () => {
   const [photos, setPhotos] = useState([]);
-  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const PhotoList = () => {
 
   function handleModalClick(image) {
     setSelectedPhoto(image);
-    setEditModalIsOpen(true);
+    setModalIsOpen(true);
   }
 
   const handleSearch = async (searchTerm) => {
@@ -58,25 +58,13 @@ const PhotoList = () => {
 
         {selectedPhoto && (
           <Modal
-            isOpen={editModalIsOpen}
+            isOpen={modalIsOpen}
             onRequestClose={() => {
               setSelectedPhoto(null);
-              setEditModalIsOpen(false);
+              setModalIsOpen(false);
             }}
-            style={{
-              overlay: {
-                position: "fixed",
-                top: 0,
-                left: 0,
-                backgroundColor: "rgba(0,0,0,0.04)",
-                transition: 'opacity 200ms ease-in-out'
-              },
-              content: {
-                transition: "opacity 1s ease",
-                opacity: editModalIsOpen ? 1 : 0,
-              }
-            }}
-            className="w-full max-w-120 bg-gray-100 top-42/100 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute pt-12 max-sm:pt-8 pb-5 px-16 max-sm:px-4 rounded-xl outline-none"
+            overlayClassName="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+            className={`transition-opacity w-full max-w-120 bg-gray-100 top-42/100 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute pt-12 max-sm:pt-8 pb-5 px-16 max-sm:px-4 rounded-xl outline-none`}
           >
             <div className="text-center p-4 pt-0">
               <div className="text-4xl font-bold mb-2">{selectedPhoto.title}</div>
