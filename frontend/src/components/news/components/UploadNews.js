@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
 import { getAccountData } from '../../../utils/AccountUtil';
 
-const UploadNews = ({ isOpen }) => {
+const UploadNews = () => {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [date, setDate] = useState(Date.now());
     const { user } = useAuth0();
@@ -70,9 +70,11 @@ const UploadNews = ({ isOpen }) => {
     };
 
     return (
-        <div
-            className={`my-4 ${isOpen ? 'block' : 'hidden'}`}>
-            <form onSubmit={handleSubmit} className="mx-72 px-8 py-8">
+        <div>
+            <div className="font-bold text-4xl mb-6">
+                ニュースを投稿
+            </div>
+            <form onSubmit={handleSubmit} className="px-8 py-0">
                 <div className="text-5xl font-bold mb-10">
                     <input className="border-b-2 p-3 border-black block bg-white bg-opacity-40 rounded-t-xl w-full" type="text" name="title" value={formData.title} onChange={handleChange} maxLength={20} required placeholder="タイトル" />
                 </div>
@@ -83,7 +85,6 @@ const UploadNews = ({ isOpen }) => {
                             <img src={previewUrl} alt="Preview" className="rounded-3xl my-4 duration-300 inline-block bg-bg-light" />
                         </div>
                     )}
-                    <input type="file" accept="image/*" name="image_1" onChange={handleImageChange} className="" required />
                 </div>
                 <div className="text-info flex items-center justify-between">
                     <div>
@@ -92,7 +93,14 @@ const UploadNews = ({ isOpen }) => {
                             {eachAccount.naming}
                         </span>
                     </div>
-                    <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white px-12 py-3 text-2xl rounded-lg hover:opacity-75">送信</button>
+                    <div className="flex items-center">
+                        <label for="file-upload" class="mr-4 cursor-pointer bg-blue-500 hover:bg-blue-600 flex items-center text-white text-xl font-bold py-2 px-12 rounded-lg">
+                            ファイルを選択
+                        </label>
+                        <input id="file-upload" type="file" accept="image/*" name="image_1" onChange={handleImageChange} className="hidden" required />
+                        <button type="submit" className="bg-green-500 hover:bg-green-700 text-white px-12 py-2 text-xl rounded-lg hover:opacity-75">送信</button>
+
+                    </div>
                 </div>
             </form>
         </div>

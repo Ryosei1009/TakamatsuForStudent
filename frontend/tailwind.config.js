@@ -18,6 +18,7 @@ module.exports = {
         '23/24': '95.833%',
         '120': '30rem',
         '42/100': '42%',
+        '240': '60rem',
       },
       backgroundImage: {
         'home': "url('../public/images/home/bg.png')",

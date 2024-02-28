@@ -4,7 +4,7 @@ import { getAccountData } from '../../../utils/AccountUtil';
 import axios from 'axios';
 
 const UploadPhotoForm = ({ formData, previewUrl, imageDimensions, handleChange, handleImageChange, handleSubmit }) => (
-  <form onSubmit={handleSubmit} className="p-4">
+  <form onSubmit={handleSubmit} className="p-4 w-72">
     <input type="text" name="title" value={formData.title} onChange={handleChange} required placeholder="タイトル" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" />
     <select
       name="tags"
@@ -23,8 +23,11 @@ const UploadPhotoForm = ({ formData, previewUrl, imageDimensions, handleChange, 
         <img src={previewUrl} alt="Preview" className="w-full h-auto rounded-md" />
       </div>
     )}
-    <input type="file" accept="image/*" name="image" onChange={handleImageChange} className="w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500 cursor-pointer" required />
-    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">送信</button>
+    <label for="file-upload" class="block mb-2 cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+      ファイルを選択
+    </label>
+    <input id="file-upload" type="file" accept="image/*" name="image" onChange={handleImageChange} className="hidden" required />
+    <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">送信</button>
   </form>
 );
 

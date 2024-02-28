@@ -132,7 +132,7 @@ const Profile = () => {
         </div>
 
         <div>
-          <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-6 max-sm:px-3 rounded">
+          <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-6 max-sm:px-3 rounded">
             更新
           </button>
           <span className="ml-4 max-sm:ml-2">

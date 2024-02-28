@@ -16,7 +16,7 @@ const NewsList = () => {
                 news.slice().reverse().map((item) => (
                     <a href={`./${item.id}`} key={item.id} className="flex items-center max-sm:flex-col my-8 rounded-xl hover:opacity-90">
                         <div className="max-xl:w-1/2 w-2/5 max-sm:w-full">
-                            <img className="w-full rounded-xl" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.image_1}`} alt="" />
+                            <img className="rounded-xl" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.image_1}`} alt="" />
                         </div>
                         <div className="max-md:w-2/5 w-1/2 ml-12 max-md:ml-6 max-sm:w-full max-sm:my-6">
                             <div className="flex items-end">

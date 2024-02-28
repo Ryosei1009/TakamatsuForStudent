@@ -65,7 +65,7 @@ const Icon = () => {
                 <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-6 rounded" onClick={() => fileInputRef.current?.click()} >
                     ファイルを選択
                 </button>
-                <button onClick={handleUpload} className="bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-6 rounded inline-block ml-4">
+                <button onClick={handleUpload} className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-6 rounded inline-block ml-4">
                     更新
                 </button>
             </div>
