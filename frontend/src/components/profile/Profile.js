@@ -86,7 +86,7 @@ const Profile = () => {
           <div className="font-bold mb-1">
             Naming
           </div>
-          <input className="w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="naming" defaultValue={formData.naming ? formData.naming : naming} onChange={handleChange} />
+          <input maxLength={20} className="w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="naming" defaultValue={formData.naming ? formData.naming : naming} onChange={handleChange} />
         </div>
 
         {parseInt(role) === 3 || role === undefined ? (
@@ -94,7 +94,7 @@ const Profile = () => {
             <div className="font-bold mb-1">
               卒業予定
             </div>
-            <input className="w-18 pl-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="grade" defaultValue={formData.grade ? formData.grade : grade} onChange={handleChange} />
+            <input maxLength={4} className="w-18 pl-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="grade" defaultValue={formData.grade ? formData.grade : grade} onChange={handleChange} />
             <span className="ml-1">年3月 {role === undefined ? "" : calculateGrade(formData.grade ? formData.grade : grade)}</span>
           </div>) : (
           ""
@@ -125,10 +125,10 @@ const Profile = () => {
           <div className="font-bold mb-1">
             URL
           </div>
-          <input className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_1" defaultValue={formData.url_1 ? formData.url_1 : url_1} onChange={handleChange} />
-          <input className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_2" defaultValue={formData.url_2 ? formData.url_2 : url_2} onChange={handleChange} />
-          <input className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_3" defaultValue={formData.url_3 ? formData.url_3 : url_3} onChange={handleChange} />
-          <input className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_4" defaultValue={formData.url_4 ? formData.url_4 : url_4} onChange={handleChange} />
+          <input maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_1" defaultValue={formData.url_1 ? formData.url_1 : url_1} onChange={handleChange} />
+          <input maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_2" defaultValue={formData.url_2 ? formData.url_2 : url_2} onChange={handleChange} />
+          <input maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_3" defaultValue={formData.url_3 ? formData.url_3 : url_3} onChange={handleChange} />
+          <input maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_4" defaultValue={formData.url_4 ? formData.url_4 : url_4} onChange={handleChange} />
         </div>
 
         <div>

@@ -4,7 +4,7 @@ const path = require('path');
 const mysql = require("mysql2");
 require('dotenv').config();
 const app = express();
-const port = 444;
+const port = 443;
 const { mw } = require("request-ip");
 const fs = require('fs');
 const dateTime = new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });

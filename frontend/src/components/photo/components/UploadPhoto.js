@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const UploadPhotoForm = ({ formData, previewUrl, imageDimensions, handleChange, handleImageChange, handleSubmit }) => (
   <form onSubmit={handleSubmit} className="p-4 w-72">
-    <input type="text" name="title" value={formData.title} onChange={handleChange} required placeholder="タイトル" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" />
+    <input maxLength={20} type="text" name="title" value={formData.title} onChange={handleChange} required placeholder="タイトル" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" />
     <select
       name="tags"
       value={formData.tags}

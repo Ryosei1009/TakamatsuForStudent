@@ -15,7 +15,7 @@ const FetchSelfIntroduction = () => {
                 メンター
             </div>
             <div className="mx-12 max-2xl:mx-0 flex flex-wrap gap-x-16 gap-y-8  justify-center my-8">
-                {accounts.filter((account) => { return account.role.includes(1) }).slice().reverse().map((item) => (
+                {accounts.filter((account) => { return account.role === 1 }).slice().reverse().map((item) => (
                     <a href={item.id} key={item.id} className="flex flex-col hover:opacity-70 w-1/4 max-xl:w-1/3 max-lg:w-3/4 max-md:w-4/5 max-sm:w-10/12 bg-violet-300 bg-opacity-25 p-8">
                         <div className="flex w-full items-end justify-start">
                             <img className="w-1/3" src={item.icon_name ? (`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.icon_name}`) : (`/images/accounts/default.jpeg`)} alt="" />
@@ -49,7 +49,7 @@ const FetchSelfIntroduction = () => {
                 TA
             </div>
             <div className="mx-12 max-2xl:mx-0 flex flex-wrap gap-x-16 gap-y-8  justify-center my-8">
-                {accounts.filter((account) => { return account.role.includes(2) }).slice().reverse().map((item) => (
+                {accounts.filter((account) => { return account.role === 2 }).slice().reverse().map((item) => (
                     <a href={item.id} key={item.id} className="flex flex-col hover:opacity-70 w-1/4 max-xl:w-1/3 max-lg:w-3/4 max-md:w-4/5 max-sm:w-10/12 bg-violet-300 bg-opacity-25 p-8">
                         <div className="flex w-full items-end justify-start">
                             <img className="w-1/3" src={item.icon_name ? (`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.icon_name}`) : (`/images/accounts/default.jpeg`)} alt="" />
@@ -83,7 +83,7 @@ const FetchSelfIntroduction = () => {
                 生徒
             </div>
             <div className="mx-12 max-2xl:mx-0 flex flex-wrap gap-x-16 gap-y-8  justify-center my-8">
-                {accounts.filter((account) => { return account.role.includes(3) }).slice().reverse().map((item) => (
+                {accounts.filter((account) => { return account.role === 3 }).slice().reverse().map((item) => (
                     <a href={item.id} key={item.id} className="flex flex-col hover:opacity-70 w-1/4 max-xl:w-1/3 max-lg:w-3/4 max-md:w-4/5 max-sm:w-10/12 bg-violet-300 bg-opacity-25 p-8">
                         <div className="flex w-full items-end justify-start">
                             <img className="w-1/3" src={item.icon_name ? (`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.icon_name}`) : (`/images/accounts/default.jpeg`)} alt="" />
