@@ -114,7 +114,7 @@ const UploadPhoto = ({ onSearch }) => {
         },
       });
       console.log('Response from server:', response.data);
-      alert('PERFECT!!!');
+      // alert('PERFECT!!!');
       window.location.reload();
     } catch (error) {
       console.error('Error uploading data:', error);
