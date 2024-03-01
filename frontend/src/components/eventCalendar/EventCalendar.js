@@ -1,21 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import { useAuth0 } from "@auth0/auth0-react";
+import { getAccountData } from '../../utils/AccountUtil';
+import EventModal from './components/EachEvent';
+import Modal from 'react-modal';
+
+Modal.setAppElement("#root");
 
 // イベントデータ（Unix秒で日付を管理）
 const eventData = [
-  { date: 1709218800, title: '卓球' }, // 2024-03-01のUnix秒
-  { date: 1709478000, title: 'ポケカ' }, // 2024-03-04のUnix秒
-  { date: 1709564400, title: '栗林公園' }, // 2024-03-05のUnix秒
-  { date: 1709650800, title: 'スウィッチ' }, // 2024-03-06のUnix秒
-  { date: 1709823600, title: 'ふじふじ' }, // 2024-03-08のUnix秒
-  { date: 1710082800, title: 'ポーカー' }, // 2024-03-11のUnix秒
-  { date: 1710255600, title: '麻雀' }, // 2024-03-13のUnix秒
-  { date: 1710514800, title: '3年性を送る会' }, // 2024-03-16のUnix秒
+  { date: 1709218800, title: '卓球', text: 'dじゃウィウオディ雨どぁジオウdは\r\nhづわおいgdフォユアウィづいわ\r\ndhユアw御d用亜wgdよあう', color: '#803c3c', created_by: 'みくねえ', created_by_id: '1', created_at: '1709218800' }, // 2024-03-01のUnix秒
+  { date: 1709478000, title: 'ポケカ', text: '部長: ねぎ 顧問: みくねえ', color: '#803c3c', created_by: 'みくねえ', created_by_id: '1', created_at: '1709218800' }, // 2024-03-04のUnix秒
+  { date: 1709564400, title: '栗林公園', text: '部長: ねぎ 顧問: みくねえ', color: '#803c3c', created_by: 'みくねえ', created_by_id: '1', created_at: '1709218800' }, // 2024-03-05のUnix秒
+  { date: 1709650800, title: 'スウィッチ', text: '部長: ねぎ 顧問: みくねえ', color: '#803c3c', created_by: 'みくねえ', created_by_id: '1', created_at: '1709218800' }, // 2024-03-06のUnix秒
+  { date: 1709823600, title: 'ふじふじ', text: '部長: ねぎ 顧問: みくねえ', color: '#803c3c', created_by: 'みくねえ', created_by_id: '1', created_at: '1709218800' }, // 2024-03-08のUnix秒
+  { date: 1710082800, title: 'ポーカー', text: '部長: ねぎ 顧問: みくねえ', color: '#803c3c', created_by: 'みくねえ', created_by_id: '1', created_at: '1709218800' }, // 2024-03-11のUnix秒
+  { date: 1710255600, title: '麻雀', text: '部長: ねぎ 顧問: みくねえ', color: '#803c3c', created_by: 'みくねえ', created_by_id: '1', created_at: '1709218800' }, // 2024-03-13のUnix秒
+  { date: 1710514800, title: '3年性を送る会', text: '部長: ねぎ 顧問: みくねえ', color: '#803c3c', created_by: 'みくねえ', created_by_id: '1', created_at: '1709218800' }, // 2024-03-16のUnix秒
 ];
 
 const Calendar = () => {
+  const { user } = useAuth0();
+  const [eachAccount, setEachAccount] = useState({});
+  useEffect(() => {
+    getAccountData(user, setEachAccount);
+  }, [user]);
+
   const [currentDate, setCurrentDate] = useState(new Date());
+
+  // それぞれのイベントのモーダル
+  const [eachModalIsOpen, setEachModalIsOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+
+  // イベントのアップロードモーダル
+  const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleEachModalClick = (event) => {
+    setSelectedEvent(event);
+    setEachModalIsOpen(true);
+  };
+
+  const handleShowPopupClick = () => {
+    setShowPopup(!showPopup);
+  };
 
   const renderHeader = () => {
     return (
@@ -58,26 +88,33 @@ const Calendar = () => {
       for (let i = 0; i < 7; i++) {
         const formattedDate = format(day, 'yyyy-MM-dd');
         const events = eventData.filter(event => isSameDay(new Date(event.date * 1000), new Date(formattedDate)));
-
         days.push(
-          <button
+          <div
             key={day}
-            className={`text-center p-2 hover:bg-blue-100 flex justify-start flex-col items-center h-24
+            className={`text-center pt-2 flex justify-start flex-col items-center h-24
               ${!isSameMonth(day, monthStart)
                 ? 'text-gray-400'
                 : isSameDay(day, new Date())
                   ? 'bg-blue-200'
                   : ''
-              }`}
-            onClick={() => console.log('Clicked')}
+              }
+              ${eachAccount.role <= 2 ? "cursor-pointer hover:bg-blue-100" : ""}
+              `}
+            onClick={eachAccount.role <= 2 ? () => console.log('Clicked' + formattedDate) : null}
           >
             <div>{format(day, 'd')}</div>
             {events.map((event, index) => (
-              <div key={index} className="text-xs font-medium text-blue-600">
+              <div
+                key={index}
+                className="text-xs font-medium text-white w-full p-1 rounded-lg hover:cursor-pointer"
+                style={{ backgroundColor: event.color }}
+                onClick={() => handleEachModalClick(event)}
+              >
                 {event.title}
               </div>
-            ))}
-          </button>
+            ))
+            }
+          </div >
         );
         day = addDays(day, 1);
       }
@@ -100,11 +137,21 @@ const Calendar = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto">
-      {renderHeader()}
-      {renderDays()}
-      {renderCells()}
-    </div>
+    <>
+      <div className="max-w-xl mx-auto">
+        {renderHeader()}
+        {renderDays()}
+        {renderCells()}
+      </div>
+      <EventModal
+        isOpen={eachModalIsOpen}
+        onClose={() => setEachModalIsOpen(false)}
+        event={selectedEvent}
+        showPopup={showPopup}
+        onTogglePopup={handleShowPopupClick}
+        onDelete={() => console.log("deleted")}
+      />
+    </>
   );
 };
 
