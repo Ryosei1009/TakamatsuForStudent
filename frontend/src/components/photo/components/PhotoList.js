@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import UploadPhoto from './UploadPhoto';
 import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
 import { TrashIcon } from '@heroicons/react/solid';
+import axios from 'axios';
 
 Modal.setAppElement("#root");
 
@@ -11,6 +12,7 @@ const PhotoList = () => {
   const [photos, setPhotos] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     fetchData('/api/photos', setPhotos);
@@ -19,6 +21,20 @@ const PhotoList = () => {
   function handleModalClick(image) {
     setSelectedPhoto(image);
     setModalIsOpen(true);
+  }
+
+  const handleShowPopupClick = () => {
+    setShowPopup(!showPopup);
+  }
+
+  const deletePhoto = (id) => {
+    axios.delete(`/delete/photos/${id}`)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error('削除エラー:', error);
+      });
   }
 
   const handleSearch = async (searchTerm) => {
@@ -69,7 +85,12 @@ const PhotoList = () => {
             className={`transition-opacity w-full max-w-120 bg-gray-100 top-42/100 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute pt-12 max-sm:pt-8 pb-5 px-16 max-sm:px-4 rounded-xl outline-none`}
           >
             <div className="flex justify-end">
-              <TrashIcon className="w-8 cursor-pointer fill-red-700" />
+              <TrashIcon className="w-7 h-7 cursor-pointer fill-red-700" onClick={() => handleShowPopupClick()} />
+              {showPopup && (
+                <div className="top-19 right-7 cursor-pointer hover:underline hover:opacity-90 absolute z-10 bg-white border rounded shadow-sm py-2 px-4 text-red-500" onClick={() => deletePhoto(selectedPhoto.id)}>
+                  削除
+                </div>
+              )}
             </div>
             <div className="text-center p-4 pt-0">
               <div className="text-4xl font-bold mb-2">{selectedPhoto.title}</div>
@@ -81,7 +102,10 @@ const PhotoList = () => {
               />
               <div className="flex justify-between mt-2">
                 <div>
-                  作成者：{selectedPhoto.created_by}
+                  作成者：
+                  <a href={`../selfintroduction/${selectedPhoto.created_by_id}`} className="hover:underline">
+                    {selectedPhoto.created_by}
+                  </a>
                 </div>
                 <div>
                   {eachNewsTimeFormat(selectedPhoto.created_at)}

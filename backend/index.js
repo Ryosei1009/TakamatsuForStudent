@@ -191,7 +191,7 @@ app.post('/upload/accounts', accountUpload.single('icon_name'), (req, res) => {
 });
 
 app.post('/upload/event', (req, res) => {
-  var { id, date, title, text, color, created_by, created_by_id } = req.body;
+  var { date, title, text, color, created_by, created_by_id } = req.body;
   const created_at = Date.now();
   var query = 'INSERT INTO `event` (id, date, title, text, color, created_by, created_by_id, created_at) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)';
 
@@ -207,6 +207,18 @@ app.post('/upload/event', (req, res) => {
 app.delete('/delete/news/:id', (req, res) => {
   const id = req.params.id;
   const query = 'DELETE FROM news WHERE id = ?';
+  connection.query(query, [id], (error, results) => {
+    if (error) {
+      console.error('データベースへの保存エラー:', error);
+      return res.status(500).send('データベースエラー');
+    }
+    res.status(200).send('削除成功');
+  });
+});
+
+app.delete('/delete/photos/:id', (req, res) => {
+  const id = req.params.id;
+  const query = 'DELETE FROM gallery WHERE id = ?';
   connection.query(query, [id], (error, results) => {
     if (error) {
       console.error('データベースへの保存エラー:', error);

@@ -7,6 +7,7 @@ import { fetchData } from '../../utils/Fetch'
 import EventModal from './components/EachEvent';
 import Modal from 'react-modal';
 import UploadEvent from './components/UploadEvent';
+import axios from 'axios';
 
 Modal.setAppElement("#root");
 
@@ -24,7 +25,7 @@ const Calendar = () => {
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  // それぞれのイベントのモーダル
+  // それぞれのモーダル
   const [eachModalIsOpen, setEachModalIsOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -33,7 +34,12 @@ const Calendar = () => {
     setEachModalIsOpen(true);
   };
 
-  // イベントのアップロードモーダル
+  const [showPopup, setShowPopup] = useState(false);
+  const handleShowPopupClick = () => {
+    setShowPopup(!showPopup);
+  };
+
+  // アップロードモーダル
   const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
 
   const handleUploadModalClick = () => {
@@ -141,6 +147,16 @@ const Calendar = () => {
     setCurrentDate(addDays(startOfMonth(currentDate), -1));
   };
 
+  const deleteEvent = (id) => {
+    axios.delete(`/delete/event/${id}`)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error('削除エラー:', error);
+      });
+  }
+
   return (
     <>
       <div className="max-w-xl mx-auto">
@@ -159,6 +175,9 @@ const Calendar = () => {
         isOpen={eachModalIsOpen}
         onClose={() => setEachModalIsOpen(false)}
         event={selectedEvent}
+        showPopup={showPopup}
+        onTogglePopup={handleShowPopupClick}
+        onDelete={deleteEvent}
       />
       <UploadEvent
         isOpen={uploadModalIsOpen}

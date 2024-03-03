@@ -6,27 +6,16 @@ import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
 import { format } from 'date-fns';
 import { getAccountData } from '../../../utils/AccountUtil';
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from 'axios';
 
 Modal.setAppElement("#root");
 
-const EachEvent = ({ isOpen, onClose, event }) => {
+const EachEvent = ({ isOpen, onClose, event, showPopup, onTogglePopup, onDelete }) => {
     const { user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
     useEffect(() => {
         getAccountData(user, setEachAccount);
     }, [user]);
     const WeekChars = ["日", "月", "火", "水", "木", "金", "土"];
-
-    const deleteEvent = (id) => {
-        axios.delete(`/delete/event/${id}`)
-          .then(() => {
-            window.location.reload();
-          })
-          .catch(error => {
-            console.error('削除エラー:', error);
-          });
-      }
 
     return (
         <Modal
@@ -47,12 +36,17 @@ const EachEvent = ({ isOpen, onClose, event }) => {
                                     {event.title}
                                 </div>
                                 <div className="flex flex-col items-start ml-4">
-                                    {format(new Date(event.date * 1000), 'MM月dd日') + "(" + WeekChars[new Date(event.date * 1000).getDay()] + ")"}
+                                    {format(new Date(parseInt(event.date)),'MM月dd日') + "(" + WeekChars[new Date(parseInt(event.date)).getDay()] + ")"}
                                 </div>
                             </div>
                             {eachAccount.role <= 2 && (
                                 <div className="w-1/12">
-                                    <TrashIcon onClick={() => deleteEvent(event.id)} className="h-7 cursor-pointer fill-red-700" />
+                                    <TrashIcon onClick={onTogglePopup} className="h-7 w-7 cursor-pointer fill-red-500" />
+                                    {showPopup && (
+                                        <div className="cursor-pointer hover:underline hover:opacity-90 absolute z-10 bg-white border rounded shadow-sm py-2 px-4 text-red-500" onClick={() => onDelete(event.id)}>
+                                            削除
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
