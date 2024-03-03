@@ -5,6 +5,7 @@ export async function fetchData(url, setData) {
         const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}${url}`);
         const data = response.data;
         setData(data);
+        console.log('Data fetched:', data);
     } catch (error) {
         console.error(error.message);
         throw error;

@@ -12,7 +12,6 @@ const NotFound = () => {
                 <div className="text-3xl max-md:text-xl font-bold">
                     You may have the wrong file path!
                 </div>
-                <input type="color" onChange={(event) => {console.log(Date.now())}} />
             </div>
         </>
     )

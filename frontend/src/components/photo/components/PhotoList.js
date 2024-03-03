@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { fetchData, fetchSearchData } from '../../../utils/Fetch';
 import Modal from 'react-modal';
 import UploadPhoto from './UploadPhoto';
+import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
+import { TrashIcon } from '@heroicons/react/solid';
 
 Modal.setAppElement("#root");
 
@@ -66,6 +68,9 @@ const PhotoList = () => {
             overlayClassName="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
             className={`transition-opacity w-full max-w-120 bg-gray-100 top-42/100 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute pt-12 max-sm:pt-8 pb-5 px-16 max-sm:px-4 rounded-xl outline-none`}
           >
+            <div className="flex justify-end">
+              <TrashIcon className="w-8 cursor-pointer fill-red-700" />
+            </div>
             <div className="text-center p-4 pt-0">
               <div className="text-4xl font-bold mb-2">{selectedPhoto.title}</div>
               <div className="text-xl mb-8">{selectedPhoto.tags}</div>
@@ -74,6 +79,14 @@ const PhotoList = () => {
                 alt=""
                 className="w-full"
               />
+              <div className="flex justify-between mt-2">
+                <div>
+                  作成者：{selectedPhoto.created_by}
+                </div>
+                <div>
+                  {eachNewsTimeFormat(selectedPhoto.created_at)}
+                </div>
+              </div>
             </div>
           </Modal>
         )}

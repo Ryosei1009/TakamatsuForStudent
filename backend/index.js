@@ -195,9 +195,9 @@ app.post('/upload/event', (req, res) => {
   const created_at = Date.now();
   var query = 'INSERT INTO `event` (id, date, title, text, color, created_by, created_by_id, created_at) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)';
 
-  connection.query(query, [id, date, title, text, color, created_by, created_by_id, created_at], (error, results) => {
+  connection.query(query, [date, title, text, color, created_by, created_by_id, created_at], (error, results) => {
     if (error) {
-      console.error('${dateTime}[${req.path}] データベースへの保存エラー:', error);
+      console.error('${dateTime} データベースへの保存エラー:', error);
       return res.status(500).send('データベースエラー');
     }
     res.status(200).send('アップロード成功');

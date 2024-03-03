@@ -45,6 +45,5 @@ export function calculateGrade(graduationYear) {
     if (grade <= 0) {
         return "卒業予定年が間違っている可能性があります！"
     }
-    console.log(grade)
     return grade + "年生";
 }

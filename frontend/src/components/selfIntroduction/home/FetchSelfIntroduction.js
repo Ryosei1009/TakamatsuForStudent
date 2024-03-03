@@ -17,7 +17,7 @@ const FetchSelfIntroduction = () => {
             </div>
             <div className="mx-12 max-2xl:mx-0 flex flex-wrap gap-x-16 gap-y-8  justify-center my-8">
                 {accounts
-                    .filter((account) => account.role === roleFilter && calculateGrade(account.grade) === gradeFilter)
+                    .filter((account) => account.role === 3 ? calculateGrade(account.grade) === gradeFilter : account.role === roleFilter)
                     .slice()
                     .reverse()
                     .map((item) => (

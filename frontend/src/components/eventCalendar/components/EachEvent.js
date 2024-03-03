@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import { DotsHorizontalIcon } from '@heroicons/react/solid';
+import { TrashIcon } from '@heroicons/react/solid';
 import { newLineUtil } from '../../../utils/TextUtil';
 import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
 import { format } from 'date-fns';
 import { getAccountData } from '../../../utils/AccountUtil';
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from 'axios';
 
 Modal.setAppElement("#root");
 
-const EachEvent = ({ isOpen, onClose, event, showPopup, onTogglePopup, onDelete }) => {
+const EachEvent = ({ isOpen, onClose, event }) => {
     const { user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
     useEffect(() => {
         getAccountData(user, setEachAccount);
     }, [user]);
     const WeekChars = ["日", "月", "火", "水", "木", "金", "土"];
+
+    const deleteEvent = (id) => {
+        axios.delete(`/delete/event/${id}`)
+          .then(() => {
+            window.location.reload();
+          })
+          .catch(error => {
+            console.error('削除エラー:', error);
+          });
+      }
 
     return (
         <Modal
@@ -41,12 +52,7 @@ const EachEvent = ({ isOpen, onClose, event, showPopup, onTogglePopup, onDelete 
                             </div>
                             {eachAccount.role <= 2 && (
                                 <div className="w-1/12">
-                                    <DotsHorizontalIcon onClick={onTogglePopup} className="h-5 w-5 cursor-pointer" />
-                                    {showPopup && (
-                                        <div className="cursor-pointer hover:underline hover:opacity-90 absolute z-10 bg-white border rounded shadow-sm py-2 px-4 text-red-500" onClick={onDelete(event.id)}>
-                                            削除
-                                        </div>
-                                    )}
+                                    <TrashIcon onClick={() => deleteEvent(event.id)} className="h-7 cursor-pointer fill-red-700" />
                                 </div>
                             )}
                         </div>

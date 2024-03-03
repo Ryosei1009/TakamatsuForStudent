@@ -6,8 +6,7 @@ import { getAccountData } from '../../utils/AccountUtil';
 import { fetchData } from '../../utils/Fetch'
 import EventModal from './components/EachEvent';
 import Modal from 'react-modal';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import UploadEvent from './components/UploadEvent';
 
 Modal.setAppElement("#root");
 
@@ -28,30 +27,43 @@ const Calendar = () => {
   // それぞれのイベントのモーダル
   const [eachModalIsOpen, setEachModalIsOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [showPopup, setShowPopup] = useState(false);
-
-  // イベントのアップロードモーダル
-  const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
 
   const handleEachModalClick = (event) => {
     setSelectedEvent(event);
     setEachModalIsOpen(true);
   };
 
-  const handleShowPopupClick = () => {
-    setShowPopup(!showPopup);
+  // イベントのアップロードモーダル
+  const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
+
+  const handleUploadModalClick = () => {
+    setUploadModalIsOpen(true);
   };
 
   const renderHeader = () => {
     return (
-      <div className="flex justify-between items-center my-4">
+      <div className="flex justify-between items-center my-2 w-10/12">
         <button onClick={prevMonth} className="flex items-center text-gray-600 hover:text-gray-800 focus:outline-none">
           <ChevronLeftIcon className="h-5 w-5" />
         </button>
         <h2 className="text-xl font-semibold text-gray-800">{format(currentDate, 'MMMM yyyy')}</h2>
         <button onClick={nextMonth} className="flex items-center text-gray-600 hover:text-gray-800 focus:outline-none">
           <ChevronRightIcon className="h-5 w-5" />
+        </button>
+      </div>
+    );
+  };
+
+  const renderUploadButton = () => {
+    return (
+      <div className="flex items-center justify-center my-2">
+        <button
+          onClick={eachAccount.role <= 2 ? () => handleUploadModalClick() : null}
+          className="flex items-center justify-center text-white bg-blue-500 hover:bg-blue-600 focus:outline-none rounded-full h-10 w-10 bottom-10 right-10"
+        >
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
         </button>
       </div>
     );
@@ -93,10 +105,7 @@ const Calendar = () => {
                 : isSameDay(day, new Date())
                   ? 'bg-blue-200'
                   : ''
-              }
-              ${eachAccount.role <= 2 ? "cursor-pointer hover:bg-blue-100" : ""}
-              `}
-            onClick={eachAccount.role <= 2 ? () => console.log('Clicked' + formattedDate) : null}
+              }`}
           >
             <div>{format(day, 'd')}</div>
             {events.map((event, index) => (
@@ -132,20 +141,17 @@ const Calendar = () => {
     setCurrentDate(addDays(startOfMonth(currentDate), -1));
   };
 
-  const deleteEvent = (id) => {
-    axios.delete(`/delete/event/${id}`)
-      .then(() => {
-        window.location.reload();
-      })
-      .catch(error => {
-        console.error('削除エラー:', error);
-      });
-  }
-
   return (
     <>
       <div className="max-w-xl mx-auto">
-        {renderHeader()}
+        <div className="flex justify-center my-2">
+          {renderHeader()}
+          {eachAccount.role <= 2 && (
+            <>
+              <div className="w-1/36"></div>
+              {renderUploadButton()}
+            </>)}
+        </div>
         {renderDays()}
         {renderCells()}
       </div>
@@ -153,9 +159,10 @@ const Calendar = () => {
         isOpen={eachModalIsOpen}
         onClose={() => setEachModalIsOpen(false)}
         event={selectedEvent}
-        showPopup={showPopup}
-        onTogglePopup={handleShowPopupClick}
-        onDelete={deleteEvent}
+      />
+      <UploadEvent
+        isOpen={uploadModalIsOpen}
+        onClose={() => setUploadModalIsOpen(false)}
       />
     </>
   );
