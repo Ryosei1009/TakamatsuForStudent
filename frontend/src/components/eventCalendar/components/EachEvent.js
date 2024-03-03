@@ -43,7 +43,7 @@ const EachEvent = ({ isOpen, onClose, event, showPopup, onTogglePopup, onDelete 
                                 <div className="w-1/12">
                                     <DotsHorizontalIcon onClick={onTogglePopup} className="h-5 w-5 cursor-pointer" />
                                     {showPopup && (
-                                        <div className="cursor-pointer hover:underline hover:opacity-90 absolute z-10 bg-white border rounded shadow-sm py-2 px-4 text-red-500" onClick={onDelete}>
+                                        <div className="cursor-pointer hover:underline hover:opacity-90 absolute z-10 bg-white border rounded shadow-sm py-2 px-4 text-red-500" onClick={onDelete(event.id)}>
                                             削除
                                         </div>
                                     )}
@@ -60,7 +60,7 @@ const EachEvent = ({ isOpen, onClose, event, showPopup, onTogglePopup, onDelete 
                             </div>
                             <div>
                                 作成日時:
-                                {eachNewsTimeFormat(event.created_at * 1000)}
+                                {eachNewsTimeFormat(event.created_at)}
                             </div>
                         </div>
                     </div>
