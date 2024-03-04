@@ -7,6 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { getAccountData } from "../../utils/AccountUtil";
 import axios from 'axios';
 import Modal from 'react-modal';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 Modal.setAppElement("#root");
 
@@ -48,19 +49,31 @@ const EachNews = () => {
 
     return (
         <>
+            <HelmetProvider>
+                <Helmet>
+                    <title>
+                        {eachNews.title ? (
+                            `${eachNews.title} `
+                        ) : (
+                            "Error: Get title "
+                        )}
+                        - TCFS
+                    </title>
+                </Helmet>
+            </HelmetProvider>
             <div className="mx-72 max-2xl:mx-36 max-xl:mx-24 max-lg:mx-12 max-md:mx-8 max-sm:mx-4 py-8">
                 <div className="text-5xl max-md:text-3xl max-sm:text-xl font-bold mb-10 max-sm:mb-4 border-b-2 p-3 border-black flex justify-between">
                     <span className="block">
                         {eachNews.title}
                     </span>
-                    {parseInt(eachAccount.id) === eachNews.created_by_id || parseInt(eachAccount.role) === 1 || parseInt(eachAccount.role) === 2 ? (
+                    {parseInt(eachAccount.id) === eachNews.created_by_id || parseInt(eachAccount.role) <= 2 & (
                         <button
                             onClick={handleModalClick}
                             className="cursor-pointer text-2xl max-md:text-xl max-sm:text-base bg-red-700 hover:bg-red-800 text-white px-4 py-2 max-md:px-2 max-sm:py-1  font-bold rounded"
                         >
                             削除
                         </button>
-                    ) : ("")}
+                    )}
                 </div>
                 <div className="text-xl max-sm:text-base mx-3">
                     <div className="border-gray-500">

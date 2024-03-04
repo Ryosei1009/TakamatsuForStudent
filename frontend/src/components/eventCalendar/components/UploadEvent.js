@@ -23,7 +23,7 @@ const UploadEvent = ({ isOpen, onClose }) => {
     };
 
     const handleShowPopupClick = () => {
-      setShowPopup(!showPopup);
+        setShowPopup(!showPopup);
     };
 
     useEffect(() => {
@@ -31,12 +31,21 @@ const UploadEvent = ({ isOpen, onClose }) => {
     }, [user]);
 
     const [formData, setFormData] = useState({
+        date: formDate,
         title: '',
         text: '',
-        color: '#32CD32'
+        color: '#32CD32',
+        created_by: eachAccount.naming,
+        created_by_id: eachAccount.id,
     })
 
     const handleChange = (event) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            date: formDate,
+            created_by: eachAccount.naming,
+            created_by_id: eachAccount.id,
+        }))
         const { name, value } = event.target;
         setFormData((prevData) => ({
             ...prevData,
@@ -48,19 +57,7 @@ const UploadEvent = ({ isOpen, onClose }) => {
         event.preventDefault();
 
         try {
-            const formDataToSend = new FormData();
-            formDataToSend.append('date', formDate);
-            formDataToSend.append('title', formData.title);
-            formDataToSend.append('text', formData.text);
-            formDataToSend.append('color', formData.color);
-            formDataToSend.append('created_by', eachAccount.naming);
-            formDataToSend.append('created_by_id', eachAccount.id);
-
-            const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/event`, formDataToSend, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/event`, formData);
             console.log('Response from server:', response.data);
             alert('PERFECT!!!');
             window.location.reload();

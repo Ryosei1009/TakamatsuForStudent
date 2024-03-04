@@ -1,8 +1,16 @@
 import React from 'react'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 const NotFound = () => {
     return (
         <>
+            <HelmetProvider>
+                <Helmet>
+                    <title>
+                        404 NotFound - TCFS
+                    </title>
+                </Helmet>
+            </HelmetProvider>
             <div className="flex justify-center items-center flex-col mt-20 mb-24">
                 <span className="text-9xl max-md:text-7xl font-bold text-red-500">404</span>
                 <span className="text-9xl max-md:text-7xl font-bold text-red-500 mb-10">NotFound</span>

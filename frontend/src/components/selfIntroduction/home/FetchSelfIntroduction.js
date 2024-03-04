@@ -10,14 +10,14 @@ const FetchSelfIntroduction = () => {
         fetchData('/api/accounts', setAccounts);
     }, []);
 
-    const renderAccounts = (roleFilter, gradeFilter, title) => (
+    const renderAccounts = (roleFilter, title) => (
         <div className="mx-72 max-2xl:mx-36 max-xl:mx-24 max-lg:mx-12 max-md:mx-8">
             <div className="text-5xl max-xl:text-4xl max-md:text-3xl font-bold border-b-4 pb-4 max-md:pb-2 border-black">
                 {title}
             </div>
             <div className="mx-12 max-2xl:mx-0 flex flex-wrap gap-x-16 gap-y-8  justify-center my-8">
                 {accounts
-                    .filter((account) => account.role === 3 ? calculateGrade(account.grade) === gradeFilter : account.role === roleFilter)
+                    .filter((account) => account.role === roleFilter)
                     .slice()
                     .reverse()
                     .map((item) => (
@@ -47,11 +47,9 @@ const FetchSelfIntroduction = () => {
 
     return (
         <div className="mt-16">
-            {renderAccounts(1, '', 'メンター')}
-            {renderAccounts(2, '', 'TA')}
-            {renderAccounts(3, '3年生', '3年生')}
-            {renderAccounts(3, '2年生', '2年生')}
-            {renderAccounts(3, '1年生', '1年生')}
+            {renderAccounts(1, 'メンター')}
+            {renderAccounts(2, 'TA')}
+            {renderAccounts(3, '生徒')}
         </div>
     );
 };

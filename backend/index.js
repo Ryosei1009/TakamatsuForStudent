@@ -1,9 +1,10 @@
 const express = require('express');
+const app = express();
+app.use(express.json());
 const multer = require('multer');
 const path = require('path');
 const mysql = require("mysql2");
 require('dotenv').config();
-const app = express();
 const port = 443;
 const { mw } = require("request-ip");
 const fs = require('fs');
@@ -191,7 +192,7 @@ app.post('/upload/accounts', accountUpload.single('icon_name'), (req, res) => {
 });
 
 app.post('/upload/event', (req, res) => {
-  var { date, title, text, color, created_by, created_by_id } = req.body;
+  const { date, title, text, color, created_by, created_by_id } = req.body;
   const created_at = Date.now();
   var query = 'INSERT INTO `event` (id, date, title, text, color, created_by, created_by_id, created_at) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)';
 

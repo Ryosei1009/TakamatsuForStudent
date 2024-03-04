@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
 import { getAccountData } from '../../../utils/AccountUtil';
+import { PhotographIcon } from '@heroicons/react/solid';
 
 const UploadNews = () => {
     const [previewUrl, setPreviewUrl] = useState(null);
@@ -94,7 +95,8 @@ const UploadNews = () => {
                         </span>
                     </div>
                     <div className="flex items-center max-md:mt-2">
-                        <label for="file-upload" class="mr-4 cursor-pointer bg-blue-500 hover:bg-blue-600 flex items-center text-white text-xl font-bold py-2 px-12 max-md:px-4 rounded-lg">
+                        <label for="file-upload" class="mr-4 cursor-pointer bg-blue-500 hover:bg-blue-600 flex items-center text-white text-xl font-bold py-2 px-8 max-md:px-4 rounded-lg">
+                            <PhotographIcon className="w-6 mr-2"/>
                             ファイルを選択
                         </label>
                         <input id="file-upload" type="file" accept="image/*" name="image_1" onChange={handleImageChange} className="hidden" required />

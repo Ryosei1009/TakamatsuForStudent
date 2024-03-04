@@ -8,6 +8,7 @@ import EventModal from './components/EachEvent';
 import Modal from 'react-modal';
 import UploadEvent from './components/UploadEvent';
 import axios from 'axios';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 Modal.setAppElement("#root");
 
@@ -159,6 +160,22 @@ const Calendar = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>
+            {uploadModalIsOpen ? (
+              "Upload Event "
+            ) : (
+              eachModalIsOpen ? (
+                "About Event "
+              ) : (
+                "Event Calendar "
+              )
+            )}
+            - TCFS
+          </title>
+        </Helmet>
+      </HelmetProvider>
       <div className="max-w-xl mx-auto">
         <div className="flex justify-center my-2">
           {renderHeader()}

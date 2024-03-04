@@ -16,6 +16,7 @@ import LoginButton from './components/_util/account/LoginButton';
 import EachSelfIntroduction from './components/selfIntroduction/eachSelfIntroduction/EachSelfIntroduction';
 import Loading from './components/_util/Loading';
 import UploadEvent from './components/eventCalendar/components/UploadEvent';
+import FromDev from './components/fromDev/FromDev';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -43,6 +44,7 @@ function App() {
             <Route path="/selfintroduction/:postId" element={<EachSelfIntroduction />} />
             <Route path="/photo" element={<Photo />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/fromdev" element={<FromDev />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
           <Footer />

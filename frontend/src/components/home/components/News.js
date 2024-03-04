@@ -9,7 +9,7 @@ const News = () => {
         fetchData('/api/news', setNews);
     }, []);
     return (
-        <div className="border-y-8 border-black pb-16">
+        <div className="pb-16">
             <div className="ml-44 max-xl:ml-18 max-sm:ml-4 font-bold text-5xl max-md:text-4xl my-8 hover:underline hover:opacity-70">
                 <a href="/news">
                     Lastest News

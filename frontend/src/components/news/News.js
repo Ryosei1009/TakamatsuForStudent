@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import NewsList from "./components/NewsList"
 import UploadNews from './components/UploadNews';
 import Modal from 'react-modal';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 Modal.setAppElement("#root");
 
@@ -14,6 +15,18 @@ const News = () => {
 
     return (
         <>
+            <HelmetProvider>
+                <Helmet>
+                    <title>
+                        {uploadOpen ? (
+                            "Upload News "
+                        ) : (
+                            "News List "
+                        )}
+                        - TCFS
+                    </title>
+                </Helmet>
+            </HelmetProvider>
             <div className="flex items-center justify-around mt-10">
                 <p className="text-6xl font-bold">News</p>
                 <button onClick={toggleUpload} className="text-2xl text-white px-6 py-3 rounded-xl border-2 bg-blue-600 hover:bg-blue-500">Upload</button>
@@ -21,8 +34,6 @@ const News = () => {
             <div>
                 <NewsList />
             </div>
-
-
             <Modal
                 isOpen={uploadOpen}
                 onRequestClose={() => {
