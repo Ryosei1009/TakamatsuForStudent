@@ -47,7 +47,7 @@ const Profile = () => {
       formDataToSend.append('naming', formData.naming ? formData.naming : eachAccount.naming);
       formDataToSend.append('icon_name', eachAccount.icon_name);
       formDataToSend.append('grade', formData.grade ? formData.grade : eachAccount.grade);
-      formDataToSend.append('self_introduction', formData.self_introduction ? formData.self_introduction : eachAccount.naming);
+      formDataToSend.append('self_introduction', formData.self_introduction ? formData.self_introduction : eachAccount.self_introduction);
       formDataToSend.append('skill', formData.skill ? formData.skill : eachAccount.skill);
       formDataToSend.append('hobby', formData.hobby ? formData.hobby : eachAccount.hobby);
       formDataToSend.append('url_1', formData.url_1 ? formData.url_1 : eachAccount.url_1);
@@ -91,7 +91,7 @@ const Profile = () => {
             <div className="font-bold mb-1">
               Naming
             </div>
-            <input maxLength={20} className="w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="naming" defaultValue={formData.naming ? formData.naming : naming} onChange={handleChange} />
+            <input placeholder="Nっち" maxLength={20} className="w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="naming" defaultValue={formData.naming ? formData.naming : naming} onChange={handleChange} />
           </div>
 
           {parseInt(role) === 3 || role === undefined ? (
@@ -99,7 +99,7 @@ const Profile = () => {
               <div className="font-bold mb-1">
                 卒業予定
               </div>
-              <input maxLength={4} className="w-18 pl-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="grade" defaultValue={formData.grade ? formData.grade : grade} onChange={handleChange} />
+              <input placeholder="2026" maxLength={4} className="w-18 pl-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="grade" defaultValue={formData.grade ? formData.grade : grade} onChange={handleChange} />
               <span className="ml-1">年3月 {role === undefined ? "" : calculateGrade(formData.grade ? formData.grade : grade)}</span>
             </div>) : (
             ""
@@ -109,31 +109,31 @@ const Profile = () => {
             <div className="font-bold mb-1">
               自己紹介
             </div>
-            <textarea className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="self_introduction" defaultValue={formData.self_introduction ? formData.self_introduction : self_introduction} onChange={handleChange} />
+            <textarea placeholder="週3で通ってます！仲良くしてね！" className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="self_introduction" defaultValue={formData.self_introduction ? formData.self_introduction : self_introduction} onChange={handleChange} />
           </div>
 
           <div className="mb-2">
             <div className="font-bold mb-1">
               スキル
             </div>
-            <textarea className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="skill" defaultValue={formData.skill ? formData.skill : skill} onChange={handleChange} />
+            <textarea placeholder="絵描ける" className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="skill" defaultValue={formData.skill ? formData.skill : skill} onChange={handleChange} />
           </div>
 
           <div className="mb-2">
             <div className="font-bold mb-1">
               趣味
             </div>
-            <textarea className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="hobby" defaultValue={formData.hobby ? formData.hobby : hobby} onChange={handleChange} />
+            <textarea placeholder="カラオケ" className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="hobby" defaultValue={formData.hobby ? formData.hobby : hobby} onChange={handleChange} />
           </div>
 
           <div className="mb-2">
             <div className="font-bold mb-1">
               URL
             </div>
-            <input maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_1" defaultValue={formData.url_1 ? formData.url_1 : url_1} onChange={handleChange} />
-            <input maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_2" defaultValue={formData.url_2 ? formData.url_2 : url_2} onChange={handleChange} />
-            <input maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_3" defaultValue={formData.url_3 ? formData.url_3 : url_3} onChange={handleChange} />
-            <input maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_4" defaultValue={formData.url_4 ? formData.url_4 : url_4} onChange={handleChange} />
+            <input placeholder="https://example.com" maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_1" defaultValue={formData.url_1 ? formData.url_1 : url_1} onChange={handleChange} />
+            <input placeholder="https://example.com" maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_2" defaultValue={formData.url_2 ? formData.url_2 : url_2} onChange={handleChange} />
+            <input placeholder="https://example.com" maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_3" defaultValue={formData.url_3 ? formData.url_3 : url_3} onChange={handleChange} />
+            <input placeholder="https://example.com" maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_4" defaultValue={formData.url_4 ? formData.url_4 : url_4} onChange={handleChange} />
           </div>
 
           <div>

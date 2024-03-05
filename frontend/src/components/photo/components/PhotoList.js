@@ -63,13 +63,13 @@ const PhotoList = () => {
 
   return (
     <>
-    <HelmetProvider>
-      <Helmet>
-        <title>
-          Photo List - TCFS
-        </title>
-      </Helmet>
-    </HelmetProvider>
+      <HelmetProvider>
+        <Helmet>
+          <title>
+            Photo List - TCFS
+          </title>
+        </Helmet>
+      </HelmetProvider>
       <div className="flex">
         <UploadPhoto onSearch={handleSearch} />
         <div className="flex justify-center">
@@ -99,7 +99,7 @@ const PhotoList = () => {
                 setModalIsOpen(false);
               }}
               overlayClassName="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-              className={`transition-opacity w-full max-w-120 bg-gray-100 top-42/100 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute pt-12 max-sm:pt-8 pb-5 px-16 max-sm:px-4 rounded-xl outline-none`}
+              className={`transition-opacity w-full max-w-240 max-sm:max-w-120 bg-gray-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute pt-12 max-sm:pt-8 pb-5 px-16 max-sm:px-4 rounded-xl outline-none`}
             >
               {parseInt(eachAccount.id) === selectedPhoto.created_by_id || parseInt(eachAccount.role) <= 2 ? (
                 <div className="flex justify-end">
@@ -114,11 +114,13 @@ const PhotoList = () => {
               <div className="text-center p-4 pt-0">
                 <div className="text-4xl font-bold mb-2">{selectedPhoto.title}</div>
                 <div className="text-xl mb-8">{selectedPhoto.tags}</div>
-                <img
-                  src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${selectedPhoto.image_name}`}
-                  alt=""
-                  className="w-full"
-                />
+                <div className="flex flex-col items-center">
+                  <img
+                    src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${selectedPhoto.image_name}`}
+                    alt=""
+                    className="h-120 max-md:h-48"
+                  />
+                </div>
                 <div className="flex justify-between mt-2 text-xs text-info">
                   <div>
                     作成者：
