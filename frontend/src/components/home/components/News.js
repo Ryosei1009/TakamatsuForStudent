@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { newsListTimeFormat } from '../../../utils/TimeUtil';
 import { lastestTruncateText } from '../../../utils/TextUtil';
-import { fetchData } from '../../../utils/Fetch';
+import { fetchData } from '../../../utils/DatabaseUtil';
 
 const News = () => {
     const [news, setNews] = useState([]);
@@ -17,7 +17,7 @@ const News = () => {
             </div>
             <div className="flex justify-center max-md:flex-col max-md:items-center mx-28 max-xl:mx-8 max-lg:mx-3 gap-16 max-2xl:gap-8 max-lg:gap-6 mt-8">
                 {news.slice().reverse().slice(0, 3).map((item) => (
-                    <a href={`/news/${item.id}`} className="hover:opacity-70 w-full max-md:w-3/4 max-sm:w-11/12 bg-violet-200 rounded-3xl px-8 pt-10 pb-5 max-xl:px-6 max-xl:pt-8 max-xl:pb-4 max-lg:px-4 max-lg:pt-5 max-lg:pb-3 max-md:px-6 max-md:pt-8 max-md:pb-4">
+                    <a key={item.id} href={`/news/${item.id}`} className="hover:opacity-70 w-full max-md:w-3/4 max-sm:w-11/12 bg-violet-200 rounded-3xl px-8 pt-10 pb-5 max-xl:px-6 max-xl:pt-8 max-xl:pb-4 max-lg:px-4 max-lg:pt-5 max-lg:pb-3 max-md:px-6 max-md:pt-8 max-md:pb-4">
                         <div className="flex justify-center">
                             <img className="w-23/24" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.image_1}`} alt="" />
                         </div>

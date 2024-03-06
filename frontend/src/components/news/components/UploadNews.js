@@ -2,17 +2,16 @@ import { React, useEffect, useState } from 'react'
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
-import { getAccountData } from '../../../utils/AccountUtil';
 import { PhotographIcon } from '@heroicons/react/solid';
+import { fetchData } from '../../../utils/DatabaseUtil';
 
 const UploadNews = () => {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [date, setDate] = useState(Date.now());
     const { user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
-
     useEffect(() => {
-        getAccountData(user, setEachAccount);
+        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
     }, [user]);
 
     const [formData, setFormData] = useState({
@@ -33,6 +32,16 @@ const UploadNews = () => {
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
+        if (!file.type.startsWith('image/')) {
+            console.log(event.target.files[0].type)
+            alert('画像ファイルを選択してください');
+            return;
+        };
+        const fileLimit = 1024 * 1024 * 1;
+        if (file.size > fileLimit) {
+          alert('ファイルサイズが大きすぎます。1MB以下のファイルを選択してください。');
+          return
+        }
         setFormData((prevData) => ({
             ...prevData,
             image_1: file,
@@ -48,7 +57,6 @@ const UploadNews = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         try {
             const formDataToSend = new FormData();
             formDataToSend.append('title', formData.title);
@@ -57,13 +65,11 @@ const UploadNews = () => {
             formDataToSend.append('created_by', eachAccount.naming);
             formDataToSend.append('created_by_id', eachAccount.id);
 
-            const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/news`, formDataToSend, {
+            await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/news`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // Important for file upload
                 },
             });
-            console.log('Response from server:', response.data);
-            alert('PERFECT!!!');
             window.location.reload();
         } catch (error) {
             console.error('Error uploading data:', error);

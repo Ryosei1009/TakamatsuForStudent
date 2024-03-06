@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { newsListTimeFormat } from '../../../utils/TimeUtil';
 import { truncateText } from '../../../utils/TextUtil';
-import { fetchData } from '../../../utils/Fetch';
+import { fetchData } from '../../../utils/DatabaseUtil';
 
 const NewsList = () => {
     const [news, setNews] = useState([]);

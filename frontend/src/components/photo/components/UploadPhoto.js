@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { getAccountData } from '../../../utils/AccountUtil';
 import axios from 'axios';
+import { fetchData } from '../../../utils/DatabaseUtil';
 
-const UploadPhotoForm = ({ formData, previewUrl, imageDimensions, handleChange, handleImageChange, handleSubmit }) => (
+var selectedFile;
+
+const UploadPhotoForm = ({ formData, previewUrl, handleChange, handleImageChange, handleSubmit }) => (
   <form onSubmit={handleSubmit} className="p-4 w-72">
     <input maxLength={20} type="text" name="title" value={formData.title} onChange={handleChange} required placeholder="タイトル" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" />
     <select
@@ -20,13 +22,17 @@ const UploadPhotoForm = ({ formData, previewUrl, imageDimensions, handleChange, 
     </select>
     {previewUrl && (
       <div className="mb-2">
-        <img src={previewUrl} alt="Preview" className="w-full h-auto rounded-md" />
+        {selectedFile.type.startsWith('image/') ? (
+          <img src={previewUrl} alt="Preview" className="w-full h-auto rounded-md" />
+        ) : (
+          <video controls src={previewUrl} alt="Preview" className="w-full h-auto rounded-md" />
+        )}
       </div>
     )}
-    <label for="file-upload" class="block mb-2 cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+    <label htmlFor="file-upload" className="block mb-2 cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
       ファイルを選択
     </label>
-    <input id="file-upload" type="file" accept="image/*" name="image" onChange={handleImageChange} className="hidden" required />
+    <input id="file-upload" type="file" accept="image/*, video/*" name="image" onChange={handleImageChange} className="hidden" required />
     <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">送信</button>
   </form>
 );
@@ -57,7 +63,7 @@ const UploadPhoto = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    getAccountData(user, setEachAccount);
+    fetchData('/api/accounts', setEachAccount, user, "email", ".email");
   }, [user]);
 
   const [formData, setFormData] = useState({
@@ -76,22 +82,45 @@ const UploadPhoto = ({ onSearch }) => {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    if (!file.type.startsWith('image/') || !file.type.startsWith('video/')) {
+      alert('画像または動画を選択してください。');
+      return;
+    }
+    const fileLimit = 1024 * 1024 * 50;
+    if (file.size > fileLimit) {
+      alert('ファイルサイズが大きすぎます。50MB以下のファイルを選択してください。');
+      return
+    }
     setFormData((prevData) => ({
       ...prevData,
       image_name: file,
     }));
+
     if (file) {
+      selectedFile = file;
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewUrl(reader.result);
       };
       reader.readAsDataURL(file);
 
-      const img = new Image();
-      img.onload = () => {
-        setImageDimensions({ width: img.width, height: img.height });
-      };
-      img.src = URL.createObjectURL(file);
+      if (file.type.startsWith('image/')) {
+        // 画像の処理
+        const img = new Image();
+        img.onload = () => {
+          setImageDimensions({ width: img.width, height: img.height });
+        };
+        img.src = URL.createObjectURL(file);
+      } else if (file.type.startsWith('video/')) {
+        // 動画の処理
+        const video = document.createElement('video');
+        video.onloadedmetadata = () => {
+          setImageDimensions({ width: video.videoWidth, height: video.videoHeight });
+        };
+        video.src = URL.createObjectURL(file);
+      } else {
+        console.error('Unsupported file type');
+      }
     }
   };
 
@@ -108,13 +137,11 @@ const UploadPhoto = ({ onSearch }) => {
       formDataToSend.append('created_by', eachAccount.naming);
       formDataToSend.append('created_by_id', eachAccount.id);
 
-      const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/photos`, formDataToSend, {
+      await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/photos`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('Response from server:', response.data);
-      // alert('PERFECT!!!');
       window.location.reload();
     } catch (error) {
       console.error('Error uploading data:', error);

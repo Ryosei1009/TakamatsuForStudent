@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { calculateGrade, isStudent } from '../../../utils/AccountUtil';
 import { newLineUtil } from '../../../utils/TextUtil';
-import { fetchData } from '../../../utils/Fetch';
+import { fetchData } from '../../../utils/DatabaseUtil';
 import Modal from 'react-modal';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-
-Modal.setAppElement("#root");
 
 const EachSelfIntroduction = () => {
     const [eachAccount, setEachAccount] = useState({});
@@ -14,14 +12,7 @@ const EachSelfIntroduction = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     useEffect(() => {
-        fetchData('/api/accounts', (data) => {
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].id === parseInt(postId)) {
-                    setEachAccount(data[i]);
-                    break;
-                }
-            }
-        });
+        fetchData('/api/accounts', setEachAccount, parseInt(postId), "id");
     }, [postId]);
 
     function handleModalClick() {

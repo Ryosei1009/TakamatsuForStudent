@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { getAccountData } from "../../utils/AccountUtil";
-import Loading from "./Loading";
+import { fetchData } from "../../utils/DatabaseUtil";
 
 const Header = () => {
-    const { isAuthenticated, isLoading, user } = useAuth0();
+    const { isAuthenticated, user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
     useEffect(() => {
-        getAccountData(user, setEachAccount);
+        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
     }, [user]);
-
-    if (isLoading) {
-        return <Loading />;
-    }
 
     return (
         <>
             <header className="flex bg-opacity-40 bg-white dark:bg-dark-nav justify-around items-center h-16 w-full text-black dark:text-dark duration-300">
-                <nav className="">
+                {isAuthenticated && (
                     <ul className="flex items-center text-xl max-sm:text-base font-bold">
                         <li className="list-none inline-block mr-5 max-sm:mr-3">
                             <a href="/" className="block text-center hover:opacity-40 duration-300">
@@ -37,7 +32,8 @@ const Header = () => {
                             <a href="/selfintroduction/" className="hover:opacity-40">自己紹介</a>
                         </li>
                     </ul>
-                </nav>
+                )}
+
                 <div className="flex items-center">
                     {isAuthenticated && (
                         <div>

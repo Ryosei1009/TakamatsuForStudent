@@ -4,16 +4,16 @@ import { TrashIcon } from '@heroicons/react/solid';
 import { newLineUtil } from '../../../utils/TextUtil';
 import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
 import { format } from 'date-fns';
-import { getAccountData } from '../../../utils/AccountUtil';
 import { useAuth0 } from "@auth0/auth0-react";
+import { deleteData, fetchData } from '../../../utils/DatabaseUtil';
 
 Modal.setAppElement("#root");
 
-const EachEvent = ({ isOpen, onClose, event, showPopup, onTogglePopup, onDelete }) => {
+const EachEvent = ({ isOpen, onClose, event, showPopup, onTogglePopup }) => {
     const { user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
     useEffect(() => {
-        getAccountData(user, setEachAccount);
+        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
     }, [user]);
     const WeekChars = ["日", "月", "火", "水", "木", "金", "土"];
 
@@ -44,7 +44,7 @@ const EachEvent = ({ isOpen, onClose, event, showPopup, onTogglePopup, onDelete 
                                     <div className="w-1/12">
                                         <TrashIcon onClick={onTogglePopup} className="h-7 w-7 cursor-pointer fill-red-500" />
                                         {showPopup && (
-                                            <div className="cursor-pointer hover:underline hover:opacity-90 absolute z-10 bg-white border rounded shadow-sm py-2 px-4 text-red-500" onClick={() => onDelete(event.id)}>
+                                            <div className="cursor-pointer hover:underline hover:opacity-90 absolute z-10 bg-white border rounded shadow-sm py-2 px-4 text-red-500" onClick={() => deleteData(`/delete/event/${event.id}`, '')}>
                                                 削除
                                             </div>
                                         )}

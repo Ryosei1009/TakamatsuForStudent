@@ -1,23 +1,4 @@
-import axios from "axios";
-
-export function getAccountData(user, setEachAccount) {
-    axios.get(`${process.env.REACT_APP_API_DOMAIN}/api/accounts`)
-        .then((response) => {
-            const data = response.data;
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].e_mail === user.email) {
-                    setEachAccount(data[i]);
-                    break;
-                }
-            }
-        })
-        .catch((error) => {
-            console.error(error.message);
-        });
-}
-
 export function isStudent(role) {
-    console.log(role)
     if (role === 3) {
         return "生徒";
     }

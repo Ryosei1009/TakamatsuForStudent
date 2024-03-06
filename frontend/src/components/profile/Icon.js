@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
-import { getAccountData } from '../../utils/AccountUtil';
 import { useAuth0 } from '@auth0/auth0-react';
+import { fetchData } from '../../utils/DatabaseUtil';
 
 const Icon = () => {
     const [previewUrl, setPreviewUrl] = useState(null);
@@ -10,12 +10,22 @@ const Icon = () => {
     const { user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
     useEffect(() => {
-        getAccountData(user, setEachAccount);
+        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
     }, [user]);
 
     const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
         const file = event.target.files[0];
+        if (!file.type.startsWith('image/')) {
+            console.log(event.target.files[0].type)
+            alert('画像ファイルを選択してください');
+            return;
+        };
+        const fileLimit = 1024 * 1024 * 1;
+        if (file.size > fileLimit) {
+          alert('ファイルサイズが大きすぎます。1MB以下のファイルを選択してください。');
+          return
+        }
+        setSelectedFile(file);
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -48,7 +58,6 @@ const Icon = () => {
                 fileInputRef.current.value = '';
             }
             setSelectedFile(null);
-            alert('PERFECT!!!');
             window.location.reload();
         }
     };

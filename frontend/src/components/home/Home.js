@@ -1,7 +1,7 @@
 import React from 'react'
 import Tittle from './components/Tittle'
 import News from './components/News'
-import Other from './components/Other'
+import Other from './components/Others'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 const Home = () => {

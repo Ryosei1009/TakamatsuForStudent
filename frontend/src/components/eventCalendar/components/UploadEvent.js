@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal';
 import { useAuth0 } from '@auth0/auth0-react';
-import { getAccountData } from '../../../utils/AccountUtil';
 import axios from 'axios';
 import { format } from 'date-fns';
 import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
 import { newLineUtil } from '../../../utils/TextUtil';
 import { TrashIcon } from '@heroicons/react/solid';
+import { fetchData } from '../../../utils/DatabaseUtil';
 
 Modal.setAppElement("#root");
 
@@ -27,7 +27,7 @@ const UploadEvent = ({ isOpen, onClose }) => {
     };
 
     useEffect(() => {
-        getAccountData(user, setEachAccount);
+        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
     }, [user]);
 
     const [formData, setFormData] = useState({
@@ -57,9 +57,7 @@ const UploadEvent = ({ isOpen, onClose }) => {
         event.preventDefault();
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/event`, formData);
-            console.log('Response from server:', response.data);
-            alert('PERFECT!!!');
+            await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/event`, formData);
             window.location.reload();
         } catch (error) {
             console.error('Error uploading data:', error);

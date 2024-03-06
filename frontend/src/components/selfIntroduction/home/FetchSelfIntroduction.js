@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchData } from '../../../utils/Fetch';
+import { fetchData } from '../../../utils/DatabaseUtil';
 import { selfIntroduction } from '../../../utils/TextUtil';
 import { calculateGrade } from '../../../utils/AccountUtil';
 

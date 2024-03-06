@@ -2,10 +2,8 @@ import { React, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { newLineUtil } from '../../utils/TextUtil';
 import { eachNewsTimeFormat } from '../../utils/TimeUtil';
-import { fetchData } from '../../utils/Fetch';
+import { deleteData, fetchData } from '../../utils/DatabaseUtil';
 import { useAuth0 } from "@auth0/auth0-react";
-import { getAccountData } from "../../utils/AccountUtil";
-import axios from 'axios';
 import Modal from 'react-modal';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
@@ -18,29 +16,12 @@ const EachNews = () => {
     const [eachNews, setEachNews] = useState({});
     const { postId } = useParams();
 
-    function deleteNews() {
-        axios.delete(`/delete/news/${postId}`)
-            .then(() => {
-                window.location.href = '/news/';
-            })
-            .catch(error => {
-                console.error('削除エラー:', error);
-            });
-    }
-
     useEffect(() => {
-        fetchData('/api/news', (data) => {
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].id === parseInt(postId)) {
-                    setEachNews(data[i]);
-                    break;
-                }
-            }
-        });
+        fetchData('/api/news', setEachNews, parseInt(postId), "id");
     }, [postId]);
 
     useEffect(() => {
-        getAccountData(user, setEachAccount);
+        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
     }, [user]);
 
     function handleModalClick() {
@@ -66,14 +47,14 @@ const EachNews = () => {
                     <span className="block">
                         {eachNews.title}
                     </span>
-                    {parseInt(eachAccount.id) === eachNews.created_by_id || parseInt(eachAccount.role) <= 2 & (
+                    {eachAccount.id === eachNews.created_by_id || eachAccount.role <= 2 ? (
                         <button
                             onClick={handleModalClick}
                             className="cursor-pointer text-2xl max-md:text-xl max-sm:text-base bg-red-700 hover:bg-red-800 text-white px-4 py-2 max-md:px-2 max-sm:py-1  font-bold rounded"
                         >
                             削除
                         </button>
-                    )}
+                    ) : ("")}
                 </div>
                 <div className="text-xl max-sm:text-base mx-3">
                     <div className="border-gray-500">
@@ -106,7 +87,7 @@ const EachNews = () => {
                             キャンセル
                         </button>
                         <button
-                            onClick={deleteNews}
+                            onClick={() => deleteData(`/delete/news/${postId}`, '/news/')}
                             className="cursor-pointer text-2xl max-md:text-xl max-sm:text-base bg-red-700 hover:bg-red-800 text-white px-4 py-2 max-md:px-2 max-sm:py-1 font-bold rounded"
                         >
                             削除

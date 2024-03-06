@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import { useAuth0 } from "@auth0/auth0-react";
-import { getAccountData } from '../../utils/AccountUtil';
-import { fetchData } from '../../utils/Fetch'
+import { fetchData } from '../../utils/DatabaseUtil'
 import EventModal from './components/EachEvent';
 import Modal from 'react-modal';
 import UploadEvent from './components/UploadEvent';
-import axios from 'axios';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 Modal.setAppElement("#root");
@@ -16,7 +14,7 @@ const Calendar = () => {
   const { user } = useAuth0();
   const [eachAccount, setEachAccount] = useState({});
   useEffect(() => {
-    getAccountData(user, setEachAccount);
+    fetchData('/api/accounts', setEachAccount, user, "email", ".email");
   }, [user]);
 
   const [eventData, setEventData] = useState([]);
@@ -148,16 +146,6 @@ const Calendar = () => {
     setCurrentDate(addDays(startOfMonth(currentDate), -1));
   };
 
-  const deleteEvent = (id) => {
-    axios.delete(`/delete/event/${id}`)
-      .then(() => {
-        window.location.reload();
-      })
-      .catch(error => {
-        console.error('削除エラー:', error);
-      });
-  }
-
   return (
     <>
       <HelmetProvider>
@@ -194,7 +182,6 @@ const Calendar = () => {
         event={selectedEvent}
         showPopup={showPopup}
         onTogglePopup={handleShowPopupClick}
-        onDelete={deleteEvent}
       />
       <UploadEvent
         isOpen={uploadModalIsOpen}

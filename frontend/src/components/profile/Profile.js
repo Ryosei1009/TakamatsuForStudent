@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "../_util/account/LogoutButton";
 import axios from "axios";
-import { calculateGrade, getAccountData, isStudent } from "../../utils/AccountUtil";
+import { calculateGrade, isStudent } from "../../utils/AccountUtil";
 import Icon from "./Icon";
 import { eachNewsTimeFormat } from "../../utils/TimeUtil";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { fetchData } from "../../utils/DatabaseUtil";
 
 const Profile = () => {
   const { user } = useAuth0();
@@ -24,7 +25,7 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    getAccountData(user, setEachAccount);
+    fetchData('/api/accounts', setEachAccount, user, "email", ".email");
   }, [user]);
 
   const handleChange = (event) => {
@@ -56,14 +57,11 @@ const Profile = () => {
       formDataToSend.append('url_4', formData.url_4 ? formData.url_4 : eachAccount.url_4);
       formDataToSend.append('role', eachAccount.role);
 
-      const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/accounts`, formDataToSend, {
+      await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/accounts`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-
-      console.log('Response from server:', response.data);
-      alert('更新が完了しました！');
       window.location.reload();
     } catch (error) {
       console.error('データのアップロード中にエラーが発生しました:', error);
@@ -91,7 +89,15 @@ const Profile = () => {
             <div className="font-bold mb-1">
               Naming
             </div>
-            <input placeholder="Nっち" maxLength={20} className="w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="naming" defaultValue={formData.naming ? formData.naming : naming} onChange={handleChange} />
+            <input
+              placeholder="Nっち"
+              maxLength={20}
+              className="w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
+              type="text"
+              name="naming"
+              defaultValue={naming}
+              onChange={handleChange}
+            />
           </div>
 
           {parseInt(role) === 3 || role === undefined ? (
@@ -99,7 +105,15 @@ const Profile = () => {
               <div className="font-bold mb-1">
                 卒業予定
               </div>
-              <input placeholder="2026" maxLength={4} className="w-18 pl-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="grade" defaultValue={formData.grade ? formData.grade : grade} onChange={handleChange} />
+              <input
+                placeholder="2026"
+                maxLength={4}
+                className="w-18 pl-3 py-1 bg-stone-100 rounded-md border-1"
+                type="text"
+                name="grade"
+                defaultValue={grade}
+                onChange={handleChange}
+              />
               <span className="ml-1">年3月 {role === undefined ? "" : calculateGrade(formData.grade ? formData.grade : grade)}</span>
             </div>) : (
             ""
@@ -109,35 +123,88 @@ const Profile = () => {
             <div className="font-bold mb-1">
               自己紹介
             </div>
-            <textarea placeholder="週3で通ってます！仲良くしてね！" className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="self_introduction" defaultValue={formData.self_introduction ? formData.self_introduction : self_introduction} onChange={handleChange} />
+            <textarea
+              placeholder="週3で通ってます！仲良くしてね！"
+              className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1"
+              type="text"
+              name="self_introduction"
+              defaultValue={self_introduction}
+              onChange={handleChange}
+            />
           </div>
 
           <div className="mb-2">
             <div className="font-bold mb-1">
               スキル
             </div>
-            <textarea placeholder="絵描ける" className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="skill" defaultValue={formData.skill ? formData.skill : skill} onChange={handleChange} />
+            <textarea
+              placeholder="絵描ける"
+              className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1"
+              type="text"
+              name="skill"
+              defaultValue={skill}
+              onChange={handleChange}
+            />
           </div>
 
           <div className="mb-2">
             <div className="font-bold mb-1">
               趣味
             </div>
-            <textarea placeholder="カラオケ" className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="hobby" defaultValue={formData.hobby ? formData.hobby : hobby} onChange={handleChange} />
+            <textarea
+              placeholder="カラオケ"
+              className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1"
+              type="text"
+              name="hobby"
+              defaultValue={hobby}
+              onChange={handleChange}
+            />
           </div>
 
           <div className="mb-2">
             <div className="font-bold mb-1">
               URL
             </div>
-            <input placeholder="https://example.com" maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_1" defaultValue={formData.url_1 ? formData.url_1 : url_1} onChange={handleChange} />
-            <input placeholder="https://example.com" maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_2" defaultValue={formData.url_2 ? formData.url_2 : url_2} onChange={handleChange} />
-            <input placeholder="https://example.com" maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_3" defaultValue={formData.url_3 ? formData.url_3 : url_3} onChange={handleChange} />
-            <input placeholder="https://example.com" maxLength={128} className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1" type="text" name="url_4" defaultValue={formData.url_4 ? formData.url_4 : url_4} onChange={handleChange} />
+            <input
+              placeholder="https://example.com"
+              maxLength={128}
+              className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
+              type="text"
+              name="url_1"
+              defaultValue={url_1}
+              onChange={handleChange}
+            />
+            <input
+              placeholder="https://example.com"
+              maxLength={128}
+              className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
+              type="text"
+              name="url_2"
+              defaultValue={url_2}
+              onChange={handleChange}
+            />
+            <input
+              placeholder="https://example.com"
+              maxLength={128}
+              className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
+              type="text"
+              name="url_3"
+              defaultValue={url_3}
+              onChange={handleChange}
+            />
+            <input
+              placeholder="https://example.com"
+              maxLength={128}
+              className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
+              type="text"
+              name="url_4"
+              defaultValue={url_4}
+              onChange={handleChange}
+            />
           </div>
 
           <div>
-            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-6 max-sm:px-3 rounded">
+            <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-6 max-sm:px-3 rounded">
               更新
             </button>
             <span className="ml-4 max-sm:ml-2">
