@@ -57,7 +57,17 @@ const PhotoList = () => {
                 key={image.id}
               >
                 <i className="block" style={{ paddingBottom: `${image.height / image.width * 100}%` }}></i>
-                {(process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".mp4") ? (
+                {((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".ogm")) ||
+                  ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".wmv")) ||
+                  ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".mpg")) ||
+                  ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".webm")) ||
+                  ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".ogv")) ||
+                  ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".mov")) ||
+                  ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".asx")) ||
+                  ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".mpeg")) ||
+                  ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".mp4")) ||
+                  ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".m4v")) ||
+                  ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".avi")) ? (
                   <video className="z-10 absolute top-0 w-full align-bottom" loading="lazy" controls src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${image.image_name}`}></video>
                 ) : (
                   <img className="z-10 absolute top-0 w-full align-bottom" loading="lazy" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${image.image_name}`} alt="" />

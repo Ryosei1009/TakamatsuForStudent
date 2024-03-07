@@ -1,9 +1,13 @@
 import { React, useEffect, useState } from 'react'
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
-import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
+import { newsListTimeFormat } from '../../../utils/TimeUtil';
 import { PhotographIcon } from '@heroicons/react/solid';
 import { fetchData } from '../../../utils/DatabaseUtil';
+import { truncateText } from '../../../utils/TextUtil';
+import Modal from 'react-modal';
+
+Modal.setAppElement("#root");
 
 const UploadNews = () => {
     const [previewUrl, setPreviewUrl] = useState(null);
@@ -13,6 +17,13 @@ const UploadNews = () => {
     useEffect(() => {
         fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
+
+    const [previewOpen, setPreviewOpen] = useState(false);
+
+    const handlePreviewOpen = () => {
+        setPreviewOpen(!previewOpen);
+        console.log(previewOpen)
+    }
 
     const [formData, setFormData] = useState({
         title: '',
@@ -39,8 +50,8 @@ const UploadNews = () => {
         };
         const fileLimit = 1024 * 1024 * process.env.REACT_APP_NEWS_SIZE_LIMIT;
         if (file.size > fileLimit) {
-          alert(`ファイルサイズが大きすぎます。${process.env.REACT_APP_NEWS_SIZE_LIMIT}MB以下のファイルを選択してください。`);
-          return
+            alert(`ファイルサイズが大きすぎます。${process.env.REACT_APP_NEWS_SIZE_LIMIT}MB以下のファイルを選択してください。`);
+            return
         }
         setFormData((prevData) => ({
             ...prevData,
@@ -77,41 +88,74 @@ const UploadNews = () => {
     };
 
     return (
-        <div>
-            <div className="font-bold text-4xl mb-6">
-                ニュースを投稿
-            </div>
-            <form onSubmit={handleSubmit} className="px-8 max-md:px-2 py-0">
-                <div className="text-5xl max-md:text-xl font-bold mb-10 max-md:mb-4">
-                    <input className="border-b-2 p-3 max-md:p-1 border-black block bg-white bg-opacity-40 rounded-t-xl w-full" type="text" name="title" value={formData.title} onChange={handleChange} maxLength={20} required placeholder="タイトル" />
-                </div>
-                <div className="text-xl mx-0">
-                    <textarea className="bg-white bg-opacity-40 p-4 border-1 w-full rounded-xl h-96 max-md:h-72" type="text" name="text" value={formData.text} onChange={handleChange} required placeholder="本文" />
+        <>
+            <div className="text-center border-8 bg-stone-300 pt-9 max-sm:pt-6 pb-12 px-16 max-sm:px-4 rounded-xl flex flex-col items-center border-green-500">
+                <button
+                    onClick={handlePreviewOpen}
+                    className="bg-orange-400 text-white px-4 py-2 rounded-md hover:bg-orange-600 focus:outline-none mb-3"
+                >
+                    プレビュー表示
+                </button>
+                <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col gap-3 w-full"
+                >
+                    <input
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        maxLength={20} required placeholder="タイトル"
+                        className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500"
+                    />
+
+                    <textarea
+                        type="text"
+                        name="text"
+                        value={formData.text}
+                        onChange={handleChange}
+                        required
+                        placeholder="本文"
+                        className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500"
+                    />
                     {previewUrl && (
                         <div>
-                            <img src={previewUrl} alt="Preview" className="rounded-3xl my-4 duration-300 inline-block bg-bg-light" />
+                            <img src={previewUrl} alt="Preview" className="rounded-3xl duration-300 inline-block bg-bg-light" />
                         </div>
                     )}
-                </div>
-                <div className="text-info flex max-md:flex-col items-center justify-between">
-                    <div className="max-md:text-sm">
-                        {eachNewsTimeFormat(date)}
-                        <span className="ml-4">
-                            {eachAccount.naming}
-                        </span>
-                    </div>
-                    <div className="flex items-center max-md:mt-2">
-                        <label for="file-upload" class="mr-4 cursor-pointer bg-blue-500 hover:bg-blue-600 flex items-center text-white text-xl font-bold py-2 px-8 max-md:px-4 rounded-lg">
-                            <PhotographIcon className="w-6 mr-2"/>
+                    <div className="flex justify-between">
+                        <label for="file-upload" class="w-7/12 cursor-pointer bg-blue-500 hover:bg-blue-600 flex items-center text-white text-xl font-bold px-4 py-2 rounded-md">
+                            <PhotographIcon className="w-6 mr-2" />
                             ファイルを選択
                         </label>
                         <input id="file-upload" type="file" accept="image/*" name="image_1" onChange={handleImageChange} className="hidden" required />
-                        <button type="submit" className="bg-green-500 hover:bg-green-700 text-white px-12 max-md:px-4 py-2 text-xl rounded-lg hover:opacity-75">送信</button>
-
+                        <button type="submit" className="w-4/12 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">送信</button>
+                    </div>
+                </form>
+            </div>
+            <Modal
+                isOpen={previewOpen}
+                onRequestClose={handlePreviewOpen}
+                overlayClassName="fixed inset-0 bg-white bg-opacity-70 transition-opacity"
+                className={`flex justify-center transition-opacity w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute outline-none bg-bg-light border-green-500 border-y-8 px-6`}
+            >
+                <div className="border-l-4 border-black max-sm:border-l-0 max-sm:pl-0 pl-10">
+                    <div className="flex items-center max-sm:flex-col my-8 rounded-xl hover:opacity-90">
+                        <div className="max-xl:w-1/2 w-2/5 max-sm:w-full">
+                            <img src={previewUrl ? (previewUrl) : ("https://via.placeholder.com/960x540/?text=Select Image.")} alt="Preview" className='rounded-xl' />
+                        </div>
+                        <div className="max-md:w-2/5 w-1/2 ml-12 max-md:ml-0 max-sm:w-full max-sm:my-3">
+                            <div className="flex items-end">
+                                <p className="text-2xl">{newsListTimeFormat(date)}</p>
+                                <p className="ml-6 text-lg">{eachAccount.naming}</p>
+                            </div>
+                            <p className="text-4xl max-md:text-2xl mt-5 max-sm:mt-2 ml-12 max-xl:ml-8 max-md:ml-6 max-sm:ml-4 font-bold">{formData.title}</p>
+                            <p className="text-gray-600 leading-6 text-xl mt-5 max-sm:mt-2">{truncateText(formData.text)}</p>
+                        </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </Modal>
+        </>
     )
 }
 

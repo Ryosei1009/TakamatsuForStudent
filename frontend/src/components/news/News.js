@@ -27,20 +27,19 @@ const News = () => {
                     </title>
                 </Helmet>
             </HelmetProvider>
+
             <div className="flex items-center justify-around mt-10">
                 <p className="text-6xl font-bold">News</p>
                 <button onClick={toggleUpload} className="text-2xl text-white px-6 py-3 rounded-xl border-2 bg-blue-600 hover:bg-blue-500">Upload</button>
             </div>
-            <div>
-                <NewsList />
-            </div>
+            <NewsList />
             <Modal
                 isOpen={uploadOpen}
                 onRequestClose={() => {
                     setUploadOpen(false);
                 }}
-                overlayClassName="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-                className={`w-full max-w-240 max-xl:max-w-90vw max-md:max-h-90vh bg-gray-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute pt-14 pb-12 max-md:pb-6 px-16 max-md:px-6 max-sm:px-3 rounded-xl outline-none transition-opacity overflow-auto max-h-full m-auto`}
+                overlayClassName="fixed inset-0 bg-white bg-opacity-70 transition-opacity"
+                className={`transition-opacity w-full max-w-120 top-42/100 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute outline-none`}
             >
                 <UploadNews />
             </Modal>

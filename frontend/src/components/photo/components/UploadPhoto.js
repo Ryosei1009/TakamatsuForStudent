@@ -82,15 +82,18 @@ const UploadPhoto = ({ onSearch }) => {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    if (!file.type.startsWith('image/') || !file.type.startsWith('video/')) {
-      alert('画像または動画を選択してください。');
-      return;
+    if (!file.type.startsWith('image/')) {
+      if (!file.type.startsWith('video/')) {
+        alert('画像または動画を選択してください。');
+        return;
+      }
     }
     const fileLimit = 1024 * 1024 * process.env.REACT_APP_PHOTO_SIZE_LIMIT;
     if (file.size > fileLimit) {
       alert(`ファイルサイズが大きすぎます。${process.env.REACT_APP_PHOTO_SIZE_LIMIT}MB以下のファイルを選択してください。`);
       return
     }
+    console.log("ok")
     setFormData((prevData) => ({
       ...prevData,
       image_name: file,

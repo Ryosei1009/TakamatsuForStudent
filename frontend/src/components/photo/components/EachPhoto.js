@@ -39,22 +39,35 @@ const EachPhoto = ({ modalIsOpen, selectedPhoto, setSelectedPhoto, setModalIsOpe
                     <div className="text-4xl font-bold mb-2">{selectedPhoto.title}</div>
                     <div className="text-xl mb-8">{selectedPhoto.tags}</div>
                     <div className="flex flex-col items-center">
-                        <img
+                        {((process.env.REACT_APP_IMAGE_DOMAIN + "/" + selectedPhoto.image_name).includes(".ogm")) ||
+                         ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + selectedPhoto.image_name).includes(".wmv")) ||
+                         ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + selectedPhoto.image_name).includes(".mpg")) ||
+                         ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + selectedPhoto.image_name).includes(".webm")) ||
+                         ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + selectedPhoto.image_name).includes(".ogv")) ||
+                         ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + selectedPhoto.image_name).includes(".mov")) ||
+                         ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + selectedPhoto.image_name).includes(".asx")) ||
+                         ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + selectedPhoto.image_name).includes(".mpeg")) ||
+                         ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + selectedPhoto.image_name).includes(".mp4")) ||
+                         ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + selectedPhoto.image_name).includes(".m4v")) ||
+                         ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + selectedPhoto.image_name).includes(".avi")) ? (
+                        <video
                             src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${selectedPhoto.image_name}`}
-                            alt=""
+                            controls
                             className="h-full w-full"
                         />
+                        ) : (
+                            <img
+                                src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${selectedPhoto.image_name}`}
+                                alt=""
+                                className="h-full w-full"
+                            />
+                        )}
                     </div>
-                    <div className="flex justify-between mt-2 text-xs text-info">
-                        <div>
-                            作成者：
+                    <div className="flex justify-start mt-2 text-info">
+                            {eachNewsTimeFormat(selectedPhoto.created_at)}・
                             <a href={`../selfintroduction/${selectedPhoto.created_by_id}`} className="hover:underline">
                                 {selectedPhoto.created_by}
                             </a>
-                        </div>
-                        <div>
-                            {eachNewsTimeFormat(selectedPhoto.created_at)}
-                        </div>
                     </div>
                 </div>
             </Modal>
