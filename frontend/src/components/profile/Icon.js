@@ -10,7 +10,7 @@ const Icon = () => {
     const { user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
     useEffect(() => {
-        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
+        fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
 
     const handleFileChange = (event) => {
@@ -20,9 +20,9 @@ const Icon = () => {
             alert('画像ファイルを選択してください');
             return;
         };
-        const fileLimit = 1024 * 1024 * 1;
+        const fileLimit = 1024 * 1024 * process.env.REACT_APP_ICON_SIZE_LIMIT;
         if (file.size > fileLimit) {
-          alert('ファイルサイズが大きすぎます。1MB以下のファイルを選択してください。');
+          alert(`ファイルサイズが大きすぎます。${process.env.REACT_APP_ICON_SIZE_LIMIT}MB以下のファイルを選択してください。`);
           return
         }
         setSelectedFile(file);

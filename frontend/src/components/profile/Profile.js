@@ -25,7 +25,8 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    fetchData('/api/accounts', setEachAccount, user, "email", ".email");
+    fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
+    console.log(eachAccount)
   }, [user]);
 
   const handleChange = (event) => {

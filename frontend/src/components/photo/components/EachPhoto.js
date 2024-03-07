@@ -12,7 +12,7 @@ const EachPhoto = ({ modalIsOpen, selectedPhoto, setSelectedPhoto, setModalIsOpe
     const [eachAccount, setEachAccount] = useState({});
 
     useEffect(() => {
-        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
+        fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
     return (
         <>

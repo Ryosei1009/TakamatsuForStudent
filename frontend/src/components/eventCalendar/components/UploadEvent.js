@@ -27,7 +27,7 @@ const UploadEvent = ({ isOpen, onClose }) => {
     };
 
     useEffect(() => {
-        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
+        fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
 
     const [formData, setFormData] = useState({

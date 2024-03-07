@@ -14,7 +14,7 @@ const Calendar = () => {
   const { user } = useAuth0();
   const [eachAccount, setEachAccount] = useState({});
   useEffect(() => {
-    fetchData('/api/accounts', setEachAccount, user, "email", ".email");
+    fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
   }, [user]);
 
   const [eventData, setEventData] = useState([]);

@@ -8,6 +8,7 @@ export async function fetchData(url, setData = null, eachData = null, target = n
         if (target && eachData) {
             for (let i = 0; i < data.length; i++) {
                 if (eachTarget) {
+                    console.log(data[i][target], eachData[eachTarget]);
                     if (data[i][target] === eachData[eachTarget]) {
                         setData(data[i]);
                         return;

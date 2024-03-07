@@ -21,7 +21,7 @@ const EachNews = () => {
     }, [postId]);
 
     useEffect(() => {
-        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
+        fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
 
     function handleModalClick() {

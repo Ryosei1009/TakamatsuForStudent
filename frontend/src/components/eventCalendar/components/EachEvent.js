@@ -13,7 +13,7 @@ const EachEvent = ({ isOpen, onClose, event, showPopup, onTogglePopup }) => {
     const { user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
     useEffect(() => {
-        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
+        fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
     const WeekChars = ["日", "月", "火", "水", "木", "金", "土"];
 

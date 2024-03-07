@@ -1,5 +1,5 @@
 export function isStudent(role) {
-    if (role === 3) {
+    if (role === 3 || role === 0) {
         return "生徒";
     }
     if (role === 2) {

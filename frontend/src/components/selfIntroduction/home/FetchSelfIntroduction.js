@@ -49,6 +49,7 @@ const FetchSelfIntroduction = () => {
         <div>
             {renderAccounts(1)}
             {renderAccounts(2)}
+            {renderAccounts(0)}
             {renderAccounts(3)}
         </div>
     );

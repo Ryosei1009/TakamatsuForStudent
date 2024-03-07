@@ -6,7 +6,7 @@ const Header = () => {
     const { isAuthenticated, user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
     useEffect(() => {
-        fetchData('/api/accounts', setEachAccount, user, "email", ".email");
+        fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
 
     return (
