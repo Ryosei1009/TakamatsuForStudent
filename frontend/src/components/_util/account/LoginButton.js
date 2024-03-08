@@ -11,6 +11,11 @@ const LoginButton = () => {
                         Login
                     </button>
                 </div>
+                <div className="mt-6">
+                    ※ ログインした時点で
+                    <a className="hover:underline text-blue-500 cursor-pointer" href="/fromdev/userpolicy">本利用規約</a>
+                    に同意したものとみなされます。
+                </div>
             </div>
         </>
     )

@@ -33,7 +33,7 @@ const UploadPhotoForm = ({ formData, previewUrl, handleChange, handleImageChange
       ファイルを選択
     </label>
     <input id="file-upload" type="file" accept="image/*, video/*" name="image" onChange={handleImageChange} className="hidden" required />
-    <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">アップロード</button>
+    <button type="submit" className="bg-green-500 text-white font-bold px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">アップロード</button>
   </form>
 );
 
@@ -89,9 +89,11 @@ const UploadPhoto = ({ onSearch }) => {
       }
     }
     const fileLimit = 1024 * 1024 * process.env.REACT_APP_PHOTO_SIZE_LIMIT;
-    if (file.size > fileLimit) {
-      alert(`ファイルサイズが大きすぎます。${process.env.REACT_APP_PHOTO_SIZE_LIMIT}MB以下のファイルを選択してください。`);
-      return
+    if (eachAccount.role !== 0) {
+      if (file.size > fileLimit) {
+        alert(`ファイルサイズが大きすぎます。${process.env.REACT_APP_PHOTO_SIZE_LIMIT}MB以下のファイルを選択してください。`);
+        return
+      }
     }
     console.log("ok")
     setFormData((prevData) => ({

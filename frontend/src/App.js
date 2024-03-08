@@ -17,6 +17,8 @@ import EachSelfIntroduction from './components/selfIntroduction/eachSelfIntroduc
 import Loading from './components/_util/Loading';
 import UploadEvent from './components/eventCalendar/components/UploadEvent';
 import FromDev from './components/fromDev/FromDev';
+import UserPolicy from './components/fromDev/componets/UserPolicy';
+import PrivacyPolicy from './components/fromDev/componets/PrivacyPolicy';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -45,6 +47,8 @@ function App() {
             <Route path="/photo" element={<Photo />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/fromdev" element={<FromDev />} />
+            <Route path="/fromdev/userpolicy" element={<UserPolicy />} />
+            <Route path="/fromdev/privacypolicy" element={<PrivacyPolicy />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
           <Footer />
@@ -52,7 +56,10 @@ function App() {
       ) : (
         <div className="bg-bg-light">
           <Header />
-          <LoginButton />
+          <Routes>
+            <Route path="/" element={<LoginButton />} />
+            <Route path="/fromdev/userpolicy" element={<UserPolicy />} />
+          </Routes>
           <Footer />
         </div>
       )}

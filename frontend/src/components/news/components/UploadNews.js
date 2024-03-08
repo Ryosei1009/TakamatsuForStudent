@@ -129,7 +129,7 @@ const UploadNews = () => {
                             ファイルを選択
                         </label>
                         <input id="file-upload" type="file" accept="image/*" name="image_1" onChange={handleImageChange} className="hidden" required />
-                        <button type="submit" className="w-4/12 text-white px-4 py-2 rounded-md bg-green-500 hover:bg-green-700 focus:bg-blue-600 focus:outline-none">作成</button>
+                        <button type="submit" className="w-4/12 text-white font-bold px-4 py-2 rounded-md bg-green-500 hover:bg-green-700 focus:bg-blue-600 focus:outline-none">作成</button>
                     </div>
                 </form>
             </div>
