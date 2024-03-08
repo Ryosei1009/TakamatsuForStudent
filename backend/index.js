@@ -36,7 +36,7 @@ connection.connect((err) => {
 
 //CORS設定
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Origin', 'https://www.takamatsu-ns.com');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
@@ -161,20 +161,21 @@ app.post('/upload/accounts/icon', accountUpload.single('icon_name'), (req, res) 
 });
 
 app.post('/upload/accounts', accountUpload.single('icon_name'), (req, res) => {
+  console.log(req.body)
   var { id, name, e_mail, naming, icon_name, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role } = req.body;
   const update_at = Date.now();
 
   if (id === "undefined" || id === undefined) {
-    naming = naming ? naming : "";
+    naming = naming === undefined ? naming : "";
     var icon_name = "";
-    grade = grade ? grade : "";
-    self_introduction = self_introduction ? self_introduction : "";
-    skill = skill ? skill : "";
-    hobby = hobby ? hobby : "";
-    url_1 = url_1 ? url_1 : "";
-    url_2 = url_2 ? url_2 : "";
-    url_3 = url_3 ? url_3 : "";
-    url_4 = url_4 ? url_4 : "";
+    grade = grade === undefined ? grade : "";
+    self_introduction = self_introduction === undefined ? self_introduction : "";
+    skill = skill === undefined ? skill : "";
+    hobby = hobby === undefined ? hobby : "";
+    url_1 = url_1 === undefined ? url_1 : "";
+    url_2 = url_2 === undefined ? url_2 : "";
+    url_3 = url_3 === undefined ? url_3 : "";
+    url_4 = url_4 === undefined ? url_4 : "";
     role = 3;
     id = null;
     var query = 'INSERT INTO `account` (name, e_mail, naming, icon_name, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';

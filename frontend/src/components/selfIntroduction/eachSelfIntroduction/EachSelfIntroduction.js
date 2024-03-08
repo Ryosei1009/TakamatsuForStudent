@@ -36,9 +36,6 @@ const EachSelfIntroduction = () => {
                 </Helmet>
             </HelmetProvider>
             <div className="mx-96 max-2xl:mx-64 max-xl:mx-52 max-lg:mx-36 max-md:mx-24 max-sm:mx-8 my-8">
-                <div className="text-4xl font-bhttps://auth0.auth0.com/u/login/identifier?state=hKFo2SA3R0pFWjlpSW5Lenp2SEpXUl9WVWFTWXl2d0lTcnR2aaFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIHNIOTY3ejZQdUo3QnpMUVBOYWdKSHFuQ1AtSmFNMEpKo2NpZNkgekVZZnBvRnpVTUV6aWxoa0hpbGNXb05rckZmSjNoQUkold my-6 max-sm:text-2xl">
-                    {naming}のプロフィール
-                </div>
                 <div className="flex items-end justify-start mb-12">
                     <img
                         src={icon_name === undefined || icon_name === "" ? `/images/accounts/default.jpeg` : `${process.env.REACT_APP_IMAGE_DOMAIN}/${icon_name}`}

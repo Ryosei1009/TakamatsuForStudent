@@ -29,8 +29,8 @@ const News = () => {
             </HelmetProvider>
 
             <div className="flex items-center justify-around mt-10">
-                <p className="text-6xl font-bold">News</p>
-                <button onClick={toggleUpload} className="text-2xl text-white px-6 py-3 rounded-xl border-2 bg-blue-600 hover:bg-blue-500">Upload</button>
+                <p className="text-6xl max-md:text-4xl font-bold">News</p>
+                <button onClick={toggleUpload} className="text-xl max-md:text-base font-bold text-white px-4 py-2 rounded-xl border-2 bg-green-500 hover:bg-green-700">ニュースを作成</button>
             </div>
             <NewsList />
             <Modal

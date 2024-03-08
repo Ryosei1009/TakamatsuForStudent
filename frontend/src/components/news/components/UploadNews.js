@@ -124,12 +124,12 @@ const UploadNews = () => {
                         </div>
                     )}
                     <div className="flex justify-between">
-                        <label for="file-upload" class="w-7/12 cursor-pointer bg-blue-500 hover:bg-blue-600 flex items-center text-white text-xl font-bold px-4 py-2 rounded-md">
+                        <label for="file-upload" class="w-7/12 cursor-pointer bg-blue-500 hover:bg-blue-600 flex items-center text-white font-bold px-4 py-2 rounded-md">
                             <PhotographIcon className="w-6 mr-2" />
                             ファイルを選択
                         </label>
                         <input id="file-upload" type="file" accept="image/*" name="image_1" onChange={handleImageChange} className="hidden" required />
-                        <button type="submit" className="w-4/12 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">送信</button>
+                        <button type="submit" className="w-4/12 text-white px-4 py-2 rounded-md bg-green-500 hover:bg-green-700 focus:bg-blue-600 focus:outline-none">作成</button>
                     </div>
                 </form>
             </div>

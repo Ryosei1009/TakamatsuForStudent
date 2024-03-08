@@ -33,7 +33,7 @@ const UploadPhotoForm = ({ formData, previewUrl, handleChange, handleImageChange
       ファイルを選択
     </label>
     <input id="file-upload" type="file" accept="image/*, video/*" name="image" onChange={handleImageChange} className="hidden" required />
-    <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">送信</button>
+    <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">アップロード</button>
   </form>
 );
 

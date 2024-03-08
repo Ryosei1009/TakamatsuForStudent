@@ -102,7 +102,7 @@ const UploadEvent = ({ isOpen, onClose }) => {
                         </div>
                         <input value={formData.title} id="title" placeholder="タイトル" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" type="text" name="title" onChange={handleChange} required />
                         <textarea value={formData.text} placeholder="詳細" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" name="text" onChange={handleChange} required ></textarea>
-                        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">送信</button>
+                        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">作成</button>
                     </form>
                 </div>
             </Modal>

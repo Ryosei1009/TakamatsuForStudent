@@ -45,7 +45,7 @@ const Profile = () => {
       formDataToSend.append('id', eachAccount.id);
       formDataToSend.append('name', user.name);
       formDataToSend.append('e_mail', user.email);
-      formDataToSend.append('naming', formData.naming ? formData.naming : eachAccount.naming);
+      formDataToSend.append('naming', eachAccount.naming ? (formData.naming ? formData.naming : eachAccount.naming) : (""));
       formDataToSend.append('icon_name', eachAccount.icon_name);
       formDataToSend.append('grade', formData.grade ? formData.grade : eachAccount.grade);
       formDataToSend.append('self_introduction', formData.self_introduction ? formData.self_introduction : eachAccount.self_introduction);
