@@ -42,33 +42,39 @@ const EachNews = () => {
                     </title>
                 </Helmet>
             </HelmetProvider>
-            <div className="mx-72 max-2xl:mx-36 max-xl:mx-24 max-lg:mx-12 max-md:mx-8 max-sm:mx-4 py-8">
-                <div className="text-5xl max-md:text-3xl max-sm:text-xl font-bold mb-10 max-sm:mb-4 border-b-2 p-3 border-black flex justify-between">
-                    <span className="block">
-                        {eachNews.title}
-                    </span>
-                    {eachAccount.id === eachNews.created_by_id || eachAccount.role <= 2 ? (
-                        <button
-                            onClick={handleModalClick}
-                            className="cursor-pointer text-2xl max-md:text-xl max-sm:text-base bg-red-700 hover:bg-red-800 text-white px-4 py-2 max-md:px-2 max-sm:py-1  font-bold rounded"
-                        >
-                            削除
-                        </button>
-                    ) : ("")}
-                </div>
-                <div className="text-xl max-sm:text-base mx-3">
-                    <div className="border-gray-500">
-                        {newLineUtil(eachNews.text || '')}
+            <div class="container mx-auto">
+                <div class="max-w-4xl mx-auto p-8 max-sm:p-6 shadow-md max-sm:shadow-none bg-white max-sm:bg-bg-light">
+                    <img src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${eachNews.image_1}`} alt="" class="w-full mb-4 rounded-lg" />
+
+                    <div className="flex justify-between">
+                        <h1 class="text-3xl max-lg:text-2xl max-sm:text-xl font-bold text-gray-800 mb-2">
+                            {eachNews.title}
+                        </h1>
+                        <div className="flex items-center">
+                            {eachAccount.id === eachNews.created_by_id || eachAccount.role <= 2 ? (
+                                <button
+                                    onClick={handleModalClick}
+                                    className="cursor-pointer text-lg bg-red-700 hover:bg-red-800 text-white px-4 py-2 max-md:px-2 max-sm:py-1 min-w-16 font-bold rounded"
+                                >
+                                    削除
+                                </button>
+                            ) : ("")}
+                        </div>
                     </div>
-                    <img className="rounded-3xl my-4 duration-300 inline-block" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${eachNews.image_1}`} alt="" />
-                </div>
-                <div className="text-info">
-                    {eachNewsTimeFormat(eachNews.created_at)}・
-                    <a href={`../selfintroduction/${eachNews.created_by_id}`} className="hover:underline">
-                        {eachNews.created_by}
-                    </a>
+
+                    <p class="text-gray-700 mb-4">
+                        {newLineUtil(eachNews.text || '')}
+                    </p>
+
+                    <div className="text-info">
+                        {eachNewsTimeFormat(eachNews.created_at)}・
+                        <a href={`../selfintroduction/${eachNews.created_by_id}`} className="hover:underline">
+                            {eachNews.created_by}
+                        </a>
+                    </div>
                 </div>
             </div>
+
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => {
@@ -95,6 +101,7 @@ const EachNews = () => {
                     </div>
                 </div>
             </Modal>
+
         </>
     )
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { newsListTimeFormat } from '../../../utils/TimeUtil';
 import { truncateText } from '../../../utils/TextUtil';
 import { fetchData } from '../../../utils/DatabaseUtil';
+import Loading from '../../_util/Loading';
 
 const NewsList = () => {
     const [news, setNews] = useState([]);
@@ -12,7 +13,7 @@ const NewsList = () => {
 
     return (
         <div className="mx-72 max-2xl:mx-36 max-xl:mx-24 max-lg:mx-12 max-md:mx-8 border-l-4 border-black max-sm:border-l-0 max-sm:pl-0 pl-10">
-            {news.length > 0 ? (
+            {news ? (
                 news.slice().reverse().map((item) => (
                     <a href={`./${item.id}`} key={item.id} className="flex items-center max-sm:flex-col my-8 rounded-xl hover:opacity-90">
                         <div className="max-xl:w-1/2 w-2/5 max-sm:w-full">
@@ -29,7 +30,7 @@ const NewsList = () => {
                     </a>
                 ))
             ) : (
-                <p>No news available.</p>
+                <Loading />
             )}
         </div>
     )

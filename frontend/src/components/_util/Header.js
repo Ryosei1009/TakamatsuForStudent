@@ -38,7 +38,7 @@ const Header = () => {
                     {isAuthenticated && (
                         <div>
                             <a href="/profile/" >
-                                <img className="w-12 rounded-full" src={eachAccount.icon_name === undefined || eachAccount.icon_name === "" ? `/images/accounts/default.jpeg` : `${process.env.REACT_APP_IMAGE_DOMAIN}/${eachAccount.icon_name}`} alt="" />
+                                <img className="w-12 rounded-full" src={eachAccount.icon_name === undefined || eachAccount.icon_name === "" || !eachAccount ? `/images/accounts/default.jpeg` : `${process.env.REACT_APP_IMAGE_DOMAIN}/${eachAccount.icon_name}`} alt="" />
                             </a>
                         </div>
                     )}
