@@ -15,8 +15,8 @@ export function truncateText(text) {
 }
 
 export function lastestTruncateText(text) {
-    if (text.length > 63) {
-        return text.substring(0, 63) + "...";
+    if (text.length > 33) {
+        return text.substring(0, 33) + "...";
     } else {
         return text;
     }
