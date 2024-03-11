@@ -8,7 +8,6 @@ require('dotenv').config();
 const port = 443;
 const { mw } = require("request-ip");
 const fs = require('fs');
-const dateTime = new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
 app.use(`/images`, express.static(`images`));
 
 //https接続にするための設定
@@ -47,6 +46,7 @@ const logFilePath = 'logs/logs.txt';
 const shortLogFilePath = 'logs/shortLogs.txt';
 
 app.use((req, res, next) => {
+  const dateTime = new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
   const logMessage = `
 [${dateTime}]
   Request Details:

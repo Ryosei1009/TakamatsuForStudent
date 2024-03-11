@@ -7,6 +7,7 @@ import EventModal from './components/EachEvent';
 import Modal from 'react-modal';
 import UploadEvent from './components/UploadEvent';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import Loading from '../_util/Loading';
 
 Modal.setAppElement("#root");
 
@@ -17,9 +18,14 @@ const Calendar = () => {
     fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
   }, [user]);
 
+  const [timer, setTimer] = useState(false);
+
   const [eventData, setEventData] = useState([]);
   useEffect(() => {
     fetchData('/api/event', setEventData);
+    setTimeout(() => {
+      setTimer(true);
+    }, 500)
   }, [])
 
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -88,6 +94,17 @@ const Calendar = () => {
   };
 
   const renderCells = () => {
+    if (eventData.length === 0) return (
+      <>
+        {timer ? (
+          <div className="text-3xl max-xl:text-2xl max-sm:text-lg font-bold ml-2 text-red-500">
+            サーバーが落ちている可能性があります。運営にお問い合わせください。
+          </div>
+        ) : (
+          <Loading />
+        )}
+      </>
+    );
     const monthStart = startOfMonth(currentDate);
     const monthEnd = endOfMonth(currentDate);
     const startDate = startOfWeek(monthStart);

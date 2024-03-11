@@ -95,6 +95,10 @@ const UserPolicy = () => {
                                 <td className="align-top">４ </td>
                                 <td className="align-top">登録情報が盗用されまたは第三者に利用されていることが判明した場合、利用者は直ちにその旨を本サービス運営陣に通知するとともに、本サービス運営陣からの指示に従うものとします。</td>
                             </tr>
+                            <tr>
+                                <td className="align-top">５ </td>
+                                <td className="align-top">本サービスの利用者は高松キャンパス生徒、職員のみとなっているため、卒業後は本サービス運営陣から登録情報の削除がされるものとします。</td>
+                            </tr>
                         </table>
                     </div>
 

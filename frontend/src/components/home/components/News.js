@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { newsListTimeFormat } from '../../../utils/TimeUtil';
 import { lastestTruncateText } from '../../../utils/TextUtil';
 import { fetchData } from '../../../utils/DatabaseUtil';
+import Loading from '../../_util/Loading';
 
 const News = () => {
     const [news, setNews] = useState([]);
+    const [timer, setTimer] = useState(false);
     useEffect(() => {
         fetchData('/api/news', setNews);
+        setTimeout(() => {
+            setTimer(true);
+        }, 500)
     }, []);
     return (
         <div className="pb-16">
@@ -16,24 +21,35 @@ const News = () => {
                 </a>
             </div>
             <div className="flex justify-center max-md:flex-col max-md:items-center mx-28 max-xl:mx-8 max-lg:mx-3 gap-16 max-2xl:gap-8 max-lg:gap-6 mt-8">
-                {news.slice().reverse().slice(0, 3).map((item) => (
-                    <a key={item.id} href={`/news/${item.id}`} className="hover:opacity-70 w-full max-md:w-3/4 max-sm:w-11/12 bg-violet-200 rounded-3xl px-8 pt-10 pb-5 max-xl:px-6 max-xl:pt-8 max-xl:pb-4 max-lg:px-4 max-lg:pt-5 max-lg:pb-3 max-md:px-6 max-md:pt-8 max-md:pb-4">
-                        <div className="flex justify-center">
-                            <img className="w-23/24" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.image_1}`} alt="" />
-                        </div>
-                        <div className="mt-4 pt-2 border-t-3 border-black">
-                            <div className="text-3xl max-xl:text-2xl max-sm:text-lg font-bold ml-2">
-                                {item.title}
+                {news.length > 0 ? (
+                    news.slice().reverse().slice(0, 3).map((item) => (
+                        <a key={item.id} href={`/news/${item.id}`} className="hover:opacity-70 w-full max-md:w-3/4 max-sm:w-11/12 bg-violet-200 rounded-3xl px-8 pt-10 pb-5 max-xl:px-6 max-xl:pt-8 max-xl:pb-4 max-lg:px-4 max-lg:pt-5 max-lg:pb-3 max-md:px-6 max-md:pt-8 max-md:pb-4">
+                            <div className="flex justify-center">
+                                <img className="w-23/24" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.image_1}`} alt="" />
                             </div>
-                            <div className="border-l-2 border-black pl-2 mt-1 ml-1 text-2xl max-xl:text-lg max-sm:text-base">
-                                {lastestTruncateText(item.text)}
+                            <div className="mt-4 pt-2 border-t-3 border-black">
+                                <div className="text-3xl max-xl:text-2xl max-sm:text-lg font-bold ml-2">
+                                    {item.title}
+                                </div>
+                                <div className="border-l-2 border-black pl-2 mt-1 ml-1 text-2xl max-xl:text-lg max-sm:text-base">
+                                    {lastestTruncateText(item.text)}
+                                </div>
+                                <div className="text-xl max-xl:text-base mt-1">
+                                    {newsListTimeFormat(item.created_at)}
+                                </div>
                             </div>
-                            <div className="text-xl max-xl:text-base mt-1">
-                                {newsListTimeFormat(item.created_at)}
+                        </a>
+                    ))) : (
+                    <>
+                        {timer ? (
+                            <div className="text-3xl max-xl:text-2xl max-sm:text-lg font-bold ml-2 text-red-500">
+                                サーバーが落ちている可能性があります。運営にお問い合わせください。
                             </div>
-                        </div>
-                    </a>
-                ))}
+                        ) : (
+                            <Loading />
+                        )}
+                    </>
+                )}
             </div>
         </div>
     )

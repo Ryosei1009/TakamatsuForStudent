@@ -130,6 +130,7 @@ const Profile = () => {
               name="self_introduction"
               defaultValue={self_introduction}
               onChange={handleChange}
+              maxLength={200}
             />
           </div>
 
