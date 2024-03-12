@@ -1,13 +1,10 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
-import { newsListTimeFormat } from '../../../utils/TimeUtil';
-import { newLineUtil, truncateText } from '../../../utils/TextUtil';
-import { fetchData } from '../../../utils/DatabaseUtil';
-import Loading from '../../_util/Loading';
+import { useState } from 'react';
+import { newLineUtil } from '../../../utils/TextUtil';
+import DevNewsData from './DevNews.json';
+import { devNewsTimeFormat } from '../../../utils/TimeUtil';
 
 const DevNews = () => {
-    const [news, setNews] = useState([]);
-    const [timer, setTimer] = useState(false);
     const [textOpen, setTextOpen] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [newsLength, setNewsLength] = useState(3);
@@ -17,56 +14,76 @@ const DevNews = () => {
         setSelectedId(item.id);
     }
 
-    useEffect(() => {
-        fetchData('/api/news', setNews);
-        setTimeout(() => {
-            setTimer(true);
-        }, 500)
-    }, []);
+    const itemType = (item) => {
+        switch (item.type) {
+            case 1:
+                return (
+                    <p className="text-center text-base font-bold bg-red-500 text-white px-4 py-1 rounded-lg min-w-16">
+                        重要
+                    </p>
+                );
+            case 2:
+                return (
+                    <p className="text-center text-base font-bold bg-green-500 text-white px-4 py-1 rounded-lg min-w-20">
+                        ニュース
+                    </p>
+                );
+            case 3:
+                return (
+                    <p className="text-center text-base font-bold bg-blue-500 text-white px-4 py-1 rounded-lg min-w-18">
+                        blog
+                    </p>
+                );
+            case 4:
+                return (
+                    <p className="text-center text-base font-bold bg-orange-500 text-white px-4 py-1 rounded-lg min-w-16">
+                        FAQ
+                    </p>
+                );
+            case 5:
+                return (
+                    <p className="text-center text-base font-bold bg-gray-500 text-white px-4 py-1 rounded-lg min-w-19">
+                        その他
+                    </p>
+                );
+        }
+    }
 
     return (
-        <div>
-            {news.length > 0 ? (
-                news.slice().reverse().slice(0, newsLength).map((item) => (
-                    <div key={item.id} className="flex items-center max-sm:flex-col mt-8 rounded-xl">
-                        <div className="max-xl:w-1/2 w-2/5 max-sm:w-full">
-                            <img className="rounded-xl" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.image_1}`} alt="" />
-                        </div>
-                        <div className="max-md:w-2/5 w-1/2 ml-8 max-md:ml-0 max-sm:w-full max-sm:my-3">
-                            <div className="flex items-end">
-                                <p className="text-xl">{newsListTimeFormat(item.created_at)}</p>
-                            </div>
-                            <p className="text-3xl max-md:text-2xl mt-5 max-sm:mt-2 ml-8 max-xl:ml-6 max-md:ml-4 max-sm:ml-2 font-bold">{item.title}</p>
-                            <p
-                                className="text-gray-600 leading-6 text-xl mt-5 max-sm:mt-2 cursor-pointer"
-                                onClick={() => handleTextClick(item)}
-                            >
-                                {textOpen ? (
-                                    selectedId === item.id ? (
-                                        newLineUtil(item.text)
-                                    ) : (
-                                        truncateText(item.text)
-                                    )) : (
-                                    truncateText(item.text)
-                                )}
-                            </p>
-                        </div>
+        <div className="border-dotted border-t-2 border-black mx-16 max-md:mx-0 my-4">
+            {DevNewsData.slice().reverse().slice(0, newsLength).map((item) => (
+                <div key={item.id} className="flex flex-col items-start max-sm:flex-col px-3 py-3 border-dotted border-b-2 border-black">
+                    <div className="flex items-center cursor-pointer" onClick={() => handleTextClick(item)}>
+
+                        {itemType(item)}
+                        {/*
+                            1:重要
+                            2:ニュース
+                            3:blog
+                            4:FAQ
+                            5:その他
+                            */}
+
+                        <p className="text-lg font-bold ml-8 max-md:ml-3">{item.title}</p>
                     </div>
-                ))
-            ) : (
-                <>
-                    {timer ? (
-                        <div className="text-3xl max-xl:text-2xl max-sm:text-lg font-bold ml-2 text-red-500">
-                            サーバーが落ちている可能性があります。運営にお問い合わせください。
-                        </div>
-                    ) : (
-                        <Loading />
+                    {textOpen ? (
+                        selectedId === item.id ? (
+                            <>
+                                <div className="my-5 py-5 px-8 bg-black bg-opacity-10 w-full">
+                                    {newLineUtil(item.text)}
+                                    <p className="mt-2">{devNewsTimeFormat(item.created_at)}</p>
+                                </div>
+                            </>
+                        ) : (
+                            ""
+                        )) : (
+                        ""
                     )}
-                </>
-            )}
-            <div className="flex justify-end" onClick={() => setNewsLength(newsLength + 3)}>
-                <div className="bg-orange-300 rounded-xl px-4 py-2 cursor-pointer text-white">
-                More
+                </div>
+            ))}
+            <div className="flex mt-3" onClick={() => setNewsLength(newsLength + 3)}>
+                <div className="bg-orange-300 hover:bg-orange-500 rounded-xl px-4 py-2 cursor-pointer text-white">
+                    More
                 </div>
             </div>
         </div>

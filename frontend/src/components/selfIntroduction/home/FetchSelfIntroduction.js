@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchData } from '../../../utils/DatabaseUtil';
-import { selfIntroduction } from '../../../utils/TextUtil';
+import { selfIntroductionTruncateText } from '../../../utils/TextUtil';
 import { calculateGrade } from '../../../utils/AccountUtil';
 import Loading from '../../_util/Loading';
 
@@ -42,7 +42,7 @@ const FetchSelfIntroduction = () => {
                                     </div>
                                 </div>
                                 <div className="text-lg max-ms:text-base mt-6">
-                                    {selfIntroduction(item.self_introduction)}
+                                    {selfIntroductionTruncateText(item.self_introduction)}
                                 </div>
                             </a>
                         ))) : (

@@ -9,12 +9,12 @@ const FromDev = () => {
     const [privacyOpen, setPrivacyOpen] = useState(false);
 
     return (
-        <div className="my-6 mx-72 max-2xl:mx-36 max-xl:mx-24 max-lg:mx-12 max-md:mx-8">
-            <div className="text-3xl font-bold">
+        <div className="my-6 mx-72 max-2xl:mx-36 max-xl:mx-24 max-lg:mx-12 max-md:mx-8 max-sm:mx-3">
+            <div className="text-5xl font-bold">
                 運営から
             </div>
             <div>
-                <div className="text-2xl font-bold mt-6">
+                <div className="text-3xl font-bold mt-6">
                     このサイトについて
                 </div>
                 <div className="mt-2">
@@ -22,30 +22,28 @@ const FromDev = () => {
                 </div>
             </div>
             <div className="mt-3">
-                <div className="text-2xl font-bold mt-6">
+                <div className="text-3xl font-bold mt-6">
                     運営からのお知らせ
                 </div>
-                {/* <DevNews /> */}
+                <DevNews />
             </div>
             <div>
-                <div>
-                    <div onClick={() => setUserOpen(!userOpen)} className="flex cursor-pointer hover:opacity-60">
-                        利用規約
-                        <ChevronDownIcon className="w-6"></ChevronDownIcon>
-                    </div>
-                    {userOpen && (
-                        <UserPolicy />
-                    )}
+                <div onClick={() => setUserOpen(!userOpen)} className="flex cursor-pointer hover:opacity-60">
+                    利用規約
+                    <ChevronDownIcon className="w-6"></ChevronDownIcon>
                 </div>
-                <div>
-                    <button onClick={() => setPrivacyOpen(!privacyOpen)} className="flex cursor-pointer hover:opacity-60">
-                        プライバシーポリシー
-                        <ChevronDownIcon className="w-6"></ChevronDownIcon>
-                    </button>
-                    {privacyOpen && (
-                        <PrivacyPolicy />
-                    )}
-                </div>
+                {userOpen && (
+                    <UserPolicy />
+                )}
+            </div>
+            <div>
+                <button onClick={() => setPrivacyOpen(!privacyOpen)} className="flex cursor-pointer hover:opacity-60">
+                    プライバシーポリシー
+                    <ChevronDownIcon className="w-6"></ChevronDownIcon>
+                </button>
+                {privacyOpen && (
+                    <PrivacyPolicy />
+                )}
             </div>
         </div>
     )

@@ -6,7 +6,23 @@ export function newLineUtil(inputString) {
     );
 }
 
-export function truncateText(text) {
+export function lastestNewsTruncateText(text) {
+    if (text.length > 40) {
+        return text.substring(0, 40) + "...";
+    } else {
+        return text;
+    }
+}
+
+export function devNewsTruncateText(text) {
+    if (text.length > 220) {
+        return text.substring(0, 220) + "...";
+    } else {
+        return text;
+    }
+}
+
+export function newsListTruncateText(text) {
     if (text.length > 45) {
         return text.substring(0, 45) + "...";
     } else {
@@ -14,15 +30,7 @@ export function truncateText(text) {
     }
 }
 
-export function lastestTruncateText(text) {
-    if (text.length > 33) {
-        return text.substring(0, 33) + "...";
-    } else {
-        return text;
-    }
-}
-
-export function selfIntroduction(text) {
+export function selfIntroductionTruncateText(text) {
     if (text.length > 100) {
         return text.substring(0, 100) + "...";
     } else {

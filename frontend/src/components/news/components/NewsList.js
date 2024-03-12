@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { newsListTimeFormat } from '../../../utils/TimeUtil';
-import { truncateText } from '../../../utils/TextUtil';
+import { newsListTruncateText } from '../../../utils/TextUtil';
 import { fetchData } from '../../../utils/DatabaseUtil';
 import Loading from '../../_util/Loading';
 
@@ -29,7 +29,7 @@ const NewsList = () => {
                                 <p className="ml-6 text-lg">{item.created_by}</p>
                             </div>
                             <p className="text-4xl max-md:text-2xl mt-5 max-sm:mt-2 ml-12 max-xl:ml-8 max-md:ml-6 max-sm:ml-4 font-bold">{item.title}</p>
-                            <p className="text-gray-600 leading-6 text-xl mt-5 max-sm:mt-2">{truncateText(item.text)}</p>
+                            <p className="text-gray-600 leading-6 text-xl mt-5 max-sm:mt-2">{newsListTruncateText(item.text)}</p>
                         </div>
                     </a>
                 ))

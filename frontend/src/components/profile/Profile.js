@@ -87,7 +87,7 @@ const Profile = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-2">
             <div className="font-bold mb-1">
-              Naming
+              ニックネーム
             </div>
             <input
               placeholder="Nっち"

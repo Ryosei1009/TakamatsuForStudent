@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { newsListTimeFormat } from '../../../utils/TimeUtil';
 import { PhotographIcon } from '@heroicons/react/solid';
 import { fetchData } from '../../../utils/DatabaseUtil';
-import { truncateText } from '../../../utils/TextUtil';
+import { newsListTruncateText } from '../../../utils/TextUtil';
 import Modal from 'react-modal';
 
 Modal.setAppElement("#root");
@@ -150,7 +150,7 @@ const UploadNews = () => {
                                 <p className="ml-6 text-lg">{eachAccount.naming}</p>
                             </div>
                             <p className="text-4xl max-md:text-2xl mt-5 max-sm:mt-2 ml-12 max-xl:ml-8 max-md:ml-6 max-sm:ml-4 font-bold">{formData.title}</p>
-                            <p className="text-gray-600 leading-6 text-xl mt-5 max-sm:mt-2">{truncateText(formData.text)}</p>
+                            <p className="text-gray-600 leading-6 text-xl mt-5 max-sm:mt-2">{newsListTruncateText(formData.text)}</p>
                         </div>
                     </div>
                 </div>

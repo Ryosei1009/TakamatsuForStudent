@@ -25,3 +25,11 @@ export function eachNewsTimeFormat(unix) {
     const formattedDate = `${hoursInfo}:${minutes}・${years}年${months}月${days}日`;
     return formattedDate;
 }
+
+export function devNewsTimeFormat(unix) {
+    const dateTime = unixToTime(unix);
+    const [datePart,] = dateTime.split(' ');
+    const [years, months, days] = datePart.split('/');
+    const formattedDate = `${years}年${months}月${days}日`;
+    return formattedDate;
+}
