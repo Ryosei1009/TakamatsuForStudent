@@ -40,3 +40,12 @@ export async function deleteData(url, locationUrl) {
         console.error(error.message);
     }
 }
+
+export const postData = async (url, formData) => {
+    try {
+        await axios.post(`${process.env.REACT_APP_API_DOMAIN}${url}`, formData);
+        window.location.reload();
+    } catch (error) {
+        console.error('Error uploading data:', error);
+    }
+};

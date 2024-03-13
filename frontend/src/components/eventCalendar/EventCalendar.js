@@ -39,11 +39,6 @@ const Calendar = () => {
     setEachModalIsOpen(true);
   };
 
-  const [showPopup, setShowPopup] = useState(false);
-  const handleShowPopupClick = () => {
-    setShowPopup(!showPopup);
-  };
-
   // アップロードモーダル
   const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
 
@@ -113,6 +108,7 @@ const Calendar = () => {
     const rows = [];
     let days = [];
     let day = startDate;
+    console.log(day)
 
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
@@ -197,8 +193,6 @@ const Calendar = () => {
         isOpen={eachModalIsOpen}
         onClose={() => setEachModalIsOpen(false)}
         event={selectedEvent}
-        showPopup={showPopup}
-        onTogglePopup={handleShowPopupClick}
       />
       <UploadEvent
         isOpen={uploadModalIsOpen}

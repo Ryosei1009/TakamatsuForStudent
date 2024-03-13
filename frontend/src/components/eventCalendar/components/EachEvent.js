@@ -9,13 +9,18 @@ import { deleteData, fetchData } from '../../../utils/DatabaseUtil';
 
 Modal.setAppElement("#root");
 
-const EachEvent = ({ isOpen, onClose, event, showPopup, onTogglePopup }) => {
+const EachEvent = ({ isOpen, onClose, event }) => {
     const { user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
     useEffect(() => {
         fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
     const WeekChars = ["日", "月", "火", "水", "木", "金", "土"];
+
+    const [showPopup, setShowPopup] = useState(false);
+    const handleShowPopupClick = () => {
+      setShowPopup(!showPopup);
+    };
 
     return (
         <>
@@ -42,7 +47,7 @@ const EachEvent = ({ isOpen, onClose, event, showPopup, onTogglePopup }) => {
                                 </div>
                                 {eachAccount.role <= 2 && (
                                     <div className="w-1/12">
-                                        <TrashIcon onClick={onTogglePopup} className="h-7 w-7 cursor-pointer fill-red-500" />
+                                        <TrashIcon onClick={handleShowPopupClick} className="h-7 w-7 cursor-pointer fill-red-500" />
                                         {showPopup && (
                                             <div className="cursor-pointer hover:underline hover:opacity-90 absolute z-10 bg-white border rounded shadow-sm py-2 px-4 text-red-500" onClick={() => deleteData(`/delete/event/${event.id}`, '')}>
                                                 削除

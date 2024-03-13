@@ -100,7 +100,7 @@ const Profile = () => {
             />
           </div>
 
-          {parseInt(role) === 3 || role === undefined ? (
+          {parseInt(role) === 3 || parseInt(role) === 0 || role === undefined ? (
             <div className="mb-2">
               <div className="font-bold mb-1">
                 卒業予定

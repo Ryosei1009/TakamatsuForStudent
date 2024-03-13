@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal';
 import { useAuth0 } from '@auth0/auth0-react';
-import axios from 'axios';
 import { format } from 'date-fns';
 import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
 import { newLineUtil } from '../../../utils/TextUtil';
 import { TrashIcon } from '@heroicons/react/solid';
-import { fetchData } from '../../../utils/DatabaseUtil';
+import { fetchData, postData } from '../../../utils/DatabaseUtil';
 
 Modal.setAppElement("#root");
 
@@ -55,13 +54,7 @@ const UploadEvent = ({ isOpen, onClose }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        try {
-            await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/event`, formData);
-            window.location.reload();
-        } catch (error) {
-            console.error('Error uploading data:', error);
-        }
+        postData('/upload/event', formData);
     };
 
     const handleDateChange = (event) => {
