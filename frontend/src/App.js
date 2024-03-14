@@ -22,19 +22,13 @@ import PrivacyPolicy from './components/fromDev/componets/PrivacyPolicy';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
-  if (isLoading) {
-    return (
-      <div className="bg-bg-light">
-        <Header />
-        <Loading />
-        <Footer />
-      </div>)
-  }
   return (
-    <>
-      {isAuthenticated ? (
-        <div className="App bg-bg-light">
-          <Header />
+    <div className="bg-bg-light">
+      <Header />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        isAuthenticated ? (
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/news" element={<News />} />
@@ -51,19 +45,14 @@ function App() {
             <Route path="/fromdev/privacypolicy" element={<PrivacyPolicy />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
-          <Footer />
-        </div>
-      ) : (
-        <div className="bg-bg-light">
-          <Header />
+        ) : (
           <Routes>
             <Route path="/" element={<LoginButton />} />
             <Route path="/fromdev/userpolicy" element={<UserPolicy />} />
           </Routes>
-          <Footer />
-        </div>
-      )}
-    </>
+        ))}
+      <Footer />
+    </div>
   );
 }
 
