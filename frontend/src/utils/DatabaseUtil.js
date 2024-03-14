@@ -41,9 +41,13 @@ export async function deleteData(url, locationUrl) {
     }
 }
 
-export const postData = async (url, formData) => {
+export const postData = async (url, formData, isFile) => {
     try {
-        await axios.post(`${process.env.REACT_APP_API_DOMAIN}${url}`, formData);
+        await axios.post(`${process.env.REACT_APP_API_DOMAIN}${url}`, formData, isFile && {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
         window.location.reload();
     } catch (error) {
         console.error('Error uploading data:', error);

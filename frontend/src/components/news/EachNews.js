@@ -24,7 +24,7 @@ const EachNews = () => {
         fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
 
-    function handleModalClick() {
+    const handleModalClick = () => {
         setModalIsOpen(true);
     }
 
@@ -42,12 +42,12 @@ const EachNews = () => {
                     </title>
                 </Helmet>
             </HelmetProvider>
-            <div class="container mx-auto">
-                <div class="max-w-4xl mx-auto p-8 max-sm:p-6 shadow-md max-sm:shadow-none bg-white max-sm:bg-bg-light">
-                    <img src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${eachNews.image_1}`} alt="" class="w-full mb-4 rounded-lg" />
+            <div className="container mx-auto">
+                <div className="max-w-4xl mx-auto p-8 max-sm:p-6 shadow-md max-sm:shadow-none bg-white max-sm:bg-bg-light">
+                    <img src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${eachNews.image_1}`} alt="" className="w-full mb-4 rounded-lg" />
 
                     <div className="flex justify-between">
-                        <h1 class="text-3xl max-lg:text-2xl max-sm:text-xl font-bold text-gray-800 mb-2">
+                        <h1 className="text-3xl max-lg:text-2xl max-sm:text-xl font-bold text-gray-800 mb-2">
                             {eachNews.title}
                         </h1>
                         <div className="flex items-center">
@@ -62,9 +62,9 @@ const EachNews = () => {
                         </div>
                     </div>
 
-                    <p class="text-gray-700 mb-4">
+                    <div className="text-gray-700 mb-4">
                         {newLineUtil(eachNews.text || '')}
-                    </p>
+                    </div>
 
                     <div className="text-info">
                         {eachNewsTimeFormat(eachNews.created_at)}・

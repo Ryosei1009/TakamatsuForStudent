@@ -1,9 +1,8 @@
 import { React, useEffect, useState } from 'react'
-import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import { newsListTimeFormat } from '../../../utils/TimeUtil';
 import { PhotographIcon } from '@heroicons/react/solid';
-import { fetchData } from '../../../utils/DatabaseUtil';
+import { fetchData, postData } from '../../../utils/DatabaseUtil';
 import { newsListTruncateText } from '../../../utils/TextUtil';
 import Modal from 'react-modal';
 
@@ -29,10 +28,16 @@ const UploadNews = () => {
         title: '',
         text: '',
         image_1: '',
-        created_by: ''
+        created_by: eachAccount.naming,
+        created_by_id: eachAccount.id
     });
 
     const handleChange = (event) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            created_by: eachAccount.naming,
+            created_by_id: eachAccount.id,
+        }))
         const { name, value } = event.target;
         setDate(Date.now());
         setFormData((prevData) => ({
@@ -68,23 +73,7 @@ const UploadNews = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        try {
-            const formDataToSend = new FormData();
-            formDataToSend.append('title', formData.title);
-            formDataToSend.append('text', formData.text);
-            formDataToSend.append('image_1', formData.image_1);
-            formDataToSend.append('created_by', eachAccount.naming);
-            formDataToSend.append('created_by_id', eachAccount.id);
-
-            await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/news`, formDataToSend, {
-                headers: {
-                    'Content-Type': 'multipart/form-data', // Important for file upload
-                },
-            });
-            window.location.reload();
-        } catch (error) {
-            console.error('Error uploading data:', error);
-        }
+        postData('/upload/news', formData, true);
     };
 
     return (
@@ -124,7 +113,7 @@ const UploadNews = () => {
                         </div>
                     )}
                     <div className="flex justify-between">
-                        <label for="file-upload" class="w-7/12 cursor-pointer bg-blue-500 hover:bg-blue-600 flex items-center text-white font-bold px-4 py-2 rounded-md">
+                        <label htmlFor="file-upload" className="w-7/12 cursor-pointer bg-blue-500 hover:bg-blue-600 flex items-center text-white font-bold px-4 py-2 rounded-md">
                             <PhotographIcon className="w-6 mr-2" />
                             ファイルを選択
                         </label>

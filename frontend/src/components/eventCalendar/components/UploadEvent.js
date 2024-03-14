@@ -54,7 +54,7 @@ const UploadEvent = ({ isOpen, onClose }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        postData('/upload/event', formData);
+        postData('/upload/event', formData, false);
     };
 
     const handleDateChange = (event) => {

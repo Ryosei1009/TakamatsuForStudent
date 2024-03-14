@@ -95,7 +95,6 @@ const UploadPhoto = ({ onSearch }) => {
         return
       }
     }
-    console.log("ok")
     setFormData((prevData) => ({
       ...prevData,
       image_name: file,
