@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PhotoList from './components/PhotoList'
+import MenuBar from './components/MenuBar';
 
 const Photo = () => {
+  const [photos, setPhotos] = useState([]);
   return (
-    <>
-      <PhotoList />
-    </>
+    <div className="flex">
+      <MenuBar setPhotos={setPhotos} />
+      <PhotoList photos={photos} setPhotos={setPhotos} />
+    </div>
   )
 }
 
