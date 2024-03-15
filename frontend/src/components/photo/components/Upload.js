@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { fetchData } from '../../../utils/DatabaseUtil';
+import { fetchData, postData } from '../../../utils/DatabaseUtil';
 import { useAuth0 } from '@auth0/auth0-react';
-import axios from 'axios';
 
 var selectedFile;
 
@@ -61,17 +60,17 @@ const Upload = () => {
             if (file.type.startsWith('image/')) {
                 // 画像の処理
                 const img = new Image();
+                img.src = URL.createObjectURL(file);
                 img.onload = () => {
                     setImageDimensions({ width: img.width, height: img.height });
                 };
-                img.src = URL.createObjectURL(file);
             } else if (file.type.startsWith('video/')) {
                 // 動画の処理
                 const video = document.createElement('video');
+                video.src = URL.createObjectURL(file);
                 video.onloadedmetadata = () => {
                     setImageDimensions({ width: video.videoWidth, height: video.videoHeight });
                 };
-                video.src = URL.createObjectURL(file);
             } else {
                 console.error('Unsupported file type');
             }
@@ -80,26 +79,16 @@ const Upload = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const formDataToSend = new FormData();
+        formDataToSend.append('title', formData.title);
+        formDataToSend.append('image_name', formData.image_name);
+        formDataToSend.append('tags', formData.tags);
+        formDataToSend.append('width', imageDimensions.width);
+        formDataToSend.append('height', imageDimensions.height);
+        formDataToSend.append('created_by', eachAccount.naming);
+        formDataToSend.append('created_by_id', eachAccount.id);
 
-        try {
-            const formDataToSend = new FormData();
-            formDataToSend.append('title', formData.title);
-            formDataToSend.append('image_name', formData.image_name);
-            formDataToSend.append('tags', formData.tags);
-            formDataToSend.append('width', imageDimensions.width);
-            formDataToSend.append('height', imageDimensions.height);
-            formDataToSend.append('created_by', eachAccount.naming);
-            formDataToSend.append('created_by_id', eachAccount.id);
-
-            await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/photos`, formDataToSend, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            window.location.reload();
-        } catch (error) {
-            console.error('Error uploading data:', error);
-        }
+        postData('/upload/photos', formDataToSend, true);
     };
 
     return (
