@@ -1,29 +1,22 @@
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react'
-import { useAuth0 } from '@auth0/auth0-react';
-import { fetchData } from '../../utils/DatabaseUtil';
+import React, { useRef, useState } from 'react'
+import { postData } from '../../../utils/DatabaseUtil';
 
-const Icon = () => {
+const Icon = ({ eachAccount }) => {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = useRef(null);
-    const { user } = useAuth0();
-    const [eachAccount, setEachAccount] = useState({});
-    useEffect(() => {
-        fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
-    }, [user]);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (!file.type.startsWith('image/')) {
-            console.log(event.target.files[0].type)
             alert('画像ファイルを選択してください');
             return;
         };
         const fileLimit = 1024 * 1024 * process.env.REACT_APP_ICON_SIZE_LIMIT;
         if (file.size > fileLimit) {
-          alert(`ファイルサイズが大きすぎます。${process.env.REACT_APP_ICON_SIZE_LIMIT}MB以下のファイルを選択してください。`);
-          return
+            alert(`ファイルサイズが大きすぎます。${process.env.REACT_APP_ICON_SIZE_LIMIT}MB以下のファイルを選択してください。`);
+            return
         }
         setSelectedFile(file);
         if (file) {
@@ -40,26 +33,11 @@ const Icon = () => {
             console.error("Select the image file");
             return;
         }
-        try {
-            const formData = new FormData();
-            formData.append('icon_name', selectedFile);
-            formData.append('id', eachAccount.id);
+        const formData = new FormData();
+        formData.append('icon_name', selectedFile);
+        formData.append('id', eachAccount.id);
 
-            await axios.post(`${process.env.REACT_APP_API_DOMAIN}/upload/accounts/icon`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-
-        } catch (error) {
-            console.error('アップロードエラー:', error);
-        } finally {
-            if (fileInputRef.current) {
-                fileInputRef.current.value = '';
-            }
-            setSelectedFile(null);
-            window.location.reload();
-        }
+        postData('/upload/accounts/icon', formData, true);
     };
     return (
         <div className="flex flex-col mb-2">

@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "../_util/account/LogoutButton";
 import axios from "axios";
 import { calculateGrade, isStudent } from "../../utils/AccountUtil";
-import Icon from "./Icon";
+import Icon from "./components/Icon";
 import { eachNewsTimeFormat } from "../../utils/TimeUtil";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { fetchData } from "../../utils/DatabaseUtil";
@@ -82,7 +82,7 @@ const Profile = () => {
           Your profile
         </div>
         {eachAccount.id ? (
-          <Icon />
+          <Icon eachAccount={eachAccount} />
         ) : ""}
         <form onSubmit={handleSubmit}>
           <div className="mb-2">
