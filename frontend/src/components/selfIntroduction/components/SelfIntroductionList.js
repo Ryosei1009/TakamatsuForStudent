@@ -4,7 +4,7 @@ import { selfIntroductionTruncateText } from '../../../utils/TextUtil';
 import { calculateGrade } from '../../../utils/AccountUtil';
 import Loading from '../../_util/Loading';
 
-const FetchSelfIntroduction = () => {
+const SelfIntroductionList = () => {
     const [accounts, setAccounts] = useState([]);
     const [timer, setTimer] = useState(false);
 
@@ -69,4 +69,4 @@ const FetchSelfIntroduction = () => {
     );
 };
 
-export default FetchSelfIntroduction;
+export default SelfIntroductionList;
