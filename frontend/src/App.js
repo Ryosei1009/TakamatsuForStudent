@@ -15,10 +15,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from './components/_util/account/LoginButton';
 import EachSelfIntroduction from './components/selfIntroduction/components/EachSelfIntroduction';
 import Loading from './components/_util/Loading';
-import UploadEvent from './components/eventCalendar/components/UploadEvent';
 import FromDev from './components/fromDev/FromDev';
 import UserPolicy from './components/fromDev/componets/UserPolicy';
 import PrivacyPolicy from './components/fromDev/componets/PrivacyPolicy';
+import BirthdayList from './components/eventCalendar/components/BirthdayList';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -35,7 +35,7 @@ function App() {
             <Route path="/news/uploads" element={<UploadNews />} />
             <Route path="/news/:postId" element={<EachNews />} />
             <Route path="/event" element={<EventCalendar />} />
-            <Route path="/event/upload" element={<UploadEvent />} />
+            <Route path="/event/birthdaylist" element={<BirthdayList />} />
             <Route path="/selfintroduction" element={<SelfIntroduction />} />
             <Route path="/selfintroduction/:postId" element={<EachSelfIntroduction />} />
             <Route path="/photo" element={<Photo />} />

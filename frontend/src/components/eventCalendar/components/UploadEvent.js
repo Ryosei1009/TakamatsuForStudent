@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { format } from 'date-fns';
 import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
 import { newLineUtil } from '../../../utils/TextUtil';
-import { TrashIcon } from '@heroicons/react/solid';
+import { CakeIcon, TrashIcon } from '@heroicons/react/solid';
 import { fetchData, postData } from '../../../utils/DatabaseUtil';
 
 Modal.setAppElement("#root");
@@ -15,13 +15,23 @@ const UploadEvent = ({ isOpen, onClose }) => {
     const [formDate, setFormDate] = useState(Date.now());
     const [previewOpen, setPreviewOpen] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
+    const [showBirthday, setShowBirthday] = useState(false);
     const WeekChars = ["日", "月", "火", "水", "木", "金", "土"];
 
-    const handlePreviewOpen = () => {
+    const handlePreview = () => {
         setPreviewOpen(!previewOpen);
     };
 
-    const handleShowPopupClick = () => {
+    const handleBirthday = () => {
+        setShowBirthday(!showBirthday);
+        setFormData((prevData) => ({
+            ...prevData,
+            text: showBirthday ? ('') : ('の誕生日です！みんなで祝いましょう！'),
+            color: showBirthday ? (formData.color === '#32CD32' || formData.color === '#ffa500' ? ('#32CD32') : (formData.color)) : (formData.color === '#32CD32' || formData.color === '#ffa500' ? ('#ffa500') : (formData.color)),
+        }));
+    };
+
+    const handleShowPopup = () => {
         setShowPopup(!showPopup);
     };
 
@@ -73,36 +83,77 @@ const UploadEvent = ({ isOpen, onClose }) => {
                 overlayClassName="fixed inset-0 bg-white bg-opacity-70 transition-opacity"
                 className={`transition-opacity w-full max-w-120 top-42/100 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute outline-none`}
             >
-                <div className="text-center border-8 bg-stone-300 pt-9 max-sm:pt-6 pb-12 px-16 max-sm:px-4 rounded-xl flex flex-col items-center border-gray-300"
-                    style={{ borderColor: formData.color }}
-                >
-                    <div className="text-center pt-2 flex justify-start flex-col items-center w-18 h-24 bg-bg-light mb-4">
-                        <div>
-                            {formDate ? new Date(formDate).getDate() : 0}
-                        </div>
-                        <div
-                            className="text-xs font-medium text-white w-18 h-6 p-1 rounded-lg hover:cursor-pointer"
-                            style={{ backgroundColor: formData.color }}
-                            onClick={() => handlePreviewOpen()}
-                        >
-                            {formData.title}
-                        </div>
-                    </div >
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
-                        <div className="flex gap-4">
-                            <input className="block w-3/4 border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500 cursor-text" type="date" name="date" onChange={handleDateChange} required />
-                            <input value={formData.color} className="block w-1/4 h-12 border rounded-md focus:outline-none focus:border-blue-500 cursor-pointer" type="color" name="color" onChange={handleChange} required />
-                        </div>
-                        <input value={formData.title} id="title" placeholder="タイトル" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" type="text" name="title" onChange={handleChange} required />
-                        <textarea value={formData.text} placeholder="詳細" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" name="text" onChange={handleChange} required ></textarea>
-                        <button type="submit" className="bg-green-500 text-white font-bold px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">作成</button>
-                    </form>
+                <div>
+                    <CakeIcon className="w-8 absolute left-8 top-8 fill-orange-500 cursor-pointer hover:opacity-80" onClick={() => handleBirthday()} />
                 </div>
+
+                {showBirthday ? (
+                    <div className="text-center border-8 bg-stone-300 pt-9 max-sm:pt-6 pb-12 px-16 max-sm:px-4 rounded-xl flex flex-col items-center border-gray-300"
+                        style={{ borderColor: formData.color }}
+                    >
+                        <div className="flex items-end mb-6">
+                            <div className="text-xl font-bold">
+                                誕生日入力フォーム
+                            </div>
+                            <a href="./birthdaylist" target="_blank" className="text-xs ml-2 cursor-pointer hover:underline text-blue-500">
+                                誕生日一覧
+                            </a>
+                        </div>
+                        <div className="text-center pt-2 flex justify-start flex-col items-center w-18 h-24 bg-bg-light mb-4">
+                            <div>
+                                {formDate ? new Date(formDate).getDate() : 0}
+                            </div>
+                            <div
+                                className="text-xs font-medium text-white w-18 h-6 p-1 rounded-lg hover:cursor-pointer"
+                                style={{ backgroundColor: formData.color }}
+                                onClick={() => handlePreview()}
+                            >
+                                {formData.title}
+                            </div>
+                        </div >
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
+                            <div className="flex gap-4">
+                                <input className="block w-3/4 border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500 cursor-text" type="date" name="date" onChange={handleDateChange} required />
+                                <input value={formData.color} className="block w-1/4 h-12 border rounded-md focus:outline-none focus:border-blue-500 cursor-pointer" type="color" name="color" onChange={handleChange} required />
+                            </div>
+                            <input value={formData.title} id="title" placeholder="名前のみ推奨" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" type="text" name="title" onChange={handleChange} required />
+                            <textarea value={formData.text} placeholder="詳細" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" name="text" onChange={handleChange} required ></textarea>
+                            <button type="submit" className="bg-green-500 text-white font-bold px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">作成</button>
+                        </form>
+                    </div>
+                ) : (
+                    <div className="text-center border-8 bg-stone-300 pt-9 max-sm:pt-6 pb-12 px-16 max-sm:px-4 rounded-xl flex flex-col items-center border-gray-300"
+                        style={{ borderColor: formData.color }}
+                    >
+                        <div className="text-center pt-2 flex justify-start flex-col items-center w-18 h-24 bg-bg-light mb-4">
+                            <div>
+                                {formDate ? new Date(formDate).getDate() : 0}
+                            </div>
+                            <div
+                                className="text-xs font-medium text-white w-18 h-6 p-1 rounded-lg hover:cursor-pointer"
+                                style={{ backgroundColor: formData.color }}
+                                onClick={() => handlePreview()}
+                            >
+                                {formData.title}
+                            </div>
+                        </div >
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
+                            <div className="flex gap-4">
+                                <input className="block w-3/4 border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500 cursor-text" type="date" name="date" onChange={handleDateChange} required />
+                                <input value={formData.color} className="block w-1/4 h-12 border rounded-md focus:outline-none focus:border-blue-500 cursor-pointer" type="color" name="color" onChange={handleChange} required />
+                            </div>
+                            <input value={formData.title} id="title" placeholder="タイトル" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" type="text" name="title" onChange={handleChange} required />
+                            <textarea value={formData.text} placeholder="詳細" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" name="text" onChange={handleChange} required ></textarea>
+                            <button type="submit" className="bg-green-500 text-white font-bold px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">作成</button>
+                        </form>
+                    </div>
+                )}
+
             </Modal>
 
             <Modal
                 isOpen={previewOpen}
-                onRequestClose={handlePreviewOpen}
+                onRequestClose={handlePreview}
                 overlayClassName="fixed inset-0 bg-white bg-opacity-70 transition-opacity"
                 className={`transition-opacity w-full max-w-120 top-42/100 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute outline-none`}
             >
@@ -121,7 +172,7 @@ const UploadEvent = ({ isOpen, onClose }) => {
                         </div>
                         {eachAccount.role <= 2 && (
                             <div className="w-1/12">
-                                <TrashIcon onClick={handleShowPopupClick} className="h-7 w-7 cursor-pointer fill-red-500" />
+                                <TrashIcon onClick={handleShowPopup} className="h-7 w-7 cursor-pointer fill-red-500" />
                                 {showPopup && (
                                     <div className="cursor-pointer hover:underline hover:opacity-90 absolute z-10 bg-white border rounded shadow-sm py-2 px-4 text-red-500">
                                         削除

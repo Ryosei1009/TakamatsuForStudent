@@ -162,13 +162,15 @@ app.post('/upload/accounts/icon', accountUpload.single('icon_name'), (req, res) 
 
 app.post('/upload/accounts', accountUpload.single('icon_name'), (req, res) => {
   console.log(req.body)
-  var { id, name, e_mail, naming, icon_name, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role } = req.body;
+  var { id, name, e_mail, naming, icon_name, grade, birthmonth, birthday, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role } = req.body;
   const update_at = Date.now();
 
   if (id === "undefined" || id === undefined) {
     naming = naming === undefined ? naming : "";
     var icon_name = "";
     grade = grade === undefined ? grade : "";
+    birthmonth = birthmonth === undefined ? birthmonth : "";
+    birthday = birthday === undefined ? birthday : "";
     self_introduction = self_introduction === undefined ? self_introduction : "";
     skill = skill === undefined ? skill : "";
     hobby = hobby === undefined ? hobby : "";
@@ -178,12 +180,12 @@ app.post('/upload/accounts', accountUpload.single('icon_name'), (req, res) => {
     url_4 = url_4 === undefined ? url_4 : "";
     role = 3;
     id = null;
-    var query = 'INSERT INTO `account` (name, e_mail, naming, icon_name, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    var query = 'INSERT INTO `account` (name, e_mail, naming, icon_name, grade, birthmonth, birthday, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
   } else {
-    var query = 'UPDATE account SET name = ?, e_mail = ?, naming = ?, icon_name = ?, grade = ?, self_introduction = ?, skill = ?, hobby = ?, url_1 = ?, url_2 = ?, url_3 = ?, url_4 = ?, role = ?, update_at = ? WHERE id = ?';
+    var query = 'UPDATE account SET name = ?, e_mail = ?, naming = ?, icon_name = ?, grade = ?, birthmonth = ?, birthday = ?, self_introduction = ?, skill = ?, hobby = ?, url_1 = ?, url_2 = ?, url_3 = ?, url_4 = ?, role = ?, update_at = ? WHERE id = ?';
   }
 
-  connection.query(query, [name, e_mail, naming, icon_name, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at, id], (error, results) => {
+  connection.query(query, [name, e_mail, naming, icon_name, grade, birthmonth, birthday, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at, id], (error, results) => {
     if (error) {
       console.error('${dateTime}[${req.path}] データベースへの保存エラー:', error);
       return res.status(500).send('データベースエラー');
@@ -253,7 +255,7 @@ app.get("/api/news", (req, res) => {
 
 app.get("/api/accounts", (req, res) => {
   connection.query(
-    "SELECT id, name, e_mail, icon_name, naming, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at FROM account;",
+    "SELECT id, name, e_mail, icon_name, naming, grade, birthmonth, birthday, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at FROM account;",
     (error, results) => {
       res.send(results);
     }

@@ -26,7 +26,7 @@ const DevNews = () => {
             case 3:
                 return (
                     <p className="text-center text-base max-sm:text-sm font-bold bg-blue-500 text-white px-4 py-1 rounded-lg min-w-18">
-                        blog
+                        更新情報
                     </p>
                 );
             case 4:
@@ -79,8 +79,13 @@ const DevNews = () => {
                 </Disclosure>
             ))}
             <div className="flex mt-3" onClick={() => setNewsLength(newsLength + 3)}>
-                <div className="bg-orange-300 hover:bg-orange-500 rounded-xl px-4 py-2 cursor-pointer text-white">
+                <div className="bg-orange-300 hover:bg-orange-500 rounded-xl px-4 py-2 cursor-pointer text-white font-bold">
                     More
+                </div>
+            </div>
+            <div className="flex mt-3" onClick={() => alert(Date.now())}>
+                <div className="bg-purple-300 hover:bg-purple-500 rounded-xl px-4 py-2 cursor-pointer font-bold">
+                    今のunix time
                 </div>
             </div>
         </div>

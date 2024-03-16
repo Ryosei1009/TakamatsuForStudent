@@ -19,7 +19,7 @@ const EachSelfIntroduction = () => {
         setModalIsOpen(true);
     }
 
-    const { id, name, icon_name, naming, grade, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role } = eachAccount;
+    const { id, name, icon_name, naming, grade, birthmonth, birthday, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role } = eachAccount;
 
     return (
         <>
@@ -64,6 +64,17 @@ const EachSelfIntroduction = () => {
                     </div>
                 </div>
                 <div className="text-xl">
+                    {birthday && birthmonth ? (
+                        <div className="mb-2">
+                            <div className="font-bold mb-1 text-2xl">
+                                誕生日
+                            </div>
+                            <div className="ml-3">
+                                {birthmonth}月{birthday}日
+                            </div>
+                        </div>
+                    ) : ""}
+
                     {self_introduction ? (
                         <div className="mb-2">
                             <div className="font-bold mb-1 text-2xl">

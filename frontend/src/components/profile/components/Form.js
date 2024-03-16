@@ -7,6 +7,8 @@ const Form = ({ eachAccount, user }) => {
     const [formData, setFormData] = useState({
         naming: '',
         grade: '',
+        birthmonth: '',
+        birthday: '',
         self_introduction: '',
         skill: '',
         hobby: '',
@@ -27,6 +29,8 @@ const Form = ({ eachAccount, user }) => {
         formDataToSend.append('naming', formData.naming ? formData.naming : eachAccount.naming);
         formDataToSend.append('icon_name', eachAccount.icon_name);
         formDataToSend.append('grade', formData.grade ? formData.grade : eachAccount.grade);
+        formDataToSend.append('birthmonth', formData.birthmonth ? formData.birthmonth : eachAccount.birthmonth);
+        formDataToSend.append('birthday', formData.birthday ? formData.birthday : eachAccount.birthday);
         formDataToSend.append('self_introduction', formData.self_introduction ? formData.self_introduction : eachAccount.self_introduction);
         formDataToSend.append('skill', formData.skill ? formData.skill : eachAccount.skill);
         formDataToSend.append('hobby', formData.hobby ? formData.hobby : eachAccount.hobby);
@@ -82,6 +86,30 @@ const Form = ({ eachAccount, user }) => {
                 </div>) : (
                 ""
             )}
+
+            <div className="mb-2">
+                <div className="font-bold mb-1">
+                    誕生日
+                </div>
+                <input
+                    placeholder="12"
+                    maxLength={2}
+                    className="w-16 px-3 py-1 bg-stone-100 rounded-md border-1"
+                    type="number"
+                    name="birthmonth"
+                    defaultValue={eachAccount.birthmonth}
+                    onChange={handleChange}
+                />
+                <input
+                    placeholder="8"
+                    maxLength={2}
+                    className="w-16 px-3 py-1 bg-stone-100 rounded-md border-1"
+                    type="number"
+                    name="birthday"
+                    defaultValue={eachAccount.birthday}
+                    onChange={handleChange}
+                />
+            </div>
 
             <div className="mb-2">
                 <div className="font-bold mb-1">
