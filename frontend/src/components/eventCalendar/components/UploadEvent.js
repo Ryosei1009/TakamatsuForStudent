@@ -108,7 +108,9 @@ const UploadEvent = ({ isOpen, onClose }) => {
                                 style={{ backgroundColor: formData.color }}
                                 onClick={() => handlePreview()}
                             >
-                                {formData.title}
+                                <div className="overflow-hidden">
+                                    {formData.title}
+                                </div>
                             </div>
                         </div >
                         <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
@@ -134,7 +136,9 @@ const UploadEvent = ({ isOpen, onClose }) => {
                                 style={{ backgroundColor: formData.color }}
                                 onClick={() => handlePreview()}
                             >
-                                {formData.title}
+                                <div className="overflow-hidden">
+                                    {formData.title}
+                                </div>
                             </div>
                         </div >
                         <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">

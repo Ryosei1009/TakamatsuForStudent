@@ -45,7 +45,9 @@ const Cells = ({ eventData, timer, currentDate, handleEachModalClick }) => {
                             style={{ backgroundColor: event.color }}
                             onClick={() => handleEachModalClick(event)}
                         >
-                            {event.title}
+                            <div className="overflow-hidden">
+                                {event.title}
+                            </div>
                         </div>
                     ))
                     }

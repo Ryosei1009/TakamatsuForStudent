@@ -94,7 +94,7 @@ const Form = ({ eachAccount, user }) => {
                 <input
                     placeholder="12"
                     maxLength={2}
-                    className="w-16 px-3 py-1 bg-stone-100 rounded-md border-1"
+                    className="w-16 px-3 py-1 bg-stone-100 rounded-s-md border-1"
                     type="number"
                     name="birthmonth"
                     defaultValue={eachAccount.birthmonth}
@@ -103,7 +103,7 @@ const Form = ({ eachAccount, user }) => {
                 <input
                     placeholder="8"
                     maxLength={2}
-                    className="w-16 px-3 py-1 bg-stone-100 rounded-md border-1"
+                    className="w-16 px-3 py-1 bg-stone-100 rounded-e-md border-1"
                     type="number"
                     name="birthday"
                     defaultValue={eachAccount.birthday}

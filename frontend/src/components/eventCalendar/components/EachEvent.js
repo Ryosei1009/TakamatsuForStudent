@@ -38,7 +38,7 @@ const EachEvent = ({ isOpen, onClose, event }) => {
                         >
                             <div className="flex items-center">
                                 <div className={`flex justify-center items-end w-full ${event.role <= 2 && "w-11/12"}`}>
-                                    <div className="text-3xl font-bold">
+                                    <div className="text-3xl font-bold break-all">
                                         {event.title}
                                     </div>
                                     <div className="flex flex-col items-start ml-4">
