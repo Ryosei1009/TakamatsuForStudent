@@ -12,10 +12,10 @@ const UploadDevNews = () => {
     const { user } = useAuth0();
     useEffect(() => {
         fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
-    }, []);
+    }, [user]);
 
-    const [uploadIsOpen, setUploadIsOpen] = useState(false);
-    const [previewIsOpen, setPreviewIsOpen] = useState(false);
+    const [uploadOpen, setUploadOpen] = useState(false);
+    const [previewOpen, setPreviewOpen] = useState(false);
     const [formData, setFormData] = useState({
         type: '',
         title: '',
@@ -38,12 +38,12 @@ const UploadDevNews = () => {
 
     return (
         <>
-            <button onClick={() => setUploadIsOpen(true)} className="ml-2 text-white rounded-xl px-4 py-2 cursor-pointer font-bold bg-purple-600 hover:bg-purple-700">
+            <button onClick={() => setUploadOpen(true)} className="ml-2 text-white rounded-xl px-4 py-2 cursor-pointer font-bold bg-purple-600 hover:bg-purple-700">
                 ニュースを作成
             </button>
 
-            <Transition appear show={uploadIsOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => setUploadIsOpen(false)}>
+            <Transition appear show={uploadOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={() => setUploadOpen(false)}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -76,6 +76,7 @@ const UploadDevNews = () => {
                                             required
                                             className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500"
                                         >
+                                            <option value="" disabled>選択してください。</option>
                                             <option value="1">重要</option>
                                             <option value="2">ニュース</option>
                                             <option value="3">更新情報</option>
@@ -85,9 +86,9 @@ const UploadDevNews = () => {
                                         <input value={formData.title} placeholder="タイトル" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" type="text" name="title" onChange={handleChange} required />
                                         <textarea value={formData.text} placeholder="テキスト" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" type="text" name="text" onChange={handleChange} required />
                                         <div className="flex justify-evenly">
-                                            <div onClick={() => setPreviewIsOpen(true)} className="bg-orange-400 text-white font-bold px-4 py-2 rounded-md hover:bg-orange-600 focus:outline-none focus:bg-blue-600 cursor-pointer">プレビュー</div>
-                                            <Transition appear show={previewIsOpen} as={Fragment}>
-                                                <Dialog as="div" className="relative z-10" onClose={() => setPreviewIsOpen(false)}>
+                                            <div onClick={() => setPreviewOpen(true)} className="bg-orange-400 text-white font-bold px-4 py-2 rounded-md hover:bg-orange-600 focus:outline-none focus:bg-blue-600 cursor-pointer">プレビュー</div>
+                                            <Transition appear show={previewOpen} as={Fragment}>
+                                                <Dialog as="div" className="relative z-10" onClose={() => setPreviewOpen(false)}>
                                                     <Transition.Child
                                                         as={Fragment}
                                                         enter="ease-out duration-300"
@@ -171,8 +172,6 @@ const UploadDevNews = () => {
                     </div>
                 </Dialog>
             </Transition>
-
-
         </>
     )
 }
