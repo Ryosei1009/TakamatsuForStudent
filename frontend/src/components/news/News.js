@@ -31,7 +31,12 @@ const News = () => {
             
             <Header toggleUpload={toggleUpload} />
             <NewsList />
-            <Modal isOpen={uploadOpen} onRequestClose={() => { setUploadOpen(false); }} overlayClassName="fixed inset-0 bg-white bg-opacity-70 transition-opacity" className={`transition-opacity w-full max-w-120 top-42/100 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute outline-none`}>
+            <Modal
+                isOpen={uploadOpen}
+                onRequestClose={() => { setUploadOpen(false); }}
+                overlayClassName="fixed inset-0 bg-white bg-opacity-70 transition-opacity"
+                className={`transition-opacity w-full max-w-120 top-42/100 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute outline-none`}
+            >
                 <UploadNews />
             </Modal>
         </>

@@ -73,7 +73,7 @@ const SchoolDays = () => {
                         週3日
                     </div>
                     <div class="flex items-center flex-col my-2">
-                        <div class="text-2xl">今クオーター</div>
+                        <div class="text-2xl">今クオーター ({quarter})</div>
                         <div class="text-xl text-red-500">残り{threeUntilQuarterEndRemaining}日</div>
                     </div>
                     <div class="flex items-center flex-col my-2">
