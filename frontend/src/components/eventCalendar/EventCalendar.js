@@ -74,8 +74,8 @@ const Calendar = () => {
         <Cells eventData={eventData} timer={timer} currentDate={currentDate} handleEachModalClick={handleEachModalClick} />
       </div>
 
-      <EventModal isOpen={eachModalIsOpen} onClose={() => setEachModalIsOpen(false)} event={selectedEvent} />
-      <UploadEvent isOpen={uploadModalIsOpen} onClose={() => setUploadModalIsOpen(false)} />
+      <EventModal eachModalIsOpen={eachModalIsOpen} setEachModalIsOpen={setEachModalIsOpen} selectedEvent={selectedEvent} />
+      <UploadEvent uploadModalIsOpen={uploadModalIsOpen} setUploadModalIsOpen={setUploadModalIsOpen} />
     </>
   );
 };
