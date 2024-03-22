@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import UserPolicy from './componets/UserPolicy';
 import PrivacyPolicy from './componets/PrivacyPolicy';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import DevNews from './componets/DevNews';
+import DevNews from './componets/devNews/News';
 
 const FromDev = () => {
     const [userOpen, setUserOpen] = useState(false);
