@@ -6,7 +6,7 @@ import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
 import { format } from 'date-fns';
 import { useAuth0 } from "@auth0/auth0-react";
 import { deleteData, fetchData } from '../../../utils/DatabaseUtil';
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, Popover, Transition } from '@headlessui/react';
 
 Modal.setAppElement("#root");
 
@@ -17,11 +17,6 @@ const EachEvent = ({ eachModalIsOpen, setEachModalIsOpen, selectedEvent }) => {
         fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
     const WeekChars = ["日", "月", "火", "水", "木", "金", "土"];
-
-    const [showPopup, setShowPopup] = useState(false);
-    const handleShowPopupClick = () => {
-        setShowPopup(!showPopup);
-    };
 
     return (
         <>
@@ -65,14 +60,26 @@ const EachEvent = ({ eachModalIsOpen, setEachModalIsOpen, selectedEvent }) => {
                                                     </div>
                                                 </div>
                                                 {eachAccount.role <= 2 && (
-                                                    <div className="w-1/12">
-                                                        <TrashIcon onClick={handleShowPopupClick} className="h-7 w-7 cursor-pointer fill-red-500" />
-                                                        {showPopup && (
-                                                            <div className="cursor-pointer hover:underline hover:opacity-90 absolute z-10 bg-white border rounded shadow-sm py-2 px-4 text-red-500" onClick={() => deleteData(`/delete/event/${selectedEvent.id}`, '')}>
-                                                                削除
-                                                            </div>
-                                                        )}
-                                                    </div>
+                                                    <Popover className="relative w-1/12">
+                                                        <Popover.Button className="focus:outline-none">
+                                                            <TrashIcon className="h-7 w-7 cursor-pointer fill-red-500"></TrashIcon>
+                                                        </Popover.Button>
+                                                        <Transition
+                                                            as={Fragment}
+                                                            enter="transition ease-out duration-200"
+                                                            enterFrom="opacity-0 translate-y-1"
+                                                            enterTo="opacity-100 translate-y-0"
+                                                            leave="transition ease-in duration-150"
+                                                            leaveFrom="opacity-100 translate-y-0"
+                                                            leaveTo="opacity-0 translate-y-1"
+                                                        >
+                                                            <Popover.Panel className="absolute w-16">
+                                                                <div className="bg-gray-200 px-4 py-2 rounded-md shadow-md cursor-pointer hover:underline" onClick={() => deleteData(`/delete/event/${selectedEvent.id}`, '')}>
+                                                                    削除
+                                                                </div>
+                                                            </Popover.Panel>
+                                                        </Transition>
+                                                    </Popover>
                                                 )}
                                             </div>
                                             <div className="border-y-2 border-black py-1 mt-1 mb-2">{newLineUtil(selectedEvent.text)}</div>

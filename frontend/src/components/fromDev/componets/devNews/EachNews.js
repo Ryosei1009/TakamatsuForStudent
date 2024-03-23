@@ -37,7 +37,7 @@ const EachNews = ({ devNews, newsLength, eachAccount }) => {
                                     {devNewsTimeFormat(item.created_at)}
                                     {eachAccount.role === 0 && (
                                         <Popover className="relative">
-                                            <Popover.Button>
+                                            <Popover.Button className="focus:outline-none">
                                                 <TrashIcon className="h-6 w-6 cursor-pointer fill-red-500"></TrashIcon>
                                             </Popover.Button>
                                             <Transition

@@ -74,6 +74,8 @@ const PhotoList = ({ photos, setPhotos }) => {
               setModalIsOpen={setModalIsOpen}
               showPopup={showPopup}
               handleShowPopupClick={handleShowPopupClick}
+              width={selectedPhoto.width}
+              height={selectedPhoto.height}
             />
           )}
         </div >
