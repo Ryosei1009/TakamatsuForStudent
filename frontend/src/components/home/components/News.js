@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { newsListTimeFormat } from '../../../utils/TimeUtil';
-import { lastestNewsTruncateText } from '../../../utils/TextUtil';
+import { truncateText } from '../../../utils/TextUtil';
 import { fetchData } from '../../../utils/DatabaseUtil';
 import Loading from '../../_util/Loading';
 
@@ -32,7 +32,7 @@ const News = () => {
                                     {item.title}
                                 </div>
                                 <div className="border-l-2 border-black pl-2 mt-1 ml-1 text-2xl max-xl:text-lg max-sm:text-base">
-                                    {lastestNewsTruncateText(item.text)}
+                                    {truncateText(item.text, 40)}
                                 </div>
                                 <div className="text-xl max-xl:text-base mt-1">
                                     {newsListTimeFormat(item.created_at)}

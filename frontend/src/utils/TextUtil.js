@@ -6,25 +6,9 @@ export function newLineUtil(inputString) {
     );
 }
 
-export function lastestNewsTruncateText(text) {
-    if (text.length > 40) {
-        return text.substring(0, 40) + "...";
-    } else {
-        return text;
-    }
-}
-
-export function devNewsTruncateText(text) {
-    if (text.length > 220) {
-        return text.substring(0, 220) + "...";
-    } else {
-        return text;
-    }
-}
-
-export function newsListTruncateText(text) {
-    if (text.length > 45) {
-        return text.substring(0, 45) + "...";
+export function truncateText(text, length) {
+    if (text.length > length) {
+        return text.substring(0, length) + "...";
     } else {
         return text;
     }

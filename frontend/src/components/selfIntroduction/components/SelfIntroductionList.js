@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchData } from '../../../utils/DatabaseUtil';
-import { selfIntroductionTruncateText } from '../../../utils/TextUtil';
+import { truncateText } from '../../../utils/TextUtil';
 import { calculateGrade } from '../../../utils/AccountUtil';
 import Loading from '../../_util/Loading';
 
@@ -42,7 +42,7 @@ const SelfIntroductionList = () => {
                                     </div>
                                 </div>
                                 <div className="text-lg max-ms:text-base mt-6">
-                                    {selfIntroductionTruncateText(item.self_introduction)}
+                                    {truncateText(item.self_introduction, 100)}
                                 </div>
                             </a>
                         ))) : (

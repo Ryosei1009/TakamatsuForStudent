@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment } from 'react'
 import { newsListTimeFormat } from '../../../../utils/TimeUtil'
-import { newsListTruncateText } from '../../../../utils/TextUtil'
+import { truncateText } from '../../../../utils/TextUtil'
 
 const Preview = ({ previewOpen, setPreviewOpen, formData, previewUrl, date, eachAccount }) => {
     return (
@@ -40,7 +40,7 @@ const Preview = ({ previewOpen, setPreviewOpen, formData, previewUrl, date, each
                                             <p className="ml-6 text-lg">{eachAccount.naming}</p>
                                         </div>
                                         <p className="text-4xl max-md:text-2xl mt-5 max-sm:mt-2 ml-12 max-xl:ml-8 max-md:ml-6 max-sm:ml-4 font-bold">{formData.title}</p>
-                                        <p className="text-gray-600 leading-6 text-xl mt-5 max-sm:mt-2">{newsListTruncateText(formData.text)}</p>
+                                        <p className="text-gray-600 leading-6 text-xl mt-5 max-sm:mt-2">{truncateText(formData.text, 45)}</p>
                                     </div>
                                 </div>
                             </div>
