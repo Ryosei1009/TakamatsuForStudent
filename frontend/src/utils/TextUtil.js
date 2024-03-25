@@ -13,11 +13,3 @@ export function truncateText(text, length) {
         return text;
     }
 }
-
-export function selfIntroductionTruncateText(text) {
-    if (text.length > 100) {
-        return text.substring(0, 100) + "...";
-    } else {
-        return text;
-    }
-}
