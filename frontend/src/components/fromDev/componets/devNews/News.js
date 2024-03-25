@@ -9,37 +9,37 @@ export const itemType = (item) => {
     switch (item) {
         case 1:
             return (
-                <p className="text-center text-base max-sm:text-sm font-bold bg-red-500 text-white px-4 py-1 rounded-lg min-w-16">
+                <p className="text-center text-base max-sm:text-sm font-bold bg-red-500 text-white px-4 py-1 rounded-lg w-24">
                     重要
                 </p>
             );
         case 2:
             return (
-                <p className="text-center text-base max-sm:text-sm font-bold bg-green-500 text-white px-4 py-1 rounded-lg min-w-20">
+                <p className="text-center text-base max-sm:text-sm font-bold bg-green-500 text-white px-4 py-1 rounded-lg w-24">
                     ニュース
                 </p>
             );
         case 3:
             return (
-                <p className="text-center text-base max-sm:text-sm font-bold bg-blue-500 text-white px-4 py-1 rounded-lg min-w-18">
+                <p className="text-center text-base max-sm:text-sm font-bold bg-blue-500 text-white px-4 py-1 rounded-lg w-24">
                     更新情報
                 </p>
             );
         case 4:
             return (
-                <p className="text-center text-base max-sm:text-sm font-bold bg-orange-500 text-white px-4 py-1 rounded-lg min-w-16">
+                <p className="text-center text-base max-sm:text-sm font-bold bg-orange-500 text-white px-4 py-1 rounded-lg w-24">
                     FAQ
                 </p>
             );
         case 5:
             return (
-                <p className="text-center text-base max-sm:text-sm font-bold bg-gray-500 text-white px-4 py-1 rounded-lg min-w-19">
+                <p className="text-center text-base max-sm:text-sm font-bold bg-gray-500 text-white px-4 py-1 rounded-lg w-24">
                     その他
                 </p>
             );
         default:
             return (
-                <p className="text-center text-base max-sm:text-sm font-bold bg-gray-500 text-white px-4 py-1 rounded-lg min-w-19">
+                <p className="text-center text-base max-sm:text-sm font-bold bg-gray-500 text-white px-4 py-1 rounded-lg w-24">
                     その他
                 </p>
             );
