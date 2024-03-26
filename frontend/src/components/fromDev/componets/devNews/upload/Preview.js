@@ -22,7 +22,7 @@ const PreviewBox = ({ formData, eachAccount }) => {
                                 <PlusIcon className="w-6"></PlusIcon>
                             )}
                         </Disclosure.Button>
-                        <Disclosure.Panel className={`my-5 py-5 px-8 bg-black bg-opacity-10 w-full`}>
+                        <Disclosure.Panel className="my-5 py-5 px-8 bg-black bg-opacity-10 w-full">
                             {newLineUtil(formData.text)}
                             <div className="mt-2 flex justify-between">
                                 {devNewsTimeFormat(Date.now())}
