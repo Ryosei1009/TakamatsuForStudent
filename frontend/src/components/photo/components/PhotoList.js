@@ -57,7 +57,7 @@ const PhotoList = ({ photos, setPhotos }) => {
                   ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".mp4")) ||
                   ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".m4v")) ||
                   ((process.env.REACT_APP_IMAGE_DOMAIN + "/" + image.image_name).includes(".avi")) ? (
-                  <video className="z-10 absolute top-0 w-full align-bottom" loading="lazy" controls src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${image.image_name}`}></video>
+                  <video className="z-10 absolute top-0 w-full align-bottom" loading="lazy" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${image.image_name}`}></video>
                 ) : (
                   <img className="z-10 absolute top-0 w-full align-bottom" loading="lazy" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${image.image_name}`} alt="" />
                 )}
