@@ -54,44 +54,48 @@ const SchoolDays = () => {
 
     return (
         <div className="flex justify-center border-t-8 border-black">
-            <div class="max-w-240 min-w-80 w-240 flex bg-gray-200 rounded-lg py-8 p-4">
-                <div class="w-1/3 flex flex-col items-center font-bold">
-                    <div class="text-3xl mb-4">
+            <div class="flex-col max-w-240 min-w-80 w-240 flex bg-gray-200 rounded-lg py-8 p-4">
+                <div class="flex items-center font-bold">
+                    <div class="text-3xl mb-4 w-1/3 text-center">
                         週1日
                     </div>
-                    <div class="flex items-center flex-col my-2">
-                        <div class="text-2xl">　</div>
-                        <div class="text-xl text-red-500">残り{oneUntilQuarterEndRemaining}日</div>
-                    </div>
-                    <div class="flex items-center flex-col my-2">
-                        <div class="text-2xl">　</div>
-                        <div class="text-xl text-red-500">残り{oneDayRemaining}日</div>
-                    </div>
-                </div>
-                <div class="w-1/3 flex flex-col items-center font-bold">
-                    <div class="text-3xl mb-4">
+                    <div class="text-3xl mb-4 w-1/3 text-center">
                         週3日
                     </div>
-                    <div class="flex items-center flex-col my-2">
-                        <div class="text-2xl">今クオーター ({quarter})</div>
-                        <div class="text-xl text-red-500">残り{threeUntilQuarterEndRemaining}日</div>
-                    </div>
-                    <div class="flex items-center flex-col my-2">
-                        <div class="text-2xl">今年度</div>
-                        <div class="text-xl text-red-500">残り{threeDayRemaining}日</div>
-                    </div>
-                </div>
-                <div class="w-1/3 flex flex-col items-center font-bold">
-                    <div class="text-3xl mb-4">
+                    <div class="text-3xl mb-4 w-1/3 text-center">
                         週5日
                     </div>
-                    <div class="flex items-center flex-col my-2">
-                        <div class="text-2xl">　</div>
-                        <div class="text-xl text-red-500">残り{fiveUntilQuarterEndRemaining}日</div>
+                </div>
+                <div class="flex items-center font-bold">
+                    <div class="text-2xl text-center w-full">
+                        第{quarter}クオーター
                     </div>
-                    <div class="flex items-center flex-col my-2">
-                        <div class="text-2xl">　</div>
-                        <div class="text-xl text-red-500">残り{fiveDayRemaining}日</div>
+                </div>
+                <div class="flex items-center font-bold">
+                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
+                        残り{oneUntilQuarterEndRemaining}日
+                    </div>
+                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
+                        残り{threeUntilQuarterEndRemaining}日
+                    </div>
+                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
+                        残り{fiveUntilQuarterEndRemaining}日
+                    </div>
+                </div>
+                <div class="flex items-center font-bold">
+                    <div class="text-2xl text-center w-full">
+                        今年度
+                    </div>
+                </div>
+                <div class="flex items-center font-bold">
+                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
+                        残り{oneDayRemaining}日
+                    </div>
+                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
+                        残り{threeDayRemaining}日
+                    </div>
+                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
+                        残り{fiveDayRemaining}日
                     </div>
                 </div>
             </div>
