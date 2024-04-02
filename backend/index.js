@@ -1,8 +1,7 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
-const multer = require('multer');
-const path = require('path');
+app.use(express.urlencoded({ extended: true }));
 const mysql = require("mysql2");
 require('dotenv').config();
 const port = 443;
@@ -79,241 +78,20 @@ app.use((req, res, next) => {
   next();
 });
 
-const newsStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'images/news');
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
-});
+const accountsRouter = require('./routes/account');
+app.use('/', accountsRouter);
 
-const newsUpload = multer({ storage: newsStorage });
+const devNewsRouter = require('./routes/dev_news');
+app.use('/', devNewsRouter);
 
-app.post('/upload/news', newsUpload.single('image_1'), (req, res) => {
-  const image_1 = req.file.path;
-  const { title, text, created_by, created_by_id } = req.body;
-  const created_at = Date.now();
+const eventRouter = require('./routes/event');
+app.use('/', eventRouter);
 
-  const query = 'INSERT INTO `news` (id, title, text, image_1, created_by, created_at, created_by_id) VALUES (NULL, ?, ?, ?, ?, ?, ?)';
-  connection.query(query, [title, text, image_1, created_by, created_at, created_by_id], (error, results) => {
-    if (error) {
-      console.error('データベースへの保存エラー:', error);
-      return res.status(500).send('データベースエラー');
-    }
-    res.status(200).send('アップロード成功');
-  });
-});
+const newsRouter = require('./routes/news');
+app.use('/', newsRouter);
 
-const photosStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'images/photos');
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
-});
-
-const photosUpload = multer({ storage: photosStorage });
-
-app.post('/upload/photos', photosUpload.single('image_name'), (req, res) => {
-  const image_name = req.file.path;
-  const { title, width, height, tags, created_by, created_by_id } = req.body;
-  const created_at = Date.now();
-
-  const query = 'INSERT INTO `gallery` (id, title, image_name, width, height, tags, created_by, created_by_id, created_at) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)';
-  connection.query(query, [title, image_name, width, height, tags, created_by, created_by_id, created_at], (error, results) => {
-    if (error) {
-      console.error('データベースへの保存エラー:', error);
-      return res.status(500).send('データベースエラー');
-    }
-    res.status(200).send('アップロード成功');
-  });
-});
-
-const accountStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'images/accounts');
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
-});
-
-const accountUpload = multer({ storage: accountStorage });
-
-app.post('/upload/accounts/icon', accountUpload.single('icon_name'), (req, res) => {
-  const icon_name = req.file.path;
-  var { id } = req.body;
-  const update_at = Date.now();
-  var query = 'UPDATE account SET icon_name = ?, update_at = ? WHERE id = ?';
-
-  connection.query(query, [icon_name, update_at, id], (error, results) => {
-    if (error) {
-      console.error('${dateTime}[${req.path}] データベースへの保存エラー:', error);
-      return res.status(500).send('データベースエラー');
-    }
-    res.status(200).send('アップロード成功');
-  });
-});
-
-app.post('/upload/accounts', accountUpload.single('icon_name'), (req, res) => {
-  console.log(req.body)
-  var { id, name, e_mail, naming, icon_name, grade, birthmonth, birthday, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role } = req.body;
-  const update_at = Date.now();
-
-  if (id === "undefined" || id === undefined) {
-    naming = naming === undefined ? naming : "";
-    var icon_name = "";
-    grade = grade === undefined ? grade : "";
-    birthmonth = birthmonth === undefined ? birthmonth : "";
-    birthday = birthday === undefined ? birthday : "";
-    self_introduction = self_introduction === undefined ? self_introduction : "";
-    skill = skill === undefined ? skill : "";
-    hobby = hobby === undefined ? hobby : "";
-    url_1 = url_1 === undefined ? url_1 : "";
-    url_2 = url_2 === undefined ? url_2 : "";
-    url_3 = url_3 === undefined ? url_3 : "";
-    url_4 = url_4 === undefined ? url_4 : "";
-    role = 3;
-    id = null;
-    var query = 'INSERT INTO `account` (name, e_mail, naming, icon_name, grade, birthmonth, birthday, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-  } else {
-    var query = 'UPDATE account SET name = ?, e_mail = ?, naming = ?, icon_name = ?, grade = ?, birthmonth = ?, birthday = ?, self_introduction = ?, skill = ?, hobby = ?, url_1 = ?, url_2 = ?, url_3 = ?, url_4 = ?, role = ?, update_at = ? WHERE id = ?';
-  }
-
-  connection.query(query, [name, e_mail, naming, icon_name, grade, birthmonth, birthday, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at, id], (error, results) => {
-    if (error) {
-      console.error('${dateTime}[${req.path}] データベースへの保存エラー:', error);
-      return res.status(500).send('データベースエラー');
-    }
-    res.status(200).send('アップロード成功');
-  });
-});
-
-app.post('/upload/event', (req, res) => {
-  const { date, title, text, color, created_by, created_by_id } = req.body;
-  const created_at = Date.now();
-  var query = 'INSERT INTO `event` (id, date, title, text, color, created_by, created_by_id, created_at) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)';
-
-  connection.query(query, [date, title, text, color, created_by, created_by_id, created_at], (error, results) => {
-    if (error) {
-      console.error('${dateTime} データベースへの保存エラー:', error);
-      return res.status(500).send('データベースエラー');
-    }
-    res.status(200).send('アップロード成功');
-  });
-});
-
-app.post('/upload/dev_news', (req, res) => {
-  const { type, title, text } = req.body;
-  const created_at = Date.now();
-  var query = 'INSERT INTO `dev_news` (id, type, title, text, created_at) VALUES (NULL, ?, ?, ?, ?)';
-
-  connection.query(query, [type, title, text, created_at], (error, results) => {
-    if (error) {
-      console.error('${dateTime} データベースへの保存エラー:', error);
-      return res.status(500).send('データベースエラー');
-    }
-    res.status(200).send('アップロード成功');
-  });
-});
-
-app.delete('/delete/news/:id', (req, res) => {
-  const id = req.params.id;
-  const query = 'DELETE FROM news WHERE id = ?';
-  connection.query(query, [id], (error, results) => {
-    if (error) {
-      console.error('データベースへの保存エラー:', error);
-      return res.status(500).send('データベースエラー');
-    }
-    res.status(200).send('削除成功');
-  });
-});
-
-app.delete('/delete/photos/:id', (req, res) => {
-  const id = req.params.id;
-  const query = 'DELETE FROM gallery WHERE id = ?';
-  connection.query(query, [id], (error, results) => {
-    if (error) {
-      console.error('データベースへの保存エラー:', error);
-      return res.status(500).send('データベースエラー');
-    }
-    res.status(200).send('削除成功');
-  });
-});
-
-app.delete('/delete/event/:id', (req, res) => {
-  const id = req.params.id;
-  const query = 'DELETE FROM event WHERE id = ?';
-  connection.query(query, [id], (error, results) => {
-    if (error) {
-      console.error('データベースへの保存エラー:', error);
-      return res.status(500).send('データベースエラー');
-    }
-    res.status(200).send('削除成功');
-  });
-});
-
-app.delete('/delete/dev_news/:id', (req, res) => {
-  const id = req.params.id;
-  const query = 'DELETE FROM dev_news WHERE id = ?';
-  connection.query(query, [id], (error, results) => {
-    if (error) {
-      console.error('データベースへの保存エラー:', error);
-      return res.status(500).send('データベースエラー');
-    }
-    res.status(200).send('削除成功');
-  });
-});
-
-app.get("/api/news", (req, res) => {
-  connection.query(
-    "SELECT id, title, text, image_1, created_by, created_at, created_by_id FROM news;",
-    (error, results) => {
-      res.send(results);
-    }
-  );
-});
-
-app.get("/api/accounts", (req, res) => {
-  connection.query(
-    "SELECT id, name, e_mail, icon_name, naming, grade, birthmonth, birthday, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role, update_at FROM account;",
-    (error, results) => {
-      res.send(results);
-    }
-  );
-});
-
-app.get("/api/photos", (req, res) => {
-  connection.query(
-    "SELECT id, title, image_name, width, height, tags, created_by, created_by_id, created_at FROM gallery;",
-    (error, results) => {
-      res.send(results);
-    }
-  );
-});
-
-app.get("/api/event", (req, res) => {
-  connection.query(
-    "SELECT id, date, title, text, color, created_by, created_by_id, created_at FROM event;",
-    (error, results) => {
-      res.send(results);
-    }
-  );
-});
-
-app.get("/api/dev_news", (req, res) => {
-  connection.query(
-    "SELECT id, type, title, text, created_at FROM dev_news;",
-    (error, results) => {
-      res.send(results);
-    }
-  );
-});
+const photosRouter = require('./routes/photos');
+app.use('/', photosRouter);
 
 //サーバー起動
 server.listen(port, () => {
