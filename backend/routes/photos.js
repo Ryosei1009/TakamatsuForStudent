@@ -25,11 +25,11 @@ const photosUpload = multer({ storage: photosStorage });
 
 router.post('/upload/photos', photosUpload.single('image_name'), (req, res) => {
     const image_name = req.file.path;
-    const { title, width, height, tags, created_by, created_by_id } = req.body;
+    const { title, width, height, created_by, created_by_id } = req.body;
     const created_at = Date.now();
 
-    const query = 'INSERT INTO `gallery` (id, title, image_name, width, height, tags, created_by, created_by_id, created_at) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)';
-    connection.query(query, [title, image_name, width, height, tags, created_by, created_by_id, created_at], (error, results) => {
+    const query = 'INSERT INTO `gallery` (id, title, image_name, width, height, created_by, created_by_id, created_at) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)';
+    connection.query(query, [title, image_name, width, height, created_by, created_by_id, created_at], (error, results) => {
         if (error) {
             console.error('データベースへの保存エラー:', error);
             return res.status(500).send('データベースエラー');
@@ -52,7 +52,7 @@ router.delete('/delete/photos/:id', (req, res) => {
 
 router.get("/api/photos", (req, res) => {
     connection.query(
-        "SELECT id, title, image_name, width, height, tags, created_by, created_by_id, created_at FROM gallery;",
+        "SELECT id, title, image_name, width, height, created_by, created_by_id, created_at FROM gallery;",
         (error, results) => {
             res.send(results);
         }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchData, postData } from '../../../utils/DatabaseUtil';
 import { useAuth0 } from '@auth0/auth0-react';
+import ActionPerfect from '../../_util/ActionPerfect';
 
 var selectedFile;
 
@@ -9,16 +10,16 @@ const Upload = () => {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [eachAccount, setEachAccount] = useState({});
     const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
-    const { user } = useAuth0();
+    const [uploadPerfect, setUploadPerfect] = useState(false);
 
+    const { user } = useAuth0();
     useEffect(() => {
         fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
 
     const [formData, setFormData] = useState({
         title: '',
-        image_name: '',
-        tags: ''
+        image_name: ''
     });
 
     const handleChange = (event) => {
@@ -80,15 +81,14 @@ const Upload = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formDataToSend = new FormData();
-        formDataToSend.append('title', formData.title);
+        formDataToSend.append('title', formData.title ? formData.title : selectedFile.name);
         formDataToSend.append('image_name', formData.image_name);
-        formDataToSend.append('tags', formData.tags);
         formDataToSend.append('width', imageDimensions.width);
         formDataToSend.append('height', imageDimensions.height);
         formDataToSend.append('created_by', eachAccount.naming);
         formDataToSend.append('created_by_id', eachAccount.id);
 
-        postData('/upload/photos', formDataToSend, true);
+        postData('/upload/photos', formDataToSend, true, setUploadPerfect);
     };
 
     return (
@@ -97,19 +97,7 @@ const Upload = () => {
                 Upload Photo
             </div>
             <form onSubmit={handleSubmit} className="p-4 w-72">
-                <input maxLength={20} type="text" name="title" value={formData.title} onChange={handleChange} required placeholder="タイトル" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" />
-                <select
-                    name="tags"
-                    value={formData.tags}
-                    onChange={handleChange}
-                    required
-                    className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500"
-                >
-                    <option value="" disabled>選択してください。</option>
-                    <option value="放課後">放課後</option>
-                    <option value="イベント">イベント</option>
-                    <option value="その他">その他</option>
-                </select>
+                <input maxLength={20} type="text" name="title" value={formData.title} onChange={handleChange} placeholder="タイトル" className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500" />
                 {previewUrl && (
                     <div className="mb-2">
                         {selectedFile.type.startsWith('image/') ? (
@@ -125,6 +113,7 @@ const Upload = () => {
                 <input id="file-upload" type="file" accept="image/*, video/*" name="image" onChange={handleImageChange} className="hidden" required />
                 <button type="submit" className="bg-green-500 text-white font-bold px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:bg-blue-600">アップロード</button>
             </form>
+            <ActionPerfect Perfect={uploadPerfect} onClose={() => window.location.reload()} title={"Perfect"} text={"写真のアップロードに成功しました。"} />
         </>
     )
 }
