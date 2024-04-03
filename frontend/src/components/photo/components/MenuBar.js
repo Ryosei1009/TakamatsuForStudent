@@ -20,7 +20,7 @@ const MenuBar = ({ setPhotos }) => {
         <div className={`absolute h-1 w-6 bg-black transform origin-center transition-all z-40 ${isOpen ? '-rotate-135 top-2' : 'top-4'}`}></div>
       </label>
 
-      <div id="sidebarMenu" className={`h-full top-0 bg-white fixed left-0 w-80 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 z-20 rounded-r-3xl`}>
+      <div id="sidebarMenu" className={`h-full top-0 bg-white fixed left-0 overflow-scroll scroll-hidden w-80 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 z-20 rounded-r-3xl`}>
         <div className="top-24 max-sm:top-32 absolute">
           <Upload />
           <Search setSearchTerm={setSearchTerm} setPhotos={setPhotos} searchTerm={searchTerm} />
