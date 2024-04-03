@@ -41,7 +41,7 @@ const PhotoList = ({ photos, setPhotos }) => {
             {photos.slice().reverse().map((image) => (
               <div
                 onClick={() => handleModalClick(image)}
-                className="m-1 bg-white sticky cursor-pointer hover:opacity-80 max-w-98vw"
+                className="m-1 sticky cursor-pointer hover:opacity-80 max-w-98vw"
                 style={{ width: `${image.width * 200 / image.height}px`, flexGrow: `${image.width * 200 / image.height}` }}
                 key={image.id}
               >
@@ -83,7 +83,7 @@ const PhotoList = ({ photos, setPhotos }) => {
         <>
           {timer ? (
             <div className="text-3xl max-xl:text-2xl max-sm:text-lg font-bold ml-2 text-red-500">
-              サーバーが落ちている可能性があります。運営にお問い合わせください。
+              画像をアップロードしましょう！
             </div>
           ) : (
             <Loading />
