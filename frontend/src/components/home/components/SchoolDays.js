@@ -54,8 +54,58 @@ const SchoolDays = () => {
 
     return (
         <div className="flex justify-center border-t-8 border-black">
-            <div class="flex-col max-w-240 min-w-80 w-240 flex bg-gray-200 rounded-lg py-8 p-4">
-                <div class="flex items-center font-bold">
+            <div class="max-w-240 min-w-80 w-240 flex bg-gray-200 rounded-lg py-8 p-4">
+                <table className="table w-full text-center font-bold">
+                    <thead>
+                        <tr className="text-4xl max-md:text-2xl">
+                            <td className="w-3/12">
+
+                            </td>
+                            <td className="w-5/12">
+                                第{quarter}クオーター
+                            </td>
+                            <td className="w-5/12">
+                                今年度
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody className="text-3xl max-sm:text-xl text-red-500">
+                        <tr>
+                            <td className="text-4xl max-sm:text-2xl text-black pt-5">
+                                週1日
+                            </td>
+                            <td>
+                                残り{oneUntilQuarterEndRemaining}日
+                            </td>
+                            <td>
+                                残り{oneDayRemaining}日
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-4xl max-sm:text-2xl text-black pt-5">
+                                週3日
+                            </td>
+                            <td>
+                                残り{threeUntilQuarterEndRemaining}日
+                            </td>
+                            <td>
+                                残り{threeDayRemaining}日
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-4xl max-sm:text-2xl text-black pt-5">
+                                週5日
+                            </td>
+                            <td>
+                                残り{fiveUntilQuarterEndRemaining}日
+                            </td>
+                            <td>
+                                残り{fiveDayRemaining}日
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                {/* <div class="flex items-center font-bold">
                     <div class="text-3xl mb-4 w-1/3 text-center">
                         週1日
                     </div>
@@ -97,7 +147,7 @@ const SchoolDays = () => {
                     <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
                         残り{fiveDayRemaining}日
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );
