@@ -32,23 +32,23 @@ export async function fetchData(url, setData = null, eachData = null, target = n
     }
 }
 
-export async function deleteData(url, locationUrl) {
+export async function deleteData(url, setDeletePerfect = null) {
     try {
         await axios.delete(`${process.env.REACT_APP_API_DOMAIN}${url}`);
-        window.location.href = locationUrl;
+        setDeletePerfect && setDeletePerfect(true);
     } catch (error) {
         console.error(error.message);
     }
 }
 
-export const postData = async (url, formData, isFile) => {
+export const postData = async (url, formData, isFile, setUploadPerfect = null) => {
     try {
         await axios.post(`${process.env.REACT_APP_API_DOMAIN}${url}`, formData, isFile && {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
         });
-        window.location.reload();
+        setUploadPerfect && setUploadPerfect(true);
     } catch (error) {
         console.error('Error uploading data:', error);
     }

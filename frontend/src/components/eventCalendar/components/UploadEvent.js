@@ -4,6 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { fetchData, postData } from '../../../utils/DatabaseUtil';
 import Preview from './upload/Preview';
 import Upload from './upload/Upload';
+import ActionPerfect from '../../_util/ActionPerfect';
 
 Modal.setAppElement("#root");
 
@@ -14,6 +15,7 @@ const UploadEvent = ({ uploadModalIsOpen, setUploadModalIsOpen }) => {
     const [previewOpen, setPreviewOpen] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [showBirthday, setShowBirthday] = useState(false);
+    const [uploadPerfect, setUploadPerfect] = useState(false);
     const WeekChars = ["日", "月", "火", "水", "木", "金", "土"];
 
     const handlePreview = () => {
@@ -62,7 +64,7 @@ const UploadEvent = ({ uploadModalIsOpen, setUploadModalIsOpen }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        postData('/upload/event', formData, false);
+        postData('/upload/event', formData, false, setUploadPerfect);
     };
 
     const handleDateChange = (event) => {
@@ -77,6 +79,7 @@ const UploadEvent = ({ uploadModalIsOpen, setUploadModalIsOpen }) => {
         <>
             <Upload uploadModalIsOpen={uploadModalIsOpen} previewOpen={previewOpen} setUploadModalIsOpen={setUploadModalIsOpen} handleBirthday={handleBirthday} formData={formData} showBirthday={showBirthday} formDate={formDate} handleSubmit={handleSubmit} handleDateChange={handleDateChange} handleChange={handleChange} handlePreview={handlePreview} />
             <Preview previewOpen={previewOpen} setPreviewOpen={setPreviewOpen} formData={formData} formDate={formDate} eachAccount={eachAccount} WeekChars={WeekChars} handleShowPopup={handleShowPopup} showPopup={showPopup} />
+            <ActionPerfect Perfect={uploadPerfect} onClose={() => window.location.reload()} title={"Perfect"} text={"イベントの作成に成功しました。"} />
         </>
     )
 }

@@ -8,6 +8,7 @@ import Modal from 'react-modal';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { TrashIcon } from '@heroicons/react/solid';
 import { Popover, Transition } from '@headlessui/react';
+import ActionPerfect from '../_util/ActionPerfect';
 
 Modal.setAppElement("#root");
 
@@ -25,6 +26,7 @@ const EachNews = () => {
         fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
 
+    const [deletePerfect, setDeletePerfect] = useState(false);
     return (
         <>
             <HelmetProvider>
@@ -63,7 +65,7 @@ const EachNews = () => {
                                         leaveTo="opacity-0 translate-y-1"
                                     >
                                         <Popover.Panel className="absolute w-16">
-                                            <div className="bg-gray-200 px-4 py-2 rounded-md shadow-md cursor-pointer hover:underline" onClick={() => deleteData(`/delete/news/${postId}`, '/news/')}>
+                                            <div className="bg-gray-200 px-4 py-2 rounded-md shadow-md cursor-pointer hover:underline" onClick={() => deleteData(`/delete/news/${postId}`, setDeletePerfect)}>
                                                 削除
                                             </div>
                                         </Popover.Panel>
@@ -85,6 +87,7 @@ const EachNews = () => {
                     </div>
                 </div>
             </div>
+            <ActionPerfect Perfect={deletePerfect} onClose={() => window.location.href = "/news/"} title={"Perfect"} text={"ニュースの削除に成功しました。"} />
         </>
     )
 }

@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { postData } from '../../../utils/DatabaseUtil';
 import { calculateGrade, isStudent } from '../../../utils/AccountUtil';
 import { eachNewsTimeFormat } from '../../../utils/TimeUtil';
+import ActionPerfect from '../../_util/ActionPerfect';
 
 const Form = ({ eachAccount, user }) => {
+    const [uploadPerfect, setUploadPerfect] = useState(false);
     const [formData, setFormData] = useState({
         naming: '',
         grade: '',
@@ -40,7 +42,7 @@ const Form = ({ eachAccount, user }) => {
         formDataToSend.append('url_4', formData.url_4 ? formData.url_4 : eachAccount.url_4);
         formDataToSend.append('role', eachAccount.role);
 
-        postData('/upload/accounts', formDataToSend, true);
+        postData('/upload/accounts', formDataToSend, true, setUploadPerfect);
     };
 
     const handleChange = (event) => {
@@ -52,186 +54,189 @@ const Form = ({ eachAccount, user }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="mb-2">
-                <div className="font-bold mb-1">
-                    ニックネーム
-                </div>
-                <input
-                    placeholder="Nっち"
-                    maxLength={20}
-                    className="w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
-                    type="text"
-                    name="naming"
-                    defaultValue={eachAccount.naming}
-                    onChange={handleChange}
-                />
-            </div>
-
-            {parseInt(eachAccount.role) === 3 || parseInt(eachAccount.role) === 0 || eachAccount.role === undefined ? (
+        <>
+            <form onSubmit={handleSubmit}>
                 <div className="mb-2">
                     <div className="font-bold mb-1">
-                        卒業予定
+                        ニックネーム
                     </div>
                     <input
-                        placeholder="2026"
-                        maxLength={4}
-                        className="w-18 pl-3 py-1 bg-stone-100 rounded-md border-1"
+                        placeholder="Nっち"
+                        maxLength={20}
+                        className="w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
                         type="text"
-                        name="grade"
-                        defaultValue={eachAccount.grade}
+                        name="naming"
+                        defaultValue={eachAccount.naming}
                         onChange={handleChange}
                     />
-                    <span className="ml-1">年3月 {eachAccount.role === undefined ? "" : calculateGrade(formData.grade ? formData.grade : eachAccount.grade)}</span>
-                </div>) : (
-                ""
-            )}
-
-            <div className="mb-2">
-                <div className="font-bold mb-1">
-                    誕生日
                 </div>
-                <input
-                    placeholder="12"
-                    maxLength={2}
-                    className="w-16 px-3 py-1 bg-stone-100 rounded-s-md border-1"
-                    type="number"
-                    name="birthmonth"
-                    defaultValue={eachAccount.birthmonth}
-                    onChange={handleChange}
-                />
-                <input
-                    placeholder="8"
-                    maxLength={2}
-                    className="w-16 px-3 py-1 bg-stone-100 rounded-e-md border-1"
-                    type="number"
-                    name="birthday"
-                    defaultValue={eachAccount.birthday}
-                    onChange={handleChange}
-                />
-            </div>
 
-            <div className="mb-2">
-                <div className="font-bold mb-1">
-                    自己紹介
-                </div>
-                <textarea
-                    placeholder="週3で通ってます！仲良くしてね！"
-                    className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1"
-                    type="text"
-                    name="self_introduction"
-                    defaultValue={eachAccount.self_introduction}
-                    onChange={handleChange}
-                    maxLength={200}
-                />
-            </div>
+                {parseInt(eachAccount.role) === 3 || parseInt(eachAccount.role) === 0 || eachAccount.role === undefined ? (
+                    <div className="mb-2">
+                        <div className="font-bold mb-1">
+                            卒業予定
+                        </div>
+                        <input
+                            placeholder="2026"
+                            maxLength={4}
+                            className="w-18 pl-3 py-1 bg-stone-100 rounded-md border-1"
+                            type="text"
+                            name="grade"
+                            defaultValue={eachAccount.grade}
+                            onChange={handleChange}
+                        />
+                        <span className="ml-1">年3月 {eachAccount.role === undefined ? "" : calculateGrade(formData.grade ? formData.grade : eachAccount.grade)}</span>
+                    </div>) : (
+                    ""
+                )}
 
-            <div className="mb-2">
-                <div className="font-bold mb-1">
-                    スキル
-                </div>
-                <textarea
-                    placeholder="絵描ける"
-                    className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1"
-                    type="text"
-                    name="skill"
-                    defaultValue={eachAccount.skill}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="mb-2">
-                <div className="font-bold mb-1">
-                    趣味
-                </div>
-                <textarea
-                    placeholder="カラオケ"
-                    className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1"
-                    type="text"
-                    name="hobby"
-                    defaultValue={eachAccount.hobby}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="mb-2">
-                <div className="font-bold mb-1">
-                    URL
-                </div>
-                <input
-                    placeholder="https://example.com"
-                    maxLength={128}
-                    className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
-                    type="text"
-                    name="url_1"
-                    defaultValue={eachAccount.url_1}
-                    onChange={handleChange}
-                />
-                <input
-                    placeholder="https://example.com"
-                    maxLength={128}
-                    className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
-                    type="text"
-                    name="url_2"
-                    defaultValue={eachAccount.url_2}
-                    onChange={handleChange}
-                />
-                <input
-                    placeholder="https://example.com"
-                    maxLength={128}
-                    className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
-                    type="text"
-                    name="url_3"
-                    defaultValue={eachAccount.url_3}
-                    onChange={handleChange}
-                />
-                <input
-                    placeholder="https://example.com"
-                    maxLength={128}
-                    className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
-                    type="text"
-                    name="url_4"
-                    defaultValue={eachAccount.url_4}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div>
-                <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-6 max-sm:px-3 rounded">
-                    更新
-                </button>
-                <span className="ml-4 max-sm:ml-2">
-                    {eachAccount.update_at ? "最終更新 " + eachNewsTimeFormat(eachAccount.update_at) : ""}
-                </span>
-            </div>
-
-            <div className="my-8">
                 <div className="mb-2">
                     <div className="font-bold mb-1">
-                        ID
+                        誕生日
                     </div>
-                    <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={eachAccount.id} />
+                    <input
+                        placeholder="12"
+                        maxLength={2}
+                        className="w-16 px-3 py-1 bg-stone-100 rounded-s-md border-1"
+                        type="number"
+                        name="birthmonth"
+                        defaultValue={eachAccount.birthmonth}
+                        onChange={handleChange}
+                    />
+                    <input
+                        placeholder="8"
+                        maxLength={2}
+                        className="w-16 px-3 py-1 bg-stone-100 rounded-e-md border-1"
+                        type="number"
+                        name="birthday"
+                        defaultValue={eachAccount.birthday}
+                        onChange={handleChange}
+                    />
                 </div>
+
                 <div className="mb-2">
                     <div className="font-bold mb-1">
-                        名前
+                        自己紹介
                     </div>
-                    <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={user.name} />
+                    <textarea
+                        placeholder="週3で通ってます！仲良くしてね！"
+                        className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1"
+                        type="text"
+                        name="self_introduction"
+                        defaultValue={eachAccount.self_introduction}
+                        onChange={handleChange}
+                        maxLength={200}
+                    />
                 </div>
+
                 <div className="mb-2">
                     <div className="font-bold mb-1">
-                        e-mail
+                        スキル
                     </div>
-                    <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={user.email} />
+                    <textarea
+                        placeholder="絵描ける"
+                        className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1"
+                        type="text"
+                        name="skill"
+                        defaultValue={eachAccount.skill}
+                        onChange={handleChange}
+                    />
                 </div>
+
                 <div className="mb-2">
                     <div className="font-bold mb-1">
-                        生徒/教員
+                        趣味
                     </div>
-                    <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={isStudent(eachAccount.role)} />
+                    <textarea
+                        placeholder="カラオケ"
+                        className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1"
+                        type="text"
+                        name="hobby"
+                        defaultValue={eachAccount.hobby}
+                        onChange={handleChange}
+                    />
                 </div>
-            </div>
-        </form>
+
+                <div className="mb-2">
+                    <div className="font-bold mb-1">
+                        URL
+                    </div>
+                    <input
+                        placeholder="https://example.com"
+                        maxLength={128}
+                        className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
+                        type="text"
+                        name="url_1"
+                        defaultValue={eachAccount.url_1}
+                        onChange={handleChange}
+                    />
+                    <input
+                        placeholder="https://example.com"
+                        maxLength={128}
+                        className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
+                        type="text"
+                        name="url_2"
+                        defaultValue={eachAccount.url_2}
+                        onChange={handleChange}
+                    />
+                    <input
+                        placeholder="https://example.com"
+                        maxLength={128}
+                        className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
+                        type="text"
+                        name="url_3"
+                        defaultValue={eachAccount.url_3}
+                        onChange={handleChange}
+                    />
+                    <input
+                        placeholder="https://example.com"
+                        maxLength={128}
+                        className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
+                        type="text"
+                        name="url_4"
+                        defaultValue={eachAccount.url_4}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div>
+                    <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-6 max-sm:px-3 rounded">
+                        更新
+                    </button>
+                    <span className="ml-4 max-sm:ml-2">
+                        {eachAccount.update_at ? "最終更新 " + eachNewsTimeFormat(eachAccount.update_at) : ""}
+                    </span>
+                </div>
+
+                <div className="my-8">
+                    <div className="mb-2">
+                        <div className="font-bold mb-1">
+                            ID
+                        </div>
+                        <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={eachAccount.id} />
+                    </div>
+                    <div className="mb-2">
+                        <div className="font-bold mb-1">
+                            名前
+                        </div>
+                        <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={user.name} />
+                    </div>
+                    <div className="mb-2">
+                        <div className="font-bold mb-1">
+                            e-mail
+                        </div>
+                        <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={user.email} />
+                    </div>
+                    <div className="mb-2">
+                        <div className="font-bold mb-1">
+                            生徒/教員
+                        </div>
+                        <input className="w-96 max-sm:w-80 px-3 py-1 text-gray-500 bg-stone-100 rounded-md border-1" type="text" disabled value={isStudent(eachAccount.role)} />
+                    </div>
+                </div>
+            </form>
+            <ActionPerfect Perfect={uploadPerfect} onClose={() => window.location.reload()} title={"Perfect"} text={"プロフィールの更新に成功しました。"} />
+        </>
     )
 }
 

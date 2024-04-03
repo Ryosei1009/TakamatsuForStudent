@@ -5,16 +5,17 @@ import { deleteData, fetchData } from '../../../utils/DatabaseUtil';
 import { useAuth0 } from '@auth0/auth0-react';
 import Modal from 'react-modal';
 import { Dialog, Popover, Transition } from '@headlessui/react';
+import ActionPerfect from '../../_util/ActionPerfect';
 
 Modal.setAppElement("#root");
 
 const EachPhoto = ({ modalIsOpen, selectedPhoto, setModalIsOpen, handleShowPopupClick, showPopup, width, height }) => {
     const { user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
-
     useEffect(() => {
         fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
+    const [deletePerfect, setDeletePerfect] = useState(false);
 
     return (
         <>
@@ -41,7 +42,7 @@ const EachPhoto = ({ modalIsOpen, selectedPhoto, setModalIsOpen, handleShowPopup
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="transition-opacity w-full max-w-240 max-lg:max-w-23/24 bg-gray-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute pt-8 max-sm:pt-6 pb-5 px-16 max-sm:px-4 rounded-xl outline-none">
+                            <Dialog.Panel className="transition-opacity w-full max-w-240 max-lg:max-w-23/24 border-green-500 border-2 bg-stone-300 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute pt-8 max-sm:pt-6 pb-5 px-16 max-sm:px-4 rounded-xl outline-none">
                                 {parseInt(eachAccount.id) === selectedPhoto.created_by_id || parseInt(eachAccount.role) <= 2 ? (
                                     <Popover className="absolute right-6">
                                         <Popover.Button className="focus:outline-none">
@@ -57,7 +58,7 @@ const EachPhoto = ({ modalIsOpen, selectedPhoto, setModalIsOpen, handleShowPopup
                                             leaveTo="opacity-0 translate-y-1"
                                         >
                                             <Popover.Panel className="absolute w-16">
-                                                <div className="bg-gray-200 px-4 py-2 rounded-md shadow-md cursor-pointer hover:underline" onClick={() => deleteData(`/delete/photos/${selectedPhoto.id}`, '')}>
+                                                <div className="bg-gray-200 px-4 py-2 rounded-md shadow-md cursor-pointer hover:underline" onClick={() => deleteData(`/delete/photos/${selectedPhoto.id}`, setDeletePerfect)}>
                                                     削除
                                                 </div>
                                             </Popover.Panel>
@@ -104,6 +105,7 @@ const EachPhoto = ({ modalIsOpen, selectedPhoto, setModalIsOpen, handleShowPopup
                     </div>
                 </Dialog>
             </Transition>
+            <ActionPerfect Perfect={deletePerfect} onClose={() => window.location.reload()} title={"Perfect"} text={"写真の削除に成功しました。"} />
         </>
     )
 }

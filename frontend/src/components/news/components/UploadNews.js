@@ -4,6 +4,7 @@ import { fetchData, postData } from '../../../utils/DatabaseUtil';
 import Modal from 'react-modal';
 import Upload from './upload/Upload';
 import Preview from './upload/Preview';
+import ActionPerfect from '../../_util/ActionPerfect';
 
 Modal.setAppElement("#root");
 
@@ -15,6 +16,8 @@ const UploadNews = ({ uploadOpen, setUploadOpen }) => {
     useEffect(() => {
         fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
+
+    const [uploadPerfect, setUploadPerfect] = useState(false);
 
     const [previewOpen, setPreviewOpen] = useState(false);
 
@@ -67,13 +70,14 @@ const UploadNews = ({ uploadOpen, setUploadOpen }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        postData('/upload/news', formData, true);
+        postData('/upload/news', formData, true, setUploadPerfect);
     };
 
     return (
         <>
             <Upload uploadOpen={uploadOpen} previewOpen={previewOpen} setUploadOpen={setUploadOpen} setPreviewOpen={setPreviewOpen} handleSubmit={handleSubmit} formData={formData} handleChange={handleChange} previewUrl={previewUrl} handleImageChange={handleImageChange} />
             <Preview previewOpen={previewOpen} setPreviewOpen={setPreviewOpen} formData={formData} previewUrl={previewUrl} date={date} eachAccount={eachAccount} />
+            <ActionPerfect Perfect={uploadPerfect} onClose={() => window.location.reload()} title={"Perfect"} text={"ニュースの作成に成功しました。"} />
         </>
     )
 }

@@ -7,12 +7,14 @@ import { format } from 'date-fns';
 import { useAuth0 } from "@auth0/auth0-react";
 import { deleteData, fetchData } from '../../../utils/DatabaseUtil';
 import { Dialog, Popover, Transition } from '@headlessui/react';
+import ActionPerfect from '../../_util/ActionPerfect';
 
 Modal.setAppElement("#root");
 
 const EachEvent = ({ eachModalIsOpen, setEachModalIsOpen, selectedEvent }) => {
     const { user } = useAuth0();
     const [eachAccount, setEachAccount] = useState({});
+    const [deletePerfect, setDeletePerfect] = useState(false);
     useEffect(() => {
         fetchData('/api/accounts', setEachAccount, user, "e_mail", "email");
     }, [user]);
@@ -74,7 +76,7 @@ const EachEvent = ({ eachModalIsOpen, setEachModalIsOpen, selectedEvent }) => {
                                                             leaveTo="opacity-0 translate-y-1"
                                                         >
                                                             <Popover.Panel className="absolute w-16">
-                                                                <div className="bg-gray-200 px-4 py-2 rounded-md shadow-md cursor-pointer hover:underline" onClick={() => deleteData(`/delete/event/${selectedEvent.id}`, '')}>
+                                                                <div className="bg-gray-200 px-4 py-2 rounded-md shadow-md cursor-pointer hover:underline" onClick={() => deleteData(`/delete/event/${selectedEvent.id}`, setDeletePerfect)}>
                                                                     削除
                                                                 </div>
                                                             </Popover.Panel>
@@ -103,6 +105,7 @@ const EachEvent = ({ eachModalIsOpen, setEachModalIsOpen, selectedEvent }) => {
                     </div>
                 </Dialog>
             </Transition>
+            <ActionPerfect Perfect={deletePerfect} onClose={() => window.location.reload()} title={"Perfect"} text={"イベントの削除に成功しました。"} />
         </>
     );
 };
