@@ -117,23 +117,23 @@ const EachSelfIntroduction = () => {
                                 URL
                             </div>
                             {url_1 && (
-                                <a className="ml-3 hover:underline text-blue-500" href={url_1} target="_blank" rel="noreferrer">
-                                    {url_1}
+                                <a className="block ml-3 hover:underline text-blue-500" href={`https://${url_1}`} target="_blank" rel="noreferrer">
+                                    https://{url_1}
                                 </a>
                             )}
                             {url_2 && (
-                                <a className="ml-3 hover:underline text-blue-500" href={url_2} target="_blank" rel="noreferrer">
-                                    {url_2}
+                                <a className="block ml-3 hover:underline text-blue-500" href={`https://${url_2}`} target="_blank" rel="noreferrer">
+                                    https://{url_2}
                                 </a>
                             )}
                             {url_3 && (
-                                <a className="ml-3 hover:underline text-blue-500" href={url_3} target="_blank" rel="noreferrer">
-                                    {url_3}
+                                <a className="block ml-3 hover:underline text-blue-500" href={`https://${url_3}`} target="_blank" rel="noreferrer">
+                                    https://{url_3}
                                 </a>
                             )}
                             {url_4 && (
-                                <a className="ml-3 hover:underline text-blue-500" href={url_4} target="_blank" rel="noreferrer">
-                                    {url_4}
+                                <a className="block ml-3 hover:underline text-blue-500" href={`https://${url_4}`} target="_blank" rel="noreferrer">
+                                    https://{url_4}
                                 </a>
                             )}
                         </div>

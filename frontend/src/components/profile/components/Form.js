@@ -162,7 +162,7 @@ const Form = ({ eachAccount, user }) => {
                         URL
                     </div>
                     <input
-                        placeholder="https://example.com"
+                        placeholder="example.com"
                         maxLength={128}
                         className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
                         type="text"
@@ -171,7 +171,7 @@ const Form = ({ eachAccount, user }) => {
                         onChange={handleChange}
                     />
                     <input
-                        placeholder="https://example.com"
+                        placeholder="https://の後を入力してください。"
                         maxLength={128}
                         className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
                         type="text"
@@ -180,7 +180,7 @@ const Form = ({ eachAccount, user }) => {
                         onChange={handleChange}
                     />
                     <input
-                        placeholder="https://example.com"
+                        placeholder="example.com/profile/"
                         maxLength={128}
                         className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
                         type="text"
@@ -189,7 +189,7 @@ const Form = ({ eachAccount, user }) => {
                         onChange={handleChange}
                     />
                     <input
-                        placeholder="https://example.com"
+                        placeholder="https://の後を入力してください。"
                         maxLength={128}
                         className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
                         type="text"
