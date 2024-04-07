@@ -165,7 +165,7 @@ const Form = ({ eachAccount, user }) => {
                         onChange={handleChange}
                     />
                     <input
-                        placeholder="example.com"
+                        placeholder="example.com/profile/"
                         maxLength={128}
                         className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
                         type="text"
