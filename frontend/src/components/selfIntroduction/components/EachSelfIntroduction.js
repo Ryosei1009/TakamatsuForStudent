@@ -78,7 +78,7 @@ const EachSelfIntroduction = () => {
                     {comment ? (
                         <div className="mb-2">
                             <div className="font-bold mb-1 text-2xl">
-                                自己紹介
+                                一言
                             </div>
                             <div className="ml-3">
                                 {newLineUtil(comment)}
