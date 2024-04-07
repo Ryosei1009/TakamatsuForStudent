@@ -11,7 +11,7 @@ const Form = ({ eachAccount, user }) => {
         grade: '',
         birthmonth: '',
         birthday: '',
-        self_introduction: '',
+        comment: '',
         skill: '',
         hobby: '',
         url_1: '',
@@ -33,9 +33,8 @@ const Form = ({ eachAccount, user }) => {
         formDataToSend.append('grade', formData.grade ? formData.grade : eachAccount.grade);
         formDataToSend.append('birthmonth', formData.birthmonth ? formData.birthmonth : eachAccount.birthmonth);
         formDataToSend.append('birthday', formData.birthday ? formData.birthday : eachAccount.birthday);
-        formDataToSend.append('self_introduction', formData.self_introduction ? formData.self_introduction : eachAccount.self_introduction);
-        formDataToSend.append('skill', formData.skill ? formData.skill : eachAccount.skill);
         formDataToSend.append('hobby', formData.hobby ? formData.hobby : eachAccount.hobby);
+        formDataToSend.append('comment', formData.comment ? formData.comment : eachAccount.comment);
         formDataToSend.append('url_1', formData.url_1 ? formData.url_1 : eachAccount.url_1);
         formDataToSend.append('url_2', formData.url_2 ? formData.url_2 : eachAccount.url_2);
         formDataToSend.append('url_3', formData.url_3 ? formData.url_3 : eachAccount.url_3);
@@ -116,30 +115,16 @@ const Form = ({ eachAccount, user }) => {
 
                 <div className="mb-2">
                     <div className="font-bold mb-1">
-                        自己紹介
+                        一言
                     </div>
                     <textarea
                         placeholder="週3で通ってます！仲良くしてね！"
                         className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1"
                         type="text"
-                        name="self_introduction"
-                        defaultValue={eachAccount.self_introduction}
+                        name="comment"
+                        defaultValue={eachAccount.comment}
                         onChange={handleChange}
                         maxLength={200}
-                    />
-                </div>
-
-                <div className="mb-2">
-                    <div className="font-bold mb-1">
-                        スキル
-                    </div>
-                    <textarea
-                        placeholder="絵描ける"
-                        className="w-96 max-sm:w-80 h-24 px-3 py-1 bg-stone-100 rounded-md border-1"
-                        type="text"
-                        name="skill"
-                        defaultValue={eachAccount.skill}
-                        onChange={handleChange}
                     />
                 </div>
 
@@ -162,7 +147,7 @@ const Form = ({ eachAccount, user }) => {
                         URL
                     </div>
                     <input
-                        placeholder="https://example.com"
+                        placeholder="example.com"
                         maxLength={128}
                         className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
                         type="text"
@@ -171,7 +156,7 @@ const Form = ({ eachAccount, user }) => {
                         onChange={handleChange}
                     />
                     <input
-                        placeholder="https://example.com"
+                        placeholder="https://の後を入力してください。"
                         maxLength={128}
                         className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
                         type="text"
@@ -180,7 +165,7 @@ const Form = ({ eachAccount, user }) => {
                         onChange={handleChange}
                     />
                     <input
-                        placeholder="https://example.com"
+                        placeholder="example.com"
                         maxLength={128}
                         className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
                         type="text"
@@ -189,7 +174,7 @@ const Form = ({ eachAccount, user }) => {
                         onChange={handleChange}
                     />
                     <input
-                        placeholder="https://example.com"
+                        placeholder="https://の後を入力してください。"
                         maxLength={128}
                         className="mb-1 w-96 max-sm:w-80 px-3 py-1 bg-stone-100 rounded-md border-1"
                         type="text"

@@ -42,7 +42,7 @@ const SelfIntroductionList = () => {
                                     </div>
                                 </div>
                                 <div className="text-lg max-ms:text-base mt-6">
-                                    {truncateText(item.self_introduction, 100)}
+                                    {truncateText(item.comment, 100)}
                                 </div>
                             </a>
                         ))) : (

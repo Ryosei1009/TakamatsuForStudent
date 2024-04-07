@@ -19,7 +19,7 @@ const EachSelfIntroduction = () => {
         setModalIsOpen(true);
     }
 
-    const { id, name, icon_name, naming, grade, birthmonth, birthday, self_introduction, skill, hobby, url_1, url_2, url_3, url_4, role } = eachAccount;
+    const { id, name, icon_name, naming, grade, birthmonth, birthday, comment, hobby, url_1, url_2, url_3, url_4, role } = eachAccount;
 
     return (
         <>
@@ -75,26 +75,13 @@ const EachSelfIntroduction = () => {
                         </div>
                     ) : ""}
 
-                    {self_introduction ? (
+                    {comment ? (
                         <div className="mb-2">
                             <div className="font-bold mb-1 text-2xl">
                                 自己紹介
                             </div>
                             <div className="ml-3">
-                                {newLineUtil(self_introduction)}
-                            </div>
-                        </div>
-                    ) : ""}
-
-
-
-                    {skill ? (
-                        <div className="mb-2">
-                            <div className="font-bold mb-1 text-2xl">
-                                スキル
-                            </div>
-                            <div className="ml-3">
-                                {newLineUtil(skill)}
+                                {newLineUtil(comment)}
                             </div>
                         </div>
                     ) : ""}
@@ -117,23 +104,23 @@ const EachSelfIntroduction = () => {
                                 URL
                             </div>
                             {url_1 && (
-                                <a className="ml-3 hover:underline text-blue-500" href={url_1} target="_blank" rel="noreferrer">
-                                    {url_1}
+                                <a className="block ml-3 hover:underline text-blue-500" href={`https://${url_1}`} target="_blank" rel="noreferrer">
+                                    https://{url_1}
                                 </a>
                             )}
                             {url_2 && (
-                                <a className="ml-3 hover:underline text-blue-500" href={url_2} target="_blank" rel="noreferrer">
-                                    {url_2}
+                                <a className="block ml-3 hover:underline text-blue-500" href={`https://${url_2}`} target="_blank" rel="noreferrer">
+                                    https://{url_2}
                                 </a>
                             )}
                             {url_3 && (
-                                <a className="ml-3 hover:underline text-blue-500" href={url_3} target="_blank" rel="noreferrer">
-                                    {url_3}
+                                <a className="block ml-3 hover:underline text-blue-500" href={`https://${url_3}`} target="_blank" rel="noreferrer">
+                                    https://{url_3}
                                 </a>
                             )}
                             {url_4 && (
-                                <a className="ml-3 hover:underline text-blue-500" href={url_4} target="_blank" rel="noreferrer">
-                                    {url_4}
+                                <a className="block ml-3 hover:underline text-blue-500" href={`https://${url_4}`} target="_blank" rel="noreferrer">
+                                    https://{url_4}
                                 </a>
                             )}
                         </div>
