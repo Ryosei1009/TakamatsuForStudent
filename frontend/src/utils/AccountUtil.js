@@ -13,7 +13,7 @@ export function isStudent(role) {
 export function calculateGrade(graduationYear) {
     var currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
-    if (currentMonth < 4) {
+    if (currentMonth < 3) {
         currentYear = currentYear - 1;
     }
     const grade = 4 - (graduationYear - currentYear);
