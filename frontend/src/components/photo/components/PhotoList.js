@@ -49,7 +49,7 @@ const PhotoList = ({ photos, setPhotos }) => {
         <div className="flex justify-center">
           <section className={`flex flex-wrap after:content-none flex-grow`}>
             {photos.slice().reverse().map((image) => (
-              <a
+              <div
                 // onClick={() => handleModalClick(image)}
                 className="m-1 sticky max-w-98vw"
                 style={{ width: `${image.width * 200 / image.height}px`, flexGrow: `${image.width * 200 / image.height}` }}
@@ -93,8 +93,7 @@ const PhotoList = ({ photos, setPhotos }) => {
                 ) : (
                   <img className="z-10 absolute top-0 w-full align-bottom" loading="lazy" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${image.image_name}`} alt="" />
                 )}
-
-              </a>
+              </div>
             ))}
           </section>
 
