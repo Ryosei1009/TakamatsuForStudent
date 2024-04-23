@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import Search from './Search';
 import Upload from './Upload';
 
 const MenuBar = ({ setPhotos }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -23,7 +21,6 @@ const MenuBar = ({ setPhotos }) => {
       <div id="sidebarMenu" className={`h-full top-0 bg-white fixed left-0 overflow-scroll scroll-hidden w-80 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 z-20 rounded-r-3xl`}>
         <div className="top-24 max-sm:top-32 absolute">
           <Upload />
-          <Search setSearchTerm={setSearchTerm} setPhotos={setPhotos} searchTerm={searchTerm} />
         </div>
       </div>
     </div>

@@ -7,7 +7,10 @@ const Photo = () => {
   return (
     <div className="flex">
       <MenuBar setPhotos={setPhotos} />
-      <PhotoList photos={photos} setPhotos={setPhotos} />
+      <div>
+        {/* <h2 className="text-center font-bold text-3xl text-red-500">バグ発生中、修正中</h2> */}
+        <PhotoList photos={photos} setPhotos={setPhotos} />
+      </div>
     </div>
   )
 }
