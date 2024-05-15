@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { BrowserRouter } from 'react-router-dom'
+import { Analytics } from "@vercel/analytics/react"
 
 const root = createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +18,7 @@ root.render(
   >
     <BrowserRouter>
       <App />
+      <Analytics />
     </BrowserRouter>
   </Auth0Provider>
 );
