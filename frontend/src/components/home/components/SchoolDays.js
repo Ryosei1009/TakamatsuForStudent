@@ -24,27 +24,27 @@ const SchoolDays = () => {
 
         const calculateRemainingDaysUntilQuarterEnd = (setRemainingDays, schoolDaysKey) => {
             let month = new Date().getMonth();
-            console.log(month)
             if (2 < month && month < 6) {
                 month = 5;
                 setQuarter(1);
-            }
-            if (5 < month && month < 9) {
+            } else if (5 < month && month < 9) {
                 month = 8;
                 setQuarter(2);
-            }
-            if (8 < month && month < 12) {
+            } else if (8 < month && month < 12) {
                 month = 11;
                 setQuarter(3);
-            }
-            if (-1 < month && month < 3) {
+            } else if (-1 < month && month < 3) {
                 month = 2;
                 setQuarter(4);
             }
-            console.log(month)
+
             const endOfQuarter = new Date(new Date().getFullYear(), month, 30);
-            const schoolDaysUntilQuarterEnd = jsonData[schoolDaysKey].filter(day => new Date(day) <= endOfQuarter).length;
-            setRemainingDays(schoolDaysUntilQuarterEnd);
+            const today = new Date();
+            const schoolDaysQuarterEnd = jsonData[schoolDaysKey].map(day => new Date(day));
+            const remainingDays = schoolDaysQuarterEnd.filter(day => day <= endOfQuarter);
+            const schoolDaysUntilQuarterEnd = remainingDays.filter(day => day >= today).length; // Calculate the length instead of using array directly
+
+            setRemainingDays(schoolDaysUntilQuarterEnd); // Set the count of remaining days
         };
 
         calculateRemainingDaysUntilQuarterEnd(setOneUntilQuarterEndRemaining, "SchoolDays1");
@@ -105,49 +105,6 @@ const SchoolDays = () => {
                         </tr>
                     </tbody>
                 </table>
-                {/* <div class="flex items-center font-bold">
-                    <div class="text-3xl mb-4 w-1/3 text-center">
-                        週1日
-                    </div>
-                    <div class="text-3xl mb-4 w-1/3 text-center">
-                        週3日
-                    </div>
-                    <div class="text-3xl mb-4 w-1/3 text-center">
-                        週5日
-                    </div>
-                </div>
-                <div class="flex items-center font-bold">
-                    <div class="text-2xl text-center w-full">
-                        第{quarter}クオーター
-                    </div>
-                </div>
-                <div class="flex items-center font-bold">
-                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
-                        残り{oneUntilQuarterEndRemaining}日
-                    </div>
-                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
-                        残り{threeUntilQuarterEndRemaining}日
-                    </div>
-                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
-                        残り{fiveUntilQuarterEndRemaining}日
-                    </div>
-                </div>
-                <div class="flex items-center font-bold">
-                    <div class="text-2xl text-center w-full">
-                        今年度
-                    </div>
-                </div>
-                <div class="flex items-center font-bold">
-                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
-                        残り{oneDayRemaining}日
-                    </div>
-                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
-                        残り{threeDayRemaining}日
-                    </div>
-                    <div class="text-xl text-red-500 mb-4 w-1/3 text-center">
-                        残り{fiveDayRemaining}日
-                    </div>
-                </div> */}
             </div>
         </div>
     );
