@@ -25,7 +25,7 @@ const News = () => {
                     news.slice().reverse().slice(0, 3).map((item) => (
                         <a key={item.id} href={`/news/${item.id}`} className="hover:opacity-70 w-full max-md:w-3/4 max-sm:w-11/12 bg-violet-200 rounded-3xl px-8 pt-10 pb-5 max-xl:px-6 max-xl:pt-8 max-xl:pb-4 max-lg:px-4 max-lg:pt-5 max-lg:pb-3 max-md:px-6 max-md:pt-8 max-md:pb-4">
                             <div className="flex justify-center">
-                                <img className="w-23/24" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.image_1}`} alt="" />
+                                <img className="w-auto max-h-40" src={`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.image_1}`} alt="" />
                             </div>
                             <div className="mt-4 pt-2 border-t-3 border-black">
                                 <div className="text-3xl max-xl:text-2xl max-sm:text-lg font-bold ml-2">
