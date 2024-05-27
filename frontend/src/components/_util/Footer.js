@@ -8,7 +8,7 @@ const Footer = () => {
             <footer className="flex justify-center items-center bg-opacity-40 bg-white dark:bg-dark-nav flex-col pt-3 pb-2 text-black dark:text-dark">
                 <div>
                     {"©️2024 "}
-                    <a className="hover:underline cursor-pointer" href="https://github.com/Ryosei1009" target="_blank" rel="noreferrer">Ryosei1009</a>
+                    <a className="hover:underline cursor-pointer text-black" href="https://github.com/Ryosei1009" target="_blank" rel="noreferrer">Ryosei1009</a>
                 </div>
                 <div className="gap-4 flex">
                     <a className="hover:underline text-blue-500 cursor-pointer" href="/fromdev/userpolicy">利用規約</a>

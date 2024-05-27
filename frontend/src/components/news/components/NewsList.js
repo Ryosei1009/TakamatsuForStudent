@@ -25,10 +25,10 @@ const NewsList = () => {
                         </div>
                         <div className="max-md:w-2/5 w-1/2 ml-12 max-md:ml-0 max-sm:w-full max-sm:my-3">
                             <div className="flex items-end">
-                                <p className="text-2xl">{newsListTimeFormat(item.created_at)}</p>
-                                <p className="ml-6 text-lg">{item.created_by}</p>
+                                <p className="text-2xl text-black">{newsListTimeFormat(item.created_at)}</p>
+                                <p className="ml-6 text-lg text-black">{item.created_by}</p>
                             </div>
-                            <p className="text-4xl max-md:text-2xl mt-5 max-sm:mt-2 ml-12 max-xl:ml-8 max-md:ml-6 max-sm:ml-4 font-bold">{item.title}</p>
+                            <p className="text-4xl text-black max-md:text-2xl mt-5 max-sm:mt-2 ml-12 max-xl:ml-8 max-md:ml-6 max-sm:ml-4 font-bold">{item.title}</p>
                             <p className="text-gray-600 leading-6 text-xl mt-5 max-sm:mt-2">{truncateText(item.text, 45)}</p>
                         </div>
                     </a>

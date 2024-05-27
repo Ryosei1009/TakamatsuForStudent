@@ -20,16 +20,16 @@ const Header = () => {
                             </a>
                         </li>
                         <li className="list-none inline-block mr-5 max-sm:mr-2">
-                            <a href="/news/" className="hover:opacity-40">ニュース</a>
+                            <a href="/news/" className="hover:opacity-40 text-black">ニュース</a>
                         </li>
                         <li className="list-none inline-block mr-5 max-sm:mr-2">
-                            <a href="/event/" className="hover:opacity-40">イベント</a>
+                            <a href="/event/" className="hover:opacity-40 text-black">イベント</a>
                         </li>
                         <li className="list-none inline-block mr-5 max-sm:mr-2">
-                            <a href="/photo/" className="hover:opacity-40">写真</a>
+                            <a href="/photo/" className="hover:opacity-40 text-black">写真</a>
                         </li>
                         <li className="list-none inline-block mr-5 max-sm:mr-2">
-                            <a href="/selfintroduction/" className="hover:opacity-40">自己紹介</a>
+                            <a href="/selfintroduction/" className="hover:opacity-40 text-black">自己紹介</a>
                         </li>
                     </ul>
                 )}

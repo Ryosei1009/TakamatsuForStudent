@@ -30,18 +30,18 @@ const SelfIntroductionList = () => {
                                 <div className="flex w-full items-end justify-start">
                                     <img className="w-1/3" src={item.icon_name ? (`${process.env.REACT_APP_IMAGE_DOMAIN}/${item.icon_name}`) : (`/images/accounts/default.jpeg`)} alt="" />
                                     <div className="ml-8">
-                                        <div className="text-base">
+                                        <div className="text-base text-black">
                                             {roleFilter === 1 ? "メンター" : roleFilter === 2 ? "TA" : calculateGrade(item.grade)}
                                         </div>
-                                        <div className="text-2xl font-bold">
+                                        <div className="text-2xl font-bold text-black">
                                             {item.naming}
                                         </div>
-                                        <div className="text-base">
+                                        <div className="text-base text-black">
                                             {item.name}
                                         </div>
                                     </div>
                                 </div>
-                                <div className="text-lg max-ms:text-base mt-6">
+                                <div className="text-lg max-ms:text-base mt-6 text-black">
                                     {truncateText(item.comment, 100)}
                                 </div>
                             </a>
