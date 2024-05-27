@@ -1,6 +1,5 @@
 import { Fragment, React, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { newLineUtil } from '../../utils/TextUtil';
 import { eachNewsTimeFormat } from '../../utils/TimeUtil';
 import { deleteData, fetchData } from '../../utils/DatabaseUtil';
 import { useAuth0 } from "@auth0/auth0-react";
@@ -9,6 +8,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { TrashIcon } from '@heroicons/react/solid';
 import { Popover, Transition } from '@headlessui/react';
 import ActionPerfect from '../_util/ActionPerfect';
+import { markedText } from '../../utils/Marked';
 
 Modal.setAppElement("#root");
 
@@ -76,7 +76,7 @@ const EachNews = () => {
                     </div>
 
                     <div className="text-gray-700 mb-4">
-                        {newLineUtil(eachNews.text || '')}
+                        <div dangerouslySetInnerHTML={markedText(eachNews.text)} />
                     </div>
 
                     <div className="text-info">

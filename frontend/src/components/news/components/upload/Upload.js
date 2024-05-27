@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { PhotographIcon } from '@heroicons/react/solid'
 import React, { Fragment } from 'react'
+import { markedText } from '../../../../utils/Marked'
 
 const Upload = ({ uploadOpen, previewOpen, setUploadOpen, setPreviewOpen, handleSubmit, formData, handleChange, previewUrl, handleImageChange }) => {
     return (
@@ -18,7 +19,7 @@ const Upload = ({ uploadOpen, previewOpen, setUploadOpen, setPreviewOpen, handle
                     <div className="fixed inset-0 bg-black/25" />
                 </Transition.Child>
                 <div className="fixed inset-0">
-                    <div className="transition-opacity w-full max-w-120 top-42/100 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute outline-none">
+                    <div className="transition-opacity w-full max-w-120 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute outline-none">
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -28,7 +29,7 @@ const Upload = ({ uploadOpen, previewOpen, setUploadOpen, setPreviewOpen, handle
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="text-center border-8 bg-stone-300 pt-9 max-sm:pt-6 pb-12 px-16 max-sm:px-4 rounded-xl flex flex-col items-center border-green-500">
+                            <Dialog.Panel className="overflow-y-scroll max-h-screen text-center border-8 bg-stone-300 pt-9 max-sm:pt-6 pb-12 px-16 max-sm:px-4 rounded-xl flex flex-col items-center border-green-500">
                                 <button
                                     onClick={() => setPreviewOpen(true)}
                                     className="bg-orange-400 text-white px-4 py-2 rounded-md hover:bg-orange-600 focus:outline-none mb-3"
@@ -56,6 +57,11 @@ const Upload = ({ uploadOpen, previewOpen, setUploadOpen, setPreviewOpen, handle
                                         placeholder="本文"
                                         className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500"
                                     />
+                                    <div
+                                        className="block w-full border border-gray-300 rounded-md px-3 py-2 mb-2 focus:outline-none focus:border-blue-500 text-left max-h-60 overflow-y-scroll bg-white"
+                                    >
+                                        <div dangerouslySetInnerHTML={markedText(formData.text)} />
+                                    </div>
                                     {previewUrl && (
                                         <div>
                                             <img src={previewUrl} alt="Preview" className="rounded-3xl duration-300 inline-block bg-bg-light" />
