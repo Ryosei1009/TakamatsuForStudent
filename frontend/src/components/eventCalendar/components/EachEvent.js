@@ -53,7 +53,7 @@ const EachEvent = ({ eachModalIsOpen, setEachModalIsOpen, selectedEvent }) => {
                                             style={{ borderColor: selectedEvent.color }}
                                         >
                                             <div className="flex items-center">
-                                                <div className={`flex justify-center items-end w-full ${selectedEvent.role <= 2 && "w-11/12"}`}>
+                                                <div className={`flex justify-center items-end w-full ${(eachAccount.role <= 2 || eachAccount.role === 4) && "w-11/12"}`}>
                                                     <div className="text-3xl font-bold break-all">
                                                         {selectedEvent.title}
                                                     </div>
@@ -61,7 +61,7 @@ const EachEvent = ({ eachModalIsOpen, setEachModalIsOpen, selectedEvent }) => {
                                                         {format(new Date(parseInt(selectedEvent.date)), 'MM月dd日') + "(" + WeekChars[new Date(parseInt(selectedEvent.date)).getDay()] + ")"}
                                                     </div>
                                                 </div>
-                                                {eachAccount.role <= 2 && (
+                                                {(eachAccount.role <= 2 || eachAccount.role === 4) && (
                                                     <Popover className="relative w-1/12">
                                                         <Popover.Button className="focus:outline-none">
                                                             <TrashIcon className="h-7 w-7 cursor-pointer fill-red-500"></TrashIcon>

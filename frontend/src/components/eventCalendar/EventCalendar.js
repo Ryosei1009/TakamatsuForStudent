@@ -64,7 +64,7 @@ const Calendar = () => {
       <div className="max-w-xl mx-auto">
         <div className="flex justify-center my-2">
           <Header currentDate={currentDate} setCurrentDate={setCurrentDate} />
-          {eachAccount.role <= 2 && (
+          {(eachAccount.role <= 2 || eachAccount.role === 4) && (
             <>
               <div className="w-1/36"></div>
               <UploadButton eachAccount={eachAccount} handleUploadModalClick={handleUploadModalClick} />

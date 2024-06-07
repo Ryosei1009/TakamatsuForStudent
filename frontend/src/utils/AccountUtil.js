@@ -1,5 +1,5 @@
 export function isStudent(role) {
-    if (role === 3 || role === 0) {
+    if (role === 3 || role === 4 || role === 0) {
         return `生徒${role === 0 ? " (管理者)" : ""}`;
     }
     if (role === 2) {

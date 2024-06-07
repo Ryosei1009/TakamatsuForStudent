@@ -70,7 +70,7 @@ const Form = ({ eachAccount, user }) => {
                     />
                 </div>
 
-                {parseInt(eachAccount.role) === 3 || parseInt(eachAccount.role) === 0 || eachAccount.role === undefined ? (
+                {parseInt(eachAccount.role) === 3 || parseInt(eachAccount.role) === 0 || parseInt(eachAccount.role) === 4 || eachAccount.role === undefined ? (
                     <div className="mb-2">
                         <div className="font-bold mb-1">
                             卒業予定

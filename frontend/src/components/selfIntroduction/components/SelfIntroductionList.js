@@ -15,12 +15,12 @@ const SelfIntroductionList = () => {
         }, 500)
     }, []);
 
-    const renderAccounts = (roleFilter, secondRoleFilter = null) => (
+    const renderAccounts = (roleFilter, secondRoleFilter = null, thirdRoleFilter = null) => (
         <div className="mx-72 max-2xl:mx-36 max-xl:mx-24 max-lg:mx-12 max-md:mx-8">
             <div className="mx-12 max-2xl:mx-0 flex flex-wrap gap-x-16 gap-y-8  justify-center my-8">
                 {accounts.length > 0 ? (
                     accounts
-                        .filter((account) => account.role === roleFilter || account.role === secondRoleFilter)
+                        .filter((account) => account.role === roleFilter || account.role === secondRoleFilter || account.role === thirdRoleFilter)
                         .slice()
                         .map((item) => (
                             <a href={item.id} key={item.id}
@@ -64,7 +64,7 @@ const SelfIntroductionList = () => {
         <div>
             {renderAccounts(1)}
             {renderAccounts(2)}
-            {renderAccounts(3, 0)}
+            {renderAccounts(3, 4, 0)}
         </div>
     );
 };

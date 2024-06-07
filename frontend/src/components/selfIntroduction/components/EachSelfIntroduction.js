@@ -45,7 +45,7 @@ const EachSelfIntroduction = () => {
                     />
                     <div className="ml-16 max-sm:ml-4">
                         <div className="text-3xl max-sm:text-2xl">
-                            {parseInt(role) === 0 || parseInt(role) === 3 || role === undefined ? (
+                            {parseInt(role) === 0 || parseInt(role) === 3 || parseInt(role) === 4 || role === undefined ? (
                                 calculateGrade(grade)
                             ) : (
                                 parseInt(role) === 2 ? (
