@@ -12,7 +12,9 @@ const SelfIntroduction = () => {
           </title>
         </Helmet>
       </HelmetProvider>
-      <FetchSelfIntroduction />
+      <div className="flex flex-col items-center">
+        <FetchSelfIntroduction />
+      </div>
     </>
   )
 }
